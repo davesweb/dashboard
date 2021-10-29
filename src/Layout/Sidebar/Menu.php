@@ -8,8 +8,6 @@ class Menu
 {
     private ?string $title = null;
 
-    private ?string $icon = null;
-
     private array $links = [];
 
     public static function make(?string $title = null): static
@@ -28,18 +26,6 @@ class Menu
 
         return $this;
     }
-
-    //public function getIcon(): ?string
-    //{
-    //    return $this->icon;
-    //}
-    //
-    //public function icon(string $icon): static
-    //{
-    //    $this->icon = $icon;
-    //
-    //    return $this;
-    //}
 
     public function link(Link|string $titleOrLink, ?string $href = null, ?string $icon = null, ?Menu $submenu = null): static
     {
