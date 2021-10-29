@@ -1,0 +1,58 @@
+#sidebar {
+  width: 100%;
+
+  .menu-title {
+    @extend .h6;
+    @extend .mb-1;
+    color: $dark-50;
+  }
+
+  .sidebar-menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    .has-submenu {
+      position: relative;
+      &:after {
+        font-family: "Font Awesome 5 Free";
+        font-style: normal;
+        font-weight: 700;
+        content: "\f054";
+        font-size: 1rem;
+        position: absolute;
+        right: 1em;
+        top: 0;
+        color: $dark-100;
+        @extend .py-2;
+      }
+    }
+  }
+
+  a {
+    @extend .py-2;
+    color: $dark-100 !important;
+    display: block;
+    text-decoration: none;
+
+    &:hover {
+      color: $dark-50 !important;
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  #sidebar {
+    width: 300px;
+    position: fixed;
+    min-height: 100vh;
+
+    > .collapse {
+      display: block !important;
+    }
+  }
+
+  #page {
+    margin-left: 300px;
+  }
+}

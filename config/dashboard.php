@@ -15,6 +15,6 @@ return [
      * Middleware classes that are loaded for each dashboard route. Authentication and authorization is always added to routes that need id.
      */
     'middleware'   => [
-        'web'
+        'web',
     ],
 ];

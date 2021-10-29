@@ -1,0 +1,5 @@
+@each $name, $value in $darks {
+  .text-dark-#{$name} {
+    color: $value !important;
+  }
+}

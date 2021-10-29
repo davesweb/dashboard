@@ -1,0 +1,5 @@
+@each $name, $value in $darks {
+  .bg-dark-#{$name} {
+    background-color: $value !important;
+  }
+}

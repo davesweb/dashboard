@@ -96,7 +96,7 @@ hr:not([size]) {
   height: 1px;
 }
 
-h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
+h6, .h6, #sidebar .menu-title, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   margin-top: 0;
   margin-bottom: 0.5rem;
   font-weight: 500;
@@ -143,7 +143,7 @@ h5, .h5 {
   font-size: 1.25rem;
 }
 
-h6, .h6 {
+h6, .h6, #sidebar .menu-title {
   font-size: 1rem;
 }
 
@@ -7354,7 +7354,7 @@ textarea.form-control-lg {
   margin-bottom: 0 !important;
 }
 
-.mb-1 {
+.mb-1, #sidebar .menu-title {
   margin-bottom: 0.25rem !important;
 }
 
@@ -7470,7 +7470,7 @@ textarea.form-control-lg {
   padding-bottom: 0.25rem !important;
 }
 
-.py-2 {
+.py-2, #sidebar a, #sidebar .sidebar-menu .has-submenu:after {
   padding-top: 0.5rem !important;
   padding-bottom: 0.5rem !important;
 }
@@ -20190,4 +20190,100 @@ readers do not read off random characters that represent icons */
 
 .fa.fa-cab:before {
   content: "\f1ba";
+}
+
+#sidebar {
+  width: 100%;
+}
+#sidebar .menu-title {
+  color: #c8cddc;
+}
+#sidebar .sidebar-menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+#sidebar .sidebar-menu .has-submenu {
+  position: relative;
+}
+#sidebar .sidebar-menu .has-submenu:after {
+  font-family: "Font Awesome 5 Free";
+  font-style: normal;
+  font-weight: 700;
+  content: "\f054";
+  font-size: 1rem;
+  position: absolute;
+  right: 1em;
+  top: 0;
+  color: #9097a7;
+}
+#sidebar a {
+  color: #9097a7 !important;
+  display: block;
+  text-decoration: none;
+}
+#sidebar a:hover {
+  color: #c8cddc !important;
+}
+
+@media (min-width: 768px) {
+  #sidebar {
+    width: 300px;
+    position: fixed;
+    min-height: 100vh;
+  }
+  #sidebar > .collapse {
+    display: block !important;
+  }
+
+  #page {
+    margin-left: 300px;
+  }
+}
+.bg-dark-50 {
+  background-color: #c8cddc !important;
+}
+
+.bg-dark-100 {
+  background-color: #9097a7 !important;
+}
+
+.bg-dark-200 {
+  background-color: #505a64 !important;
+}
+
+.bg-dark-300 {
+  background-color: #3c4752 !important;
+}
+
+.bg-dark-400 {
+  background-color: #37424c !important;
+}
+
+.bg-dark-500 {
+  background-color: #303841 !important;
+}
+
+.text-dark-50 {
+  color: #c8cddc !important;
+}
+
+.text-dark-100 {
+  color: #9097a7 !important;
+}
+
+.text-dark-200 {
+  color: #505a64 !important;
+}
+
+.text-dark-300 {
+  color: #3c4752 !important;
+}
+
+.text-dark-400 {
+  color: #37424c !important;
+}
+
+.text-dark-500 {
+  color: #303841 !important;
 }

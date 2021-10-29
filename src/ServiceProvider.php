@@ -3,8 +3,11 @@
 namespace Davesweb\Dashboard;
 
 use Davesweb\Dashboard\Models\User;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Auth\EloquentUserProvider;
+use Davesweb\Dashboard\Layout\Sidebar\Menu;
+use Davesweb\Dashboard\Layout\Sidebar\Sidebar;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
@@ -29,6 +32,17 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             'driver' => 'eloquent',
             'model'  => User::class,
         ]);
+
+        Route::matched(function () {
+            Sidebar::factory()
+                ->menu(
+                    Menu::make()
+                        ->link(__('Dashboard'), dashboard_route('index'), 'fa fa-dashboard'),
+                    //->link(__('Users'), '#', 'fa fa-users', Menu::make('Users menu')->link(__('Index'), '#')),
+                    0
+                )
+            ;
+        });
     }
 
     public function register()
