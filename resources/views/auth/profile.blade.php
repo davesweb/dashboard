@@ -29,7 +29,7 @@
                 </div>
                 <div class="mb-3">
                     <button type="submit" class="btn btn-primary me-4">{{ __('Update profile') }}</button>
-                    <a href="#">{{ __('To change your password click here') }}</a>
+                    <a href="{{ dashboard_route('password.edit') }}">{{ __('To change your password click here') }}</a>
                 </div>
             </div>
         </form>

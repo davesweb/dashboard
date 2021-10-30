@@ -82,6 +82,7 @@
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="user-dropdown">
                             <li><a class="dropdown-item" href="{{ dashboard_route('profile.index') }}">{{ __('Profile') }}</a></li>
+                            <li><a class="dropdown-item" href="{{ dashboard_route('password.edit') }}">{{ __('Change password') }}</a></li>
                             <li><a class="dropdown-item" href="#">{{ __('Settings') }}</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
