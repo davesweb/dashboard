@@ -61,6 +61,36 @@
   }
 }
 
+.auth-form {
+  .card {
+    border-color: $dark-700;
+  }
+
+  h2 {
+    @extend .h3;
+    border-bottom: 1px solid;
+    border-color: $dark-500;
+  }
+  .input-group-text {
+    background-color: $dark-500;
+    color: $dark-100;
+    border-color: $dark-500;
+  }
+  .form-control {
+    background-color: $dark-200;
+    color: $dark-50;
+    border-color: $dark-500;
+
+    &::placeholder {
+      color: $dark-100;
+    }
+
+    &.is-invalid {
+      border-color: $danger !important;
+    }
+  }
+}
+
 @include media-breakpoint-up(md) {
   #sidebar {
     width: 300px;

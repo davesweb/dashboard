@@ -13,12 +13,18 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
     public function boot()
     {
-        $this->publishes([__DIR__ . '/../config/dashboard.php' => config_path('dashboard.php')], 'config');
+        $this->publishes([
+            __DIR__ . '/../config/dashboard.php' => config_path('dashboard.php'),
+            __DIR__ . '/../config/fortify.php'   => config_path('fortify.php'),
+        ], 'config');
         $this->publishes([
             __DIR__ . '/../public' => public_path('vendor/dashboard'),
         ], 'public');
+        $this->publishes([
+            __DIR__ . '/../database/migrations' => database_path('migrations'),
+        ], 'migrations');
 
-        $this->mergeConfigFrom(__DIR__ . '/../config/dashboard.php', 'dashboard');
+        //$this->mergeConfigFrom(__DIR__ . '/../config/dashboard.php', 'dashboard');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'dashboard');
 
         // We'll use the SessionGuard driver with the dashboard provider
@@ -33,6 +39,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             'model'  => User::class,
         ]);
 
+        // todo: is there a better way to add this?
         Route::matched(function () {
             Sidebar::factory()
                 ->menu(

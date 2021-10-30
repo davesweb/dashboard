@@ -4,7 +4,8 @@
     "type": "library",
     "require": {
         "php": "^8.0",
-        "illuminate/support": "^8.0"
+        "illuminate/support": "^8.0",
+        "laravel/fortify": "^1.8"
     },
     "license": "MIT",
     "autoload": {
@@ -21,7 +22,8 @@
         "laravel": {
             "providers": [
                 "Davesweb\\Dashboard\\ServiceProvider",
-                "Davesweb\\Dashboard\\RouteServiceProvider"
+                "Davesweb\\Dashboard\\RouteServiceProvider",
+                "Davesweb\\Dashboard\\FortifyServiceProvider"
             ]
         }
     },

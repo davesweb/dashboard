@@ -17,4 +17,11 @@ return [
     'middleware'   => [
         'web',
     ],
+
+    'users' => [
+        /*
+         * The table that is used by the User model to store the dashboard users in.
+         */
+        'table' => 'dashboard_users',
+    ],
 ];
