@@ -20234,10 +20234,10 @@ readers do not read off random characters that represent icons */
   background-color: #3c4752;
   color: #c8cddc;
 }
-#header .dropdown-menu a {
+#header .dropdown-menu a, #header .dropdown-menu button {
   color: #9097a7;
 }
-#header .dropdown-menu a:hover {
+#header .dropdown-menu a:hover, #header .dropdown-menu button:hover {
   color: #c8cddc;
   background-color: #37424c;
 }

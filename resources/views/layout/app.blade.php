@@ -78,13 +78,18 @@
                     </div>
                     <div class="dropdown d-inline-block">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="user-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-user me-2"></i> Davekuh
+                            <i class="fa fa-user me-2"></i> {{ auth()->user()->name }}
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="user-dropdown">
                             <li><a class="dropdown-item" href="#">{{ __('Profile') }}</a></li>
                             <li><a class="dropdown-item" href="#">{{ __('Settings') }}</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">{{ __('Logout') }}</a></li>
+                            <li>
+                                <form method="post" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item">{{ __('Logout') }}</button>
+                                </form>
+                            </li>
                         </ul>
                     </div>
                 </div>
