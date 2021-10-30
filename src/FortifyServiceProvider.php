@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace Davesweb\Dashboard;
 
 use Illuminate\Http\Request;
 use Laravel\Fortify\Fortify;

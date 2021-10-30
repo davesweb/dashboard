@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Auth\EloquentUserProvider;
 use Davesweb\Dashboard\Layout\Sidebar\Menu;
 use Davesweb\Dashboard\Layout\Sidebar\Sidebar;
+use Davesweb\Dashboard\Console\Commands\CreateDashboardUserCommand;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
@@ -54,5 +55,10 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     public function register()
     {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                CreateDashboardUserCommand::class,
+            ]);
+        }
     }
 }
