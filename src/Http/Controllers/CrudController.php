@@ -30,7 +30,25 @@ class CrudController extends Controller
         ]);
     }
 
-    public function view(): Renderable
+    public function trashed(CrudIndexRequest $request): Renderable
+    {
+        $crud = $this->crud();
+
+        $table = resolve(Table::class);
+
+        $crud->index($table);
+
+        // @todo add ordering and querying based on the request
+        $items = $this->query()->onlyTrashed()->paginate();
+
+        return view('dashboard::crud.index', [
+            'pageTitle' => $crud->plural(),
+            'items'     => $items,
+            'table'     => $table,
+        ]);
+    }
+
+    public function view(mixed $id): Renderable
     {
     }
 
@@ -42,15 +60,19 @@ class CrudController extends Controller
     {
     }
 
-    public function edit(): Renderable
+    public function edit(mixed $id): Renderable
     {
     }
 
-    public function update(): Renderable
+    public function update(mixed $id): Renderable
     {
     }
 
-    public function destroy(): RedirectResponse
+    public function destroy(mixed $id): RedirectResponse
+    {
+    }
+
+    public function destroyHard(mixed $id): RedirectResponse
     {
     }
 

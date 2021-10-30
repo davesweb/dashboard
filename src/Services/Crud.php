@@ -5,11 +5,20 @@ namespace Davesweb\Dashboard\Services;
 use Illuminate\Support\Str;
 use Illuminate\Routing\Router;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Davesweb\Dashboard\Http\Middleware\Authenticate;
 use Davesweb\Dashboard\Http\Controllers\CrudController;
 
 abstract class Crud
 {
+    public const ACTION_INDEX         = 'index';
+    public const ACTION_INDEX_TRASHED = 'trashed';
+    public const ACTION_VIEW          = 'view';
+    public const ACTION_CREATE        = 'create';
+    public const ACTION_UPDATE        = 'update';
+    public const ACTION_DESTROY       = 'destroy';
+    public const ACTION_DESTROY_HARD  = 'destroy-hard';
+
     protected string $model;
 
     protected string $controller = CrudController::class;
@@ -41,7 +50,14 @@ abstract class Crud
 
     public function actions(): array
     {
-        return ['index', 'view', 'create', 'update', 'delete'];
+        $actions = [self::ACTION_INDEX, self::ACTION_VIEW, self::ACTION_CREATE, self::ACTION_UPDATE, self::ACTION_DESTROY];
+
+        if (in_array(SoftDeletes::class, class_uses_recursive($this->model), true)) {
+            $actions[] = self::ACTION_INDEX_TRASHED;
+            $actions[] = self::ACTION_DESTROY_HARD;
+        }
+
+        return $actions;
     }
 
     public function registerRouters(Router $router): void
@@ -53,26 +69,31 @@ abstract class Crud
         ], function (Router $router) {
             $actions = $this->actions();
 
-            if (in_array('index', $actions, true)) {
+            if (in_array(self::ACTION_INDEX, $actions, true)) {
                 $router->get('', [$this->controller, 'index'])->name('index');
             }
 
-            if (in_array('view', $actions, true)) {
-                $router->get('/{id}', [$this->controller, 'view'])->name('view');
+            if (in_array(self::ACTION_INDEX_TRASHED, $actions, true)) {
+                $router->get('trashed', [$this->controller, 'trashed'])->name('trashed');
+                $router->delete('destroy/{id}', [$this->controller, 'destroyHard'])->name('destroy-hard');
             }
 
-            if (in_array('create', $actions, true)) {
+            if (in_array(self::ACTION_VIEW, $actions, true)) {
+                $router->get('{id}', [$this->controller, 'view'])->name('view');
+            }
+
+            if (in_array(self::ACTION_DESTROY, $actions, true)) {
+                $router->delete('{id}', [$this->controller, 'destroy'])->name('destroy');
+            }
+
+            if (in_array(self::ACTION_CREATE, $actions, true)) {
                 $router->get('create', [$this->controller, 'create'])->name('create');
                 $router->post('', [$this->controller, 'store'])->name('store');
             }
 
-            if (in_array('update', $actions, true)) {
+            if (in_array(self::ACTION_UPDATE, $actions, true)) {
                 $router->get('edit/{id}', [$this->controller, 'edit'])->name('edit');
                 $router->put('edit/{id}', [$this->controller, 'update'])->name('update');
-            }
-
-            if (in_array('delete', $actions, true)) {
-                $router->delete('{id}', [$this->controller, 'destroy'])->name('destroy');
             }
         });
     }
