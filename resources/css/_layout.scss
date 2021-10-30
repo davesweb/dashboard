@@ -41,6 +41,26 @@
   }
 }
 
+#header {
+  .btn.dropdown-toggle {
+    background-color: $dark-300;
+    color: $dark-50;
+  }
+  .dropdown-menu {
+    background-color: $dark-300;
+    color: $dark-50;
+
+    a {
+      color: $dark-100;
+
+      &:hover {
+        color: $dark-50;
+        background-color: $dark-400;
+      }
+    }
+  }
+}
+
 @include media-breakpoint-up(md) {
   #sidebar {
     width: 300px;
@@ -54,5 +74,6 @@
 
   #page {
     margin-left: 300px;
+    min-height: 100vh;
   }
 }

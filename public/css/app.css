@@ -20226,6 +20226,22 @@ readers do not read off random characters that represent icons */
   color: #c8cddc !important;
 }
 
+#header .btn.dropdown-toggle {
+  background-color: #3c4752;
+  color: #c8cddc;
+}
+#header .dropdown-menu {
+  background-color: #3c4752;
+  color: #c8cddc;
+}
+#header .dropdown-menu a {
+  color: #9097a7;
+}
+#header .dropdown-menu a:hover {
+  color: #c8cddc;
+  background-color: #37424c;
+}
+
 @media (min-width: 768px) {
   #sidebar {
     width: 300px;
@@ -20238,6 +20254,7 @@ readers do not read off random characters that represent icons */
 
   #page {
     margin-left: 300px;
+    min-height: 100vh;
   }
 }
 .bg-dark-50 {
@@ -20264,6 +20281,10 @@ readers do not read off random characters that represent icons */
   background-color: #303841 !important;
 }
 
+.bg-dark-600 {
+  background-color: #2b323a !important;
+}
+
 .text-dark-50 {
   color: #c8cddc !important;
 }
@@ -20286,4 +20307,87 @@ readers do not read off random characters that represent icons */
 
 .text-dark-500 {
   color: #303841 !important;
+}
+
+.text-dark-600 {
+  color: #2b323a !important;
+}
+
+.flag-icon-background, .flag-icon {
+  background-size: contain;
+  background-position: 50%;
+  background-repeat: no-repeat;
+}
+
+.flag-icon {
+  position: relative;
+  display: inline-block;
+  width: 1.3333333333em;
+  line-height: 1em;
+}
+.flag-icon:before {
+  content: " ";
+}
+.flag-icon.flag-icon-squared {
+  width: 1em;
+}
+
+.flag-icon-gb {
+  background-image: url(/images/vendor/flag-icon-css/flags/4x3/gb.svg?ba1c7f5df0dd4173c951a644c65e02df);
+}
+.flag-icon-gb.flag-icon-squared {
+  background-image: url(/images/vendor/flag-icon-css/flags/1x1/gb.svg?35dbacd736781608964ae37a3b390b48);
+}
+
+.flag-icon-nl {
+  background-image: url(/images/vendor/flag-icon-css/flags/4x3/nl.svg?21eb77dcfa38c6d7bb81fb3d3ab4a7cf);
+}
+.flag-icon-nl.flag-icon-squared {
+  background-image: url(/images/vendor/flag-icon-css/flags/1x1/nl.svg?f9d570ec865ab2c1e9d4c00bfe653190);
+}
+
+.flag-icon-de {
+  background-image: url(/images/vendor/flag-icon-css/flags/4x3/de.svg?7e82f4c71df5fc78abbb54a6f82ed299);
+}
+.flag-icon-de.flag-icon-squared {
+  background-image: url(/images/vendor/flag-icon-css/flags/1x1/de.svg?11d88d2b77e6abe5ebb1a7264ad57268);
+}
+
+.flag-icon-es {
+  background-image: url(/images/vendor/flag-icon-css/flags/4x3/es.svg?1a25a96e26fcca676c08fb109bcec333);
+}
+.flag-icon-es.flag-icon-squared {
+  background-image: url(/images/vendor/flag-icon-css/flags/1x1/es.svg?b3825b28f7a64779d80d6a5da10cfa08);
+}
+
+.flag-icon-fr {
+  background-image: url(/images/vendor/flag-icon-css/flags/4x3/fr.svg?81d43a151d8bc64145f25bc3d4cdc02a);
+}
+.flag-icon-fr.flag-icon-squared {
+  background-image: url(/images/vendor/flag-icon-css/flags/1x1/fr.svg?c88df3297cffe49852ae43ae5d2dcdd4);
+}
+
+.flag-icon-fi {
+  background-image: url(/images/vendor/flag-icon-css/flags/4x3/fi.svg?3b522e7f272eee4009b2073b0b6735ac);
+}
+.flag-icon-fi.flag-icon-squared {
+  background-image: url(/images/vendor/flag-icon-css/flags/1x1/fi.svg?eb793b740dd4fa0f8b6301a4b74a435e);
+}
+
+.flag-icon-dk {
+  background-image: url(/images/vendor/flag-icon-css/flags/4x3/dk.svg?f4e8fc5376a202f1d771ff93fab6b2ea);
+}
+.flag-icon-dk.flag-icon-squared {
+  background-image: url(/images/vendor/flag-icon-css/flags/1x1/dk.svg?c2e570fa503242ab4c3edca6b2acb2cb);
+}
+
+.flag-icon-en {
+  background-image: url(/images/vendor/flag-icon-css/flags/4x3/gb.svg?ba1c7f5df0dd4173c951a644c65e02df);
+}
+.flag-icon-en.flag-icon-squared {
+  background-image: url(/images/vendor/flag-icon-css/flags/1x1/gb.svg?35dbacd736781608964ae37a3b390b48);
+}
+
+.start-75 {
+  left: 75%;
 }

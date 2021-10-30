@@ -10,3 +10,19 @@
 
 @import "layout";
 @import "utilities";
+
+$flag-icon-css-path: '~flag-icon-css/flags';
+$include: gb, nl, de, es, fr, fi, dk;
+@import '~flag-icon-css/sass/flag-icon';
+
+.flag-icon-en {
+  background-image: url(#{$flag-icon-css-path}#{$flag-icon-rect-path}/gb.svg);
+
+  &.flag-icon-squared {
+    background-image: url(#{$flag-icon-css-path}#{$flag-icon-square-path}/gb.svg);
+  }
+}
+
+.start-75 {
+  left: 75%;
+}

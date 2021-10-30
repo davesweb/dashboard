@@ -38,12 +38,65 @@
                 @endforeach
             </div>
         </nav>
-        <main id="page">
-            <header></header>
+        <main id="page" class="d-flex flex-column">
+            <header id="header" class="p-3 bg-dark-300 d-flex justify-content-between align-items-start">
+                <div class="me-auto">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="quick-start-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ __('Quick links') }}
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="quick-start-dropdown">
+                            <li><a class="dropdown-item" href="#"><i class="fa fa-user-plus me-2"></i> {{ __('New user') }}</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fa fa-file me-2"></i> {{ __('New page') }}</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fa fa-cog me-2"></i> {{ __('Site settings') }}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div class="dropdown d-inline-block me-2">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="locale-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-bell"></i>
+                            <span class="position-absolute top-0 start-75 translate-middle badge rounded-pill bg-danger">
+                                99+
+                                <span class="visually-hidden">{{ __('unread messages') }}</span>
+                            </span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="locale-dropdown">
+                            <li><a class="dropdown-item" href="#">Message</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown d-inline-block me-2">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="locale-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="flag-icon flag-icon-en"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="locale-dropdown">
+                            <li><a class="dropdown-item" href="#"><span class="flag-icon flag-icon-nl"></span> Nederlands</a></li>
+                            <li><a class="dropdown-item" href="#"><span class="flag-icon flag-icon-de"></span> Deutsch</a></li>
+                            <li><a class="dropdown-item" href="#"><span class="flag-icon flag-icon-es"></span> Español</a></li>
+                            <li><a class="dropdown-item" href="#"><span class="flag-icon flag-icon-fi"></span> Suomalainen</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown d-inline-block">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="user-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-user me-2"></i> Davekuh
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="user-dropdown">
+                            <li><a class="dropdown-item" href="#">{{ __('Profile') }}</a></li>
+                            <li><a class="dropdown-item" href="#">{{ __('Settings') }}</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">{{ __('Logout') }}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
             <section class="p-3">
                 @yield('content')
             </section>
-            <footer></footer>
+            <footer class="bg-dark-600 mt-auto p-3">
+                <p class="text-muted mb-0">
+                    &copy; 2020-{{ date('Y') }} - Davesweb Dashboard
+                </p>
+            </footer>
         </main>
     </body>
     <script src="{{ asset('vendor/dashboard/js/app.js') }}"></script>
