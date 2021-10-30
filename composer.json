@@ -24,7 +24,8 @@
             "providers": [
                 "Davesweb\\Dashboard\\ServiceProvider",
                 "Davesweb\\Dashboard\\RouteServiceProvider",
-                "Davesweb\\Dashboard\\FortifyServiceProvider"
+                "Davesweb\\Dashboard\\FortifyServiceProvider",
+                "Davesweb\\Dashboard\\CrudServiceProvider"
             ]
         }
     },

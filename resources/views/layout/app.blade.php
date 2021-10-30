@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-        <title>{{ config('app.name') . ' ' . __('Dashboard') . ' - ' }}@yield('pageTitle', __('Home'))</title>
+        <title>@yield('pageTitle', __('Home')) - {{ config('app.name') . ' ' . __('Dashboard') }}</title>
         <link rel="stylesheet" type="text/css" href="{{ asset('vendor/dashboard/css/app.css') }}" />
     </head>
     <body class="bg-dark-500">
