@@ -1,0 +1,10 @@
+.form-control {
+  background-color: $dark-300;
+  color: $dark-50;
+  border-color: $dark-200;
+
+  &:focus, &:focus-within, &:active {
+    background-color: $dark-200;
+    color: $dark-50;
+  }
+}

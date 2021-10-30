@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+$font-family-base: 'Lato', sans-serif;
+$headings-font-family: 'Poppins', sans-serif;
+
 $primary: #5C2F4C;
 $secondary: #697897;
 
@@ -24,3 +29,5 @@ $darks: (
   "800": $dark-800,
   "900": $dark-900
 );
+
+$link-color: $secondary;

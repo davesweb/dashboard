@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-        <title>Davesweb</title>
+        <title>{{ config('app.name') . ' ' . __('Dashboard') . ' - ' }}@yield('pageTitle', __('Home'))</title>
         <link rel="stylesheet" type="text/css" href="{{ asset('vendor/dashboard/css/app.css') }}" />
     </head>
     <body class="bg-dark-500">
@@ -81,7 +81,7 @@
                             <i class="fa fa-user me-2"></i> {{ auth()->user()->name }}
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="user-dropdown">
-                            <li><a class="dropdown-item" href="#">{{ __('Profile') }}</a></li>
+                            <li><a class="dropdown-item" href="{{ dashboard_route('profile.index') }}">{{ __('Profile') }}</a></li>
                             <li><a class="dropdown-item" href="#">{{ __('Settings') }}</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
@@ -94,8 +94,21 @@
                     </div>
                 </div>
             </header>
-            <section class="p-3">
-                @yield('content')
+            <section class="page p-3">
+                <div class="container">
+                    <div class="header d-flex justify-content-between align-items-start">
+                        <h1 class="page-title w-50">@yield('pageTitle')</h1>
+                        <div class="breadcrumbs ms-auto">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Library</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                    @yield('content')
+                </div>
             </section>
             <footer class="bg-dark-600 mt-auto p-3">
                 <p class="text-muted mb-0">

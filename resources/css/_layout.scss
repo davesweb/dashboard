@@ -91,6 +91,15 @@
   }
 }
 
+.page {
+  .page-title {
+    color: $dark-100;
+    border-bottom: 1px solid $dark-700;
+  }
+
+  color: $dark-100;
+}
+
 @include media-breakpoint-up(md) {
   #sidebar {
     width: 300px;
