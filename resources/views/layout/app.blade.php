@@ -81,9 +81,9 @@
                             <i class="fa fa-user me-2"></i> {{ auth()->user()->name }}
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="user-dropdown">
-                            <li><a class="dropdown-item" href="{{ dashboard_route('profile.index') }}">{{ __('Profile') }}</a></li>
+                            <li><a class="dropdown-item" href="{{ dashboard_route('profile.edit') }}">{{ __('Profile') }}</a></li>
                             <li><a class="dropdown-item" href="{{ dashboard_route('password.edit') }}">{{ __('Change password') }}</a></li>
-                            <li><a class="dropdown-item" href="#">{{ __('Settings') }}</a></li>
+                            <li><a class="dropdown-item" href="{{ dashboard_route('settings.edit') }}">{{ __('Settings') }}</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form method="post" action="{{ route('logout') }}">

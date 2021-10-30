@@ -11,4 +11,14 @@ class LoginController extends Controller
     {
         return view('dashboard::auth.login');
     }
+
+    public function confirm(): Renderable
+    {
+        return view('dashboard::auth.confirm');
+    }
+
+    public function twoFactor(): Renderable
+    {
+        return view('dashboard::auth.2fa');
+    }
 }

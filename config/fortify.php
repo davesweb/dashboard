@@ -72,7 +72,7 @@ return [
     |
     */
 
-    'prefix' => '',
+    'prefix' => config('dashboard.route'),
 
     'domain' => null,
 
@@ -116,7 +116,7 @@ return [
     |
     */
 
-    'views' => true,
+    'views' => false,
 
     /*
     |--------------------------------------------------------------------------
