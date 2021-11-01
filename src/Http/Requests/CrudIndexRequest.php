@@ -2,8 +2,22 @@
 
 namespace Davesweb\Dashboard\Http\Requests;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Foundation\Http\FormRequest;
 
-class CrudIndexRequest extends Request
+class CrudIndexRequest extends FormRequest
 {
+    public function rules(): array
+    {
+        return [];
+    }
+
+    public function getCrudLocale(): string
+    {
+        $locale = $this->get('locale', Cookie::get('crud-locale', config('app.default_locale', config('app.locale'))));
+
+        Cookie::queue('crud-locale', $locale, 525600);
+
+        return $locale;
+    }
 }

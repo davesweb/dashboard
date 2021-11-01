@@ -14,6 +14,8 @@ class CrudController extends Controller
 {
     public function index(CrudIndexRequest $request): Renderable
     {
+        $locale = $request->getCrudLocale();
+
         $crud = $this->crud();
 
         $table = resolve(Table::class, ['crud' => $crud]);
@@ -24,9 +26,10 @@ class CrudController extends Controller
         $items = $this->query()->paginate();
 
         return view('dashboard::crud.index', [
-            'pageTitle' => $crud->plural(),
-            'items'     => $items,
-            'table'     => $table,
+            'pageTitle'  => $crud->plural(),
+            'items'      => $items,
+            'table'      => $table,
+            'crudLocale' => $locale,
         ]);
     }
 

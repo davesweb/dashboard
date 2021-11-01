@@ -28,14 +28,15 @@
                             <button class="input-group-text btn-secondary" id="search-addon"><i class="fa fa-search"></i></button>
                         </div>
                     @endif
-                    @if($table->hasTranslations())
+                    @if($table->hasTranslations() && count(config('app.available_locales', [])) > 1)
                         <div class="dropdown pt-1">
                             <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="language-select" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="flag-icon flag-icon-nl"></span>
+                                <span class="{{ config('app.available_locales.' . $crudLocale . '.icon', []) }}"></span>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="language-select">
-                                <li><a class="dropdown-item" href="#"><span class="flag-icon flag-icon-en"></span> English</a></li>
-                                <li><a class="dropdown-item" href="#"><span class="flag-icon flag-icon-de"></span> German</a></li>
+                                @foreach(config('app.available_locales', []) as $abbr => $locale)
+                                    <li><a class="dropdown-item" href="{{ full_url_with_query(['locale' => $abbr]) }}"><span class="{{ $locale['icon'] }}"></span> {{ $locale['name'] }}</a></li>
+                                @endforeach
                             </ul>
                         </div>
                     @endif
@@ -53,7 +54,7 @@
                     <tr>
                         @foreach($items->items() as $model)
                             @foreach($table->getColumns() as $column)
-                                <th>{!! $column->render($model, 'nl') !!}</th>
+                                <th>{!! $column->render($model, $crudLocale) !!}</th>
                             @endforeach
                         @endforeach
                     </tr>
