@@ -6,8 +6,10 @@ use Illuminate\Support\Str;
 use Illuminate\Routing\Router;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Davesweb\Dashboard\Layout\Sidebar\Menu;
 use Davesweb\Dashboard\Services\Table\Action;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Davesweb\Dashboard\Layout\Sidebar\Sidebar;
 use Davesweb\Dashboard\Http\Middleware\Authenticate;
 use Davesweb\Dashboard\Http\Controllers\CrudController;
 
@@ -24,6 +26,8 @@ abstract class Crud
     protected string $model;
 
     protected string $controller = CrudController::class;
+
+    protected ?Model $modelObject = null;
 
     public function singular(): string
     {
@@ -43,6 +47,11 @@ abstract class Crud
     public function names(): array
     {
         return [$this->singular(), $this->plural()];
+    }
+
+    public function icon(): string
+    {
+        return 'fa fa-cogs';
     }
 
     public function routePrefix(): string
@@ -145,6 +154,25 @@ abstract class Crud
         });
     }
 
+    public function registerMenu(Sidebar $sidebar)
+    {
+        /** @var Menu $menu */
+        $menu = $sidebar->getMenus()->first();
+
+        if (in_array(self::ACTION_INDEX_TRASHED, $this->actions(), true)) {
+            $submenu = Menu::make()
+                ->link($this->plural(), route($this->getRouteNamePrefix() . 'index'))
+                ->link(__('Trashed :models', ['models' => $this->plural()]), route($this->getRouteNamePrefix() . 'trashed'))
+            ;
+
+            $menu->link($this->plural(), null, $this->icon(), $submenu);
+
+            return;
+        }
+
+        $menu->link($this->plural(), route($this->getRouteNamePrefix() . 'index'), $this->icon());
+    }
+
     public function query(): Builder
     {
         return call_user_func($this->model . '::query');
@@ -152,10 +180,10 @@ abstract class Crud
 
     public function model(mixed $id = null): Model
     {
-        // Todo cash the model object
-
         /** @var Model $model */
-        $model = resolve($this->model);
+        $model = $this->modelObject ?? resolve($this->model);
+
+        $this->modelObject = $model;
 
         if (null === $id) {
             return $model;

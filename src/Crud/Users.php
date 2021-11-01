@@ -10,6 +10,11 @@ class Users extends Crud
 {
     protected string $model = User::class;
 
+    public function icon(): string
+    {
+        return 'fa fa-users';
+    }
+
     public function index(Table $table): void
     {
         $table->column('#')->orderable()->content('id');

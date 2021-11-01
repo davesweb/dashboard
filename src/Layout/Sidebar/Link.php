@@ -12,6 +12,8 @@ class Link
 
     private ?Menu $submenu = null;
 
+    private int $order = 0;
+
     public function getTitle(): string
     {
         return $this->title;
@@ -56,6 +58,18 @@ class Link
     public function submenu(?Menu $submenu): self
     {
         $this->submenu = $submenu;
+
+        return $this;
+    }
+
+    public function getOrder(): int
+    {
+        return $this->order;
+    }
+
+    public function order(int $order): self
+    {
+        $this->order = $order;
 
         return $this;
     }

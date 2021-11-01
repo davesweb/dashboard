@@ -3,6 +3,7 @@
 namespace Davesweb\Dashboard\Layout\Sidebar;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
 
 class Menu
 {
@@ -27,7 +28,7 @@ class Menu
         return $this;
     }
 
-    public function link(Link|string $titleOrLink, ?string $href = null, ?string $icon = null, ?Menu $submenu = null): static
+    public function link(Link|string $titleOrLink, ?string $href = null, ?string $icon = null, ?Menu $submenu = null, int $order = 0): static
     {
         if ($titleOrLink instanceof Link) {
             $this->links[] = $titleOrLink;
@@ -40,6 +41,7 @@ class Menu
             ->href($href)
             ->icon($icon)
             ->submenu($submenu)
+            ->order($order)
         ;
 
         return $this;
@@ -50,9 +52,11 @@ class Menu
         $this->title = $title;
     }
 
-    public function getLinks(): array
+    public function getLinks(): Collection
     {
-        return $this->links;
+        return collect($this->links)->sortBy(function (Link $link) {
+            return $link->getOrder();
+        });
     }
 
     public function getHref(): string
