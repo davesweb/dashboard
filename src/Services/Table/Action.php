@@ -26,8 +26,15 @@ class Action
 
     private ?string $formMethod;
 
-    public function __construct(string $title, ?string $href = null, ?string $route = null, ?string $icon = null, string|Closure|null $can = null, ?string $ability = null, ?string $formMethod = null)
-    {
+    public function __construct(
+        string $title,
+        ?string $href = null,
+        ?string $route = null,
+        ?string $icon = null,
+        string|Closure|null $can = null,
+        ?string $ability = null,
+        ?string $formMethod = null,
+    ) {
         $this->title      = $title;
         $this->href       = $href;
         $this->route      = $route;

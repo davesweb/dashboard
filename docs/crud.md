@@ -39,6 +39,20 @@ class MyCrud extends Crud
 }
 ```
 
+## Menu items
+
+The Crud class automatically registers a menu item in the sidebar that links to the index route 
+of the crud. If your crud also has a trashed route it registers a dropdown menu with a link to 
+both the index route, and the trashed route. By default, the crud registers the link(s) to the top 
+menu in the sidebar.
+
+The icon that is used for the menu item is the item that is provided by the `icon` method.
+
+You may overwrite this behaviour and register your own links by overwriting the `registerMenu` method.
+This method receives a `Davesweb\Dashboard\Layout\Sidebar\Sidebar` instance for you to register 
+menu's and links. For more information about how to use this `Sidebar` class, see the documentation 
+about the sidebar.
+
 ## Searching
 
 ## Methods
