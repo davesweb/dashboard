@@ -4,11 +4,33 @@ An admin dashboard for Laravel applications. It comes with a default bootstrap 5
 100% customizable. You can use your own views and assets to either overwrite certain parts or 
 use a completely different template.
 
-Currently, this package is part of the davesweb repository, but it will be its own package later on.
+## Installation
 
-### Custom views
+Via composer
+```shell
+composer require davesweb/dashboard
+```
 
-### Custom assets
+After that, publish the assets by running 
+
+```shell
+php artisan vendor:publish --provider=Davesweb\Dashboard\ServiceProvider
+```
+
+Run the migrations
+
+```shell
+php artisan migrate
+```
+
+The dashboard is now available, by default at `yoursite.ext/dashboard`. You can configure the 
+route in de `dashboard.php` config file.
+
+Create the first user for your dashboard by running the artisan command.
+
+```shell
+php artisan dashboard:user
+```
 
 ## Local Development
 
@@ -19,6 +41,6 @@ to your composer file instead of constantly pushing updates and updating compose
 
 - Go to root folder of the package
 - Run `npm install` and `npm run dev` (or `watch` or `prod`).
-- Go to the root folder of the project your using this package in.
-- Run `php artisan vendor:publish --provider=Davesweb\Dashboard\ServiceProvider --tag=public`
+- Go to the root folder of the project you're using this package in.
+- Run `php artisan vendor:publish --provider=Davesweb\Dashboard\ServiceProvider --tag=public --force`
 - The assets from the package are now available, use the asset helper for ease of use. 

@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Davesweb\Dashboard\Services\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Contracts\Support\Renderable;
+use Davesweb\Dashboard\Http\Requests\CrudShowRequest;
 use Davesweb\Dashboard\Http\Requests\CrudIndexRequest;
 
 class CrudController extends Controller
@@ -59,8 +60,27 @@ class CrudController extends Controller
         ]);
     }
 
-    public function view(mixed $id): Renderable
+    public function show(CrudShowRequest $request, mixed $id): Renderable
     {
+        $locale = $request->getCrudLocale();
+        $crud   = $this->crud();
+        $model  = $crud->model($id);
+
+        /** @var Table $table */
+        $table = resolve(Table::class, ['crud' => $crud]);
+
+        $crud->show($table);
+
+        if (0 === count($table->getColumns())) {
+            $crud->index($table);
+        }
+
+        return view('dashboard::crud.view', [
+            'pageTitle'  => __('Trashed :model', ['model' => $crud->plural()]),
+            'model'      => $model,
+            'table'      => $table,
+            'crudLocale' => $locale,
+        ]);
     }
 
     public function create(): Renderable

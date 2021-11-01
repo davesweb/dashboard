@@ -4,6 +4,7 @@ namespace Davesweb\Dashboard\Services;
 
 use Illuminate\Support\Str;
 use Illuminate\Routing\Router;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Davesweb\Dashboard\Services\Table\Action;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -69,7 +70,7 @@ abstract class Crud
         $tableActions = [];
         $actions      = $this->actions();
 
-        if (in_array(self::ACTION_SHOW, $actions, true)) {
+        if (in_array(self::ACTION_SHOW, $actions, true) && !request()->routeIs($this->getRouteNamePrefix() . 'show')) {
             $tableActions[] = new Action(
                 title: __('View this :model', ['model' => $this->singular()]),
                 route: $this->getRouteNamePrefix() . 'show',
@@ -149,6 +150,20 @@ abstract class Crud
         return call_user_func($this->model . '::query');
     }
 
+    public function model(mixed $id = null): Model
+    {
+        // Todo cash the model object
+
+        /** @var Model $model */
+        $model = resolve($this->model);
+
+        if (null === $id) {
+            return $model;
+        }
+
+        return $model->newQuery()->findOrFail($id);
+    }
+
     abstract public function index(Table $table): void;
 
     public function trashed(Table $table): void
@@ -156,7 +171,7 @@ abstract class Crud
         // This method can be implemented in child classes, but it isn't required so we keep the body empty.
     }
 
-    public function show(): void
+    public function show(Table $table): void
     {
         // This method can be implemented in child classes, but it isn't required so we keep the body empty.
     }

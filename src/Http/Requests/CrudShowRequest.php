@@ -2,6 +2,6 @@
 
 namespace Davesweb\Dashboard\Http\Requests;
 
-class CrudIndexRequest extends CrudRequest
+class CrudShowRequest extends CrudRequest
 {
 }

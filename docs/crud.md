@@ -93,11 +93,10 @@ instead.
 
 This method works in the same way as the `index` method.
 
-### Trashed
+### Show
 
-The `trashed` method of a Crud class defines what the overview of soft deleted models looks like.
-It is not required to implement this method in your own crud classes. If your crud class has a
-trashed route and this method isn't implemented it uses the configuration from the `index` method
-instead.
+The `show` method of a Crud class defines what the detail view of a single model looks like.
+It is not required to implement this method in your own crud classes. If this method isn't 
+implemented it uses the configuration from the `index` method instead.
 
 This method works in the same way as the `index` method.
