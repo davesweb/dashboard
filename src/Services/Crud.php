@@ -14,7 +14,7 @@ abstract class Crud
 {
     public const ACTION_INDEX         = 'index';
     public const ACTION_INDEX_TRASHED = 'trashed';
-    public const ACTION_VIEW          = 'view';
+    public const ACTION_SHOW          = 'show';
     public const ACTION_CREATE        = 'create';
     public const ACTION_UPDATE        = 'update';
     public const ACTION_DESTROY       = 'destroy';
@@ -51,7 +51,7 @@ abstract class Crud
 
     public function actions(): array
     {
-        $actions = [self::ACTION_INDEX, self::ACTION_VIEW, self::ACTION_CREATE, self::ACTION_UPDATE, self::ACTION_DESTROY];
+        $actions = [self::ACTION_INDEX, self::ACTION_SHOW, self::ACTION_CREATE, self::ACTION_UPDATE, self::ACTION_DESTROY];
 
         if (in_array(SoftDeletes::class, class_uses_recursive($this->model), true)) {
             $actions[] = self::ACTION_INDEX_TRASHED;
@@ -69,10 +69,10 @@ abstract class Crud
         $tableActions = [];
         $actions      = $this->actions();
 
-        if (in_array(self::ACTION_VIEW, $actions, true)) {
+        if (in_array(self::ACTION_SHOW, $actions, true)) {
             $tableActions[] = new Action(
                 title: __('View this :model', ['model' => $this->singular()]),
-                route: $this->getRouteNamePrefix() . 'view',
+                route: $this->getRouteNamePrefix() . 'show',
                 icon: 'fa fa-eye fa-fw',
             );
         }
@@ -124,8 +124,8 @@ abstract class Crud
                 $router->delete('destroy/{id}', [$this->controller, 'destroyHard'])->name('destroy-hard');
             }
 
-            if (in_array(self::ACTION_VIEW, $actions, true)) {
-                $router->get('{id}', [$this->controller, 'view'])->name('view');
+            if (in_array(self::ACTION_SHOW, $actions, true)) {
+                $router->get('{id}', [$this->controller, 'show'])->name('show');
             }
 
             if (in_array(self::ACTION_DESTROY, $actions, true)) {
@@ -150,13 +150,13 @@ abstract class Crud
     }
 
     abstract public function index(Table $table): void;
-    
+
     public function trashed(Table $table): void
     {
         // This method can be implemented in child classes, but it isn't required so we keep the body empty.
     }
 
-    public function view(): void
+    public function show(): void
     {
         // This method can be implemented in child classes, but it isn't required so we keep the body empty.
     }

@@ -36,15 +36,15 @@ class CrudController extends Controller
     public function trashed(CrudIndexRequest $request): Renderable
     {
         $locale = $request->getCrudLocale();
-        
+
         $crud = $this->crud();
 
         /** @var Table $table */
         $table = resolve(Table::class, ['crud' => $crud]);
 
         $crud->trashed($table);
-        
-        if (count($table->getColumns()) === 0) {
+
+        if (0 === count($table->getColumns())) {
             $crud->index($table);
         }
 

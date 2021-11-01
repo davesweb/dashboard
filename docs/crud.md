@@ -9,7 +9,7 @@ The crud actions are the actions that are available for the model. By default, t
 
 - **Index action**: the index action registers the index route which shows a paginated overview of all model objects.
 - **Trashed action**: the trashed action registers the trashed index route which shows a paginated overview of all soft deleted model objects.
-- **View action**: the view action registers the view route which shows a detailed page of a single model.
+- **Show action**: the show action registers the show route which shows a detailed page of a single model.
 - **Create action**: the create action registers the create and store routes for creating and storing a new model object.
 - **Edit action**: the edit action registers the edit and update routes for editing and updating a model object.
 - **Destroy action**: the destroy action registers the destroy route which deletes a model object.
@@ -30,7 +30,7 @@ class MyCrud extends Crud
     {
         return [
             self::ACTION_INDEX, 
-            self::ACTION_VIEW, 
+            self::ACTION_SHOW, 
             self::ACTION_CREATE, 
             self::ACTION_UPDATE, 
             self::ACTION_DESTROY
@@ -88,6 +88,15 @@ current request.
 
 The `trashed` method of a Crud class defines what the overview of soft deleted models looks like. 
 It is not required to implement this method in your own crud classes. If your crud class has a 
+trashed route and this method isn't implemented it uses the configuration from the `index` method
+instead.
+
+This method works in the same way as the `index` method.
+
+### Trashed
+
+The `trashed` method of a Crud class defines what the overview of soft deleted models looks like.
+It is not required to implement this method in your own crud classes. If your crud class has a
 trashed route and this method isn't implemented it uses the configuration from the `index` method
 instead.
 
