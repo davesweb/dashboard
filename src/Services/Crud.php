@@ -4,6 +4,7 @@ namespace Davesweb\Dashboard\Services;
 
 use Illuminate\Support\Str;
 use Illuminate\Routing\Router;
+use Illuminate\Support\HtmlString;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Davesweb\Dashboard\Layout\Sidebar\Menu;
@@ -49,9 +50,9 @@ abstract class Crud
         return [$this->singular(), $this->plural()];
     }
 
-    public function icon(): string
+    public function icon(): HtmlString
     {
-        return 'fa fa-cogs';
+        return new HtmlString('<i class="fa fa-cogs"></i>');
     }
 
     public function routePrefix(): string
@@ -83,7 +84,7 @@ abstract class Crud
             $tableActions[] = new Action(
                 title: __('View this :model', ['model' => $this->singular()]),
                 route: $this->getRouteNamePrefix() . 'show',
-                icon: 'fa fa-eye fa-fw',
+                icon: new HtmlString('<i class="fa fa-eye fa-fw"></i>'),
             );
         }
 
@@ -91,7 +92,7 @@ abstract class Crud
             $tableActions[] = new Action(
                 title: __('Edit this :model', ['model' => $this->singular()]),
                 route: $this->getRouteNamePrefix() . 'edit',
-                icon: 'fa fa-pencil fa-fw',
+                icon: new HtmlString('<i class="fa fa-pencil fa-fw"></i>'),
             );
         }
 
@@ -99,7 +100,7 @@ abstract class Crud
             $tableActions[] = new Action(
                 title: __('Delete this :model', ['model' => $this->singular()]),
                 route: $this->getRouteNamePrefix() . 'destroy',
-                icon: 'fa fa-close fa-fw',
+                icon: new HtmlString('<i class="fa fa-close fa-fw"></i>'),
                 formMethod: 'delete'
             );
         }
@@ -108,7 +109,7 @@ abstract class Crud
             $tableActions[] = new Action(
                 title: __('Delete this :model permanently', ['model' => $this->singular()]),
                 route: $this->getRouteNamePrefix() . 'destroy-hard',
-                icon: 'fa fa-close fa-fw',
+                icon: new HtmlString('<i class="fa fa-close fa-fw"></i>'),
                 formMethod: 'delete'
             );
         }

@@ -2,13 +2,15 @@
 
 namespace Davesweb\Dashboard\Layout\Sidebar;
 
+use Illuminate\Support\HtmlString;
+
 class Link
 {
     private string $title;
 
     private ?string $href = null;
 
-    private ?string $icon = null;
+    private ?HtmlString $icon = null;
 
     private ?Menu $submenu = null;
 
@@ -38,14 +40,14 @@ class Link
         return $this;
     }
 
-    public function getIcon(): ?string
+    public function getIcon(): ?HtmlString
     {
         return $this->icon;
     }
 
-    public function icon(?string $icon): self
+    public function icon(string|HtmlString|null $icon): self
     {
-        $this->icon = $icon;
+        $this->icon = $icon instanceof HtmlString || null === $icon ? $icon : new HtmlString($icon);
 
         return $this;
     }

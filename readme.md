@@ -47,7 +47,7 @@ to your composer file instead of constantly pushing updates and updating compose
 
 ## Todos
 
-- Instead of using CSS class names for the icons, use HtmlString objects so we aren't required to use 
-  an icon library that is used by specifying class names.
+- ~~Instead of using CSS class names for the icons, use HtmlString objects so we aren't required to use 
+  an icon library that is used by specifying class names.~~
 - Add a check for cached routes to the crud route registration and add a command to cache the menu 
   items of crud classes, so we don't need to instantiate every single crud class on every request.

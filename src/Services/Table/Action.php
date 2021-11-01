@@ -3,6 +3,7 @@
 namespace Davesweb\Dashboard\Services\Table;
 
 use Closure;
+use Illuminate\Support\HtmlString;
 use Davesweb\Dashboard\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +15,7 @@ class Action
 {
     private string $title;
 
-    private ?string $icon;
+    private ?HtmlString $icon;
 
     private ?string $href;
 
@@ -30,7 +31,7 @@ class Action
         string $title,
         ?string $href = null,
         ?string $route = null,
-        ?string $icon = null,
+        ?HtmlString $icon = null,
         string|Closure|null $can = null,
         ?string $ability = null,
         ?string $formMethod = null,
@@ -49,7 +50,7 @@ class Action
         return $this->title;
     }
 
-    public function getIcon(): ?string
+    public function getIcon(): ?HtmlString
     {
         return $this->icon;
     }

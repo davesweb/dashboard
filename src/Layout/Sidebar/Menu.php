@@ -4,6 +4,7 @@ namespace Davesweb\Dashboard\Layout\Sidebar;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
+use Illuminate\Support\HtmlString;
 
 class Menu
 {
@@ -28,7 +29,7 @@ class Menu
         return $this;
     }
 
-    public function link(Link|string $titleOrLink, ?string $href = null, ?string $icon = null, ?Menu $submenu = null, int $order = 0): static
+    public function link(Link|string $titleOrLink, ?string $href = null, string|HtmlString|null $icon = null, ?Menu $submenu = null, int $order = 0): static
     {
         if ($titleOrLink instanceof Link) {
             $this->links[] = $titleOrLink;

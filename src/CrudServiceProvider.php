@@ -6,6 +6,7 @@ use RegexIterator;
 use RecursiveRegexIterator;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
+use Illuminate\Support\HtmlString;
 use Davesweb\Dashboard\Services\Crud;
 use Illuminate\Support\Facades\Route;
 use Davesweb\Dashboard\Layout\Sidebar\Menu;
@@ -18,7 +19,7 @@ class CrudServiceProvider extends IlluminateServiceProvider
     {
         Route::matched(function () {
             $mainMenu = Menu::make();
-            $mainMenu->link(__('Dashboard'), dashboard_route('index'), 'fa fa-dashboard', null, -10);
+            $mainMenu->link(__('Dashboard'), dashboard_route('index'), new HtmlString('<i class="fa fa-dashboard"></i>'), null, -10);
 
             $sidebar = Sidebar::factory();
             $sidebar->menu($mainMenu, 0);

@@ -7,11 +7,11 @@
             <form method="post" class="d-inline" action="{{ $action->getHref() ?? route($action->getRoute(), [$model]) }}">
                 @csrf
                 @method($action->getFormMethod())
-                <button type="submit" title="{{ $action->getTitle() }}" class="btn btn-secondary btn-sm">{!! $action->getIcon() === null ? $action->getTitle() : '<i class="' . $action->getIcon() . ' fa-fw" class="me-1"></i>' !!}</button>
+                <button type="submit" title="{{ $action->getTitle() }}" class="btn btn-secondary btn-sm">{!! $action->getIcon() === null ? $action->getTitle() : $action->getIcon() !!}</button>
             </form>
         @else
             <a href="{{ $action->getHref() ?? route($action->getRoute(), [$model]) }}" title="{{ $action->getTitle() }}" class="btn btn-secondary btn-sm">
-                {!! $action->getIcon() === null ? $action->getTitle() : '<i class="' . $action->getIcon() . '" class="me-1"></i>' !!}
+                {!! $action->getIcon() === null ? $action->getTitle() : $action->getIcon() !!}
             </a>
         @endif
     @endif

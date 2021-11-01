@@ -23,7 +23,7 @@
                         @foreach($menu->getLinks() as $link)
                             @if($link->hasSubmenu())
                                 <li class="has-submenu">
-                                    <a href="#{{ $link->getSubmenu()->getHref() }}" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="{{ $link->getSubmenu()->getHref() }}"><i class="{{ $link->getIcon() }} me-2"></i> {{ $link->getTitle() }}</a>
+                                    <a href="#{{ $link->getSubmenu()->getHref() }}" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="{{ $link->getSubmenu()->getHref() }}"><span class="me-2">{{ $link->getIcon() }}</span> {{ $link->getTitle() }}</a>
                                     <ul id="{{ $link->getSubmenu()->getHref() }}" class="collapse">
                                         @foreach($link->getSubmenu()->getLinks() as $subLink)
                                             <li><a href="{{ $subLink->getHref() }}">{{ $subLink->getTitle() }}</a></li>
@@ -31,7 +31,7 @@
                                     </ul>
                                 </li>
                             @else
-                                <li><a href="{{ $link->getHref() }}"><i class="{{ $link->getIcon() }} me-2"></i> {{ $link->getTitle() }}</a></li>
+                                <li><a href="{{ $link->getHref() }}"><span class="me-2">{{ $link->getIcon() }}</span> {{ $link->getTitle() }}</a></li>
                             @endif
                         @endforeach
                     </ul>
