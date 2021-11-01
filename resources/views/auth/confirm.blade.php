@@ -8,7 +8,7 @@
                 @csrf
                 <div class="mb-3">
                     <label for="password" class="form-label">{{ __('Password') }}</label>
-                    <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" />
+                    <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" autofocus />
                     @error('password')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

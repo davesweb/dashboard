@@ -8,7 +8,7 @@
                 @csrf
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="email-addon"><i class="fa fa-user"></i></span>
-                    <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="{{ __('Email address') }}" aria-label="{{ __('Email') }}" aria-describedby="email-addon" />
+                    <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="{{ __('Email address') }}" aria-label="{{ __('Email') }}" aria-describedby="email-addon" autofocus />
                     @error('email')
                     <div id="message-feedback" class="invalid-feedback">{{ $message }}</div>
                     @enderror

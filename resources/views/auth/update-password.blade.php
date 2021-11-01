@@ -15,7 +15,7 @@
                 @endif
                 <div class="mb-3">
                     <label for="current_password" class="form-label">{{ __('Current password') }}</label>
-                    <input type="password" name="current_password" id="current_password" class="form-control @error('current_password') is-invalid @enderror" />
+                    <input type="password" name="current_password" id="current_password" class="form-control @error('current_password') is-invalid @enderror" autofocus />
                     @error('current_password')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

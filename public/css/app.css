@@ -20393,6 +20393,14 @@ readers do not read off random characters that represent icons */
   color: #c8cddc;
 }
 
+.table {
+  color: #9097a7;
+  border-color: #505a64;
+}
+.table td {
+  color: #c8cddc !important;
+}
+
 .flag-icon-background, .flag-icon {
   background-size: contain;
   background-position: 50%;

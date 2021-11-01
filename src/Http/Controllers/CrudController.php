@@ -16,7 +16,7 @@ class CrudController extends Controller
     {
         $crud = $this->crud();
 
-        $table = resolve(Table::class);
+        $table = resolve(Table::class, ['crud' => $crud]);
 
         $crud->index($table);
 
@@ -34,7 +34,7 @@ class CrudController extends Controller
     {
         $crud = $this->crud();
 
-        $table = resolve(Table::class);
+        $table = resolve(Table::class, ['crud' => $crud]);
 
         $crud->index($table);
 

@@ -8,7 +8,7 @@
                 @csrf
                 <div class="mb-3">
                     <label for="code" class="form-label">{{ __('Code') }}</label>
-                    <input type="text" name="code" id="code" class="form-control @error('code') is-invalid @enderror" />
+                    <input type="text" name="code" id="code" class="form-control @error('code') is-invalid @enderror" autofocus />
                     @error('code')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

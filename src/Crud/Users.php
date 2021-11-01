@@ -15,5 +15,6 @@ class Users extends Crud
         $table->column('#')->orderable()->content('id');
         $table->column(__('Name'))->orderable()->searchable();
         $table->column(__('Email address'))->orderable()->searchable()->content('email');
+        $table->defaultActionsColumn();
     }
 }
