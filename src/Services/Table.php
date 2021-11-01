@@ -33,6 +33,15 @@ class Table
 
         return $column;
     }
+    
+    public function actionColumn(array $actions): ActionsColumn
+    {
+        $column = new ActionsColumn($actions);
+    
+        $this->columns[] = $column;
+    
+        return $column;
+    }
 
     /**
      * @param Action[] $extraActions

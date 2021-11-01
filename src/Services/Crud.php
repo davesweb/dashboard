@@ -149,7 +149,9 @@ abstract class Crud
         return call_user_func($this->model . '::query');
     }
 
-    public function index(Table $table): void
+    abstract public function index(Table $table): void;
+    
+    public function trashed(Table $table): void
     {
         // This method can be implemented in child classes, but it isn't required so we keep the body empty.
     }

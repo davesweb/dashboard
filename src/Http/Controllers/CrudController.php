@@ -35,19 +35,27 @@ class CrudController extends Controller
 
     public function trashed(CrudIndexRequest $request): Renderable
     {
+        $locale = $request->getCrudLocale();
+        
         $crud = $this->crud();
 
+        /** @var Table $table */
         $table = resolve(Table::class, ['crud' => $crud]);
 
-        $crud->index($table);
+        $crud->trashed($table);
+        
+        if (count($table->getColumns()) === 0) {
+            $crud->index($table);
+        }
 
         // @todo add ordering and querying based on the request
         $items = $this->query()->onlyTrashed()->paginate();
 
         return view('dashboard::crud.index', [
-            'pageTitle' => $crud->plural(),
-            'items'     => $items,
-            'table'     => $table,
+            'pageTitle'  => __('Trashed :model', ['model' => $crud->plural()]),
+            'items'      => $items,
+            'table'      => $table,
+            'crudLocale' => $locale,
         ]);
     }
 
