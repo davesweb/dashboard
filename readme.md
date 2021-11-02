@@ -51,3 +51,5 @@ to your composer file instead of constantly pushing updates and updating compose
   an icon library that is used by specifying class names.~~
 - Add a check for cached routes to the crud route registration and add a command to cache the menu 
   items of crud classes, so we don't need to instantiate every single crud class on every request.
+- Add a service class that handles how to render translations, based on the installed translation package
+  so we can support other packages as well.

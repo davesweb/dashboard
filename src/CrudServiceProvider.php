@@ -11,6 +11,7 @@ use Davesweb\Dashboard\Services\Crud;
 use Illuminate\Support\Facades\Route;
 use Davesweb\Dashboard\Layout\Sidebar\Menu;
 use Davesweb\Dashboard\Layout\Sidebar\Sidebar;
+use Davesweb\Dashboard\Contracts\TranslatesModelAttributes;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 
 class CrudServiceProvider extends IlluminateServiceProvider
@@ -33,6 +34,8 @@ class CrudServiceProvider extends IlluminateServiceProvider
      */
     public function register()
     {
+        $this->app->bind(TranslatesModelAttributes::class, config('dashboard.translator'));
+
         $this->registerCrud();
     }
 

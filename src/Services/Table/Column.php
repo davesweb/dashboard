@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use League\CommonMark\Util\HtmlElement;
-use Davesweb\LaravelTranslatable\Traits\HasTranslations;
+use Davesweb\Dashboard\Contracts\TranslatesModelAttributes;
 
 class Column
 {
@@ -16,6 +16,13 @@ class Column
     private bool $searchable             = false;
     private bool $translated             = false;
     private ?string $view                = null;
+
+    private TranslatesModelAttributes $translator;
+
+    public function __construct(TranslatesModelAttributes $translator)
+    {
+        $this->translator = $translator;
+    }
 
     public function title(string $title): static
     {
@@ -52,9 +59,11 @@ class Column
         return $this;
     }
 
-    public function render(Model|HasTranslations $model, string $locale): string|HtmlElement
+    public function render(Model $model, string $locale): string|HtmlElement
     {
-        $model = $this->translated ? $model->getTranslation($locale) : $model;
+        if ($this->translated) {
+            return $this->translator->translate($model, $locale, $this->content);
+        }
 
         if (null !== $this->view) {
             return view($this->view, ['model' => $model])->render();

@@ -4,7 +4,7 @@ namespace Davesweb\Dashboard\Services\Table;
 
 use Illuminate\Database\Eloquent\Model;
 use League\CommonMark\Util\HtmlElement;
-use Davesweb\LaravelTranslatable\Traits\HasTranslations;
+use Davesweb\Dashboard\Contracts\TranslatesModelAttributes;
 
 class ActionsColumn extends Column
 {
@@ -13,8 +13,10 @@ class ActionsColumn extends Column
      */
     private array $actions;
 
-    public function __construct(array $actions = [])
+    public function __construct(TranslatesModelAttributes $translator, array $actions = [])
     {
+        parent::__construct($translator);
+
         $this->actions = $actions;
     }
 
@@ -25,7 +27,7 @@ class ActionsColumn extends Column
         return $this;
     }
 
-    public function render(Model|HasTranslations $model, string $locale): string|HtmlElement
+    public function render(Model $model, string $locale): string|HtmlElement
     {
         return view('dashboard::crud.partials.actions', [
             'actions' => $this->actions,

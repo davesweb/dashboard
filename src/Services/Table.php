@@ -23,7 +23,9 @@ class Table
 
     public function column(string $title, string|Closure|null $content = null, bool $orderable = false, bool $searchable = false, bool $translated = false): Column
     {
-        $column = (new Column())->title($title)->orderable($orderable)->searchable($searchable)->translated($translated);
+        $column = resolve(Column::class);
+
+        $column = $column->title($title)->orderable($orderable)->searchable($searchable)->translated($translated);
 
         if (null !== $content) {
             $column->content($content);
@@ -36,7 +38,8 @@ class Table
 
     public function actionColumn(array $actions): ActionsColumn
     {
-        $column = new ActionsColumn($actions);
+        /** @var ActionsColumn $column */
+        $column = resolve(ActionsColumn::class, ['actions' => $actions]);
 
         $this->columns[] = $column;
 
@@ -50,7 +53,8 @@ class Table
     {
         $actions = array_merge($this->crud->getTableActions(), $extraActions);
 
-        $column = new ActionsColumn($actions);
+        /** @var ActionsColumn $column */
+        $column = resolve(ActionsColumn::class, ['actions' => $actions]);
 
         $this->columns[] = $column;
 

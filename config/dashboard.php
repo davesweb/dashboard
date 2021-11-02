@@ -1,5 +1,7 @@
 <?php
 
+use Davesweb\Dashboard\ModelTranslators\DaveswebTranslator;
+
 return [
     /*
      * The route is the actual URL where your dashboard is available. E.g. https://yoursite.com/dashboard
@@ -24,4 +26,18 @@ return [
          */
         'table' => 'dashboard_users',
     ],
+
+    'crud' => [
+        /*
+         * In which locations the dashboard should look for Crud classes.
+         */
+        'locations' => [
+            app_path('Crud') => 'App\\Crud',
+        ],
+    ],
+
+    /*
+     * The translator to use for translating model attributes.
+     */
+    'translator' => DaveswebTranslator::class,
 ];
