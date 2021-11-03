@@ -84,10 +84,10 @@ class Column
         $getter = 'get' . Str::of($this->content)->camel()->ucfirst();
 
         if (method_exists($model, $getter)) {
-            return call_user_func([$model, $getter]);
+            return (string) call_user_func([$model, $getter]);
         }
 
-        return $model->{$this->content};
+        return (string) $model->{$this->content};
     }
 
     public function isOrderable(): bool

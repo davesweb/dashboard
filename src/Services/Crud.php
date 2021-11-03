@@ -62,7 +62,7 @@ abstract class Crud
 
     public function routePrefix(): string
     {
-        return Str::of($this->plural())->slug()->lower();
+        return (string) Str::of($this->plural())->slug()->lower();
     }
 
     public function actions(): array
