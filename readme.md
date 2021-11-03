@@ -53,3 +53,8 @@ to your composer file instead of constantly pushing updates and updating compose
   items of crud classes, so we don't need to instantiate every single crud class on every request.
 - Add a service class that handles how to render translations, based on the installed translation package
   so we can support other packages as well.
+  
+## Roadmap / planned features
+
+- Export Crud overview to Excel, CSV
+- Relationship columns in overviews

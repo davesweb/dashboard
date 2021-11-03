@@ -4,15 +4,18 @@ namespace Davesweb\Dashboard\Services;
 
 use Illuminate\Support\Str;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Davesweb\Dashboard\Layout\Sidebar\Menu;
 use Davesweb\Dashboard\Services\Table\Action;
+use Davesweb\Dashboard\Services\Table\Column;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Davesweb\Dashboard\Layout\Sidebar\Sidebar;
 use Davesweb\Dashboard\Http\Middleware\Authenticate;
 use Davesweb\Dashboard\Http\Controllers\CrudController;
+use Davesweb\Dashboard\Contracts\TranslatesModelAttributes;
 
 abstract class Crud
 {
@@ -191,6 +194,22 @@ abstract class Crud
         }
 
         return $model->newQuery()->findOrFail($id);
+    }
+
+    public function search(Builder $query, Collection $searchableColumns, string $locale, string $searchQuery): Builder
+    {
+        /** @var TranslatesModelAttributes $translator */
+        $translator = resolve(TranslatesModelAttributes::class);
+
+        $searchableColumns->each(function (Column $column) use ($query, $locale, $translator, $searchQuery) {
+            if ($column->isTranslated()) {
+                $translator->search($query, $column->getSearchField(), $locale, $searchQuery);
+            } else {
+                $query->orWhere($column->getSearchField(), 'LIKE', '%' . $searchQuery . '%');
+            }
+        });
+
+        return $query;
     }
 
     abstract public function index(Table $table): void;

@@ -4,6 +4,7 @@ namespace Davesweb\Dashboard\ModelTranslators;
 
 use Closure;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Davesweb\LaravelTranslatable\Traits\HasTranslations;
 use Davesweb\Dashboard\Contracts\TranslatesModelAttributes;
 
@@ -19,5 +20,15 @@ class DaveswebTranslator implements TranslatesModelAttributes
         }
 
         return $model->translate($attribute, $locale);
+    }
+
+    public function search(Builder $query, string $field, string $locale, string $searchQuery): Builder
+    {
+        return $query->orWhereHas('translations', function (Builder $query) use ($field, $locale, $searchQuery) {
+            $query
+                ->where('locale', '=', $locale)
+                ->where($field, 'LIKE', '%' . $searchQuery . '%')
+            ;
+        });
     }
 }

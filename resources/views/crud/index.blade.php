@@ -23,10 +23,12 @@
                 </div>
                 <div class="ms-auto d-flex align-items-start">
                     @if($table->hasSearch())
-                        <div class="input-group pt-1 me-2">
-                            <input type="search" class="form-control form-control-sm" placeholder="{{ __('Search') }}" aria-label="{{ __('Search') }}" aria-describedby="search-addon">
-                            <button class="input-group-text btn-secondary" id="search-addon"><i class="fa fa-search"></i></button>
-                        </div>
+                        <form method="get" action="{{ full_url_with_query([]) }}">
+                            <div class="input-group pt-1 me-2">
+                                <input type="search" name="q" class="form-control form-control-sm" placeholder="{{ __('Search') }}" aria-label="{{ __('Search') }}" aria-describedby="search-addon" value="{{ $searchQuery }}" />
+                                <button class="input-group-text btn-secondary" id="search-addon"><i class="fa fa-search"></i></button>
+                            </div>
+                        </form>
                     @endif
                     @if($table->hasTranslations() && count(config('app.available_locales', [])) > 1)
                         <div class="dropdown pt-1">

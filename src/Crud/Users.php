@@ -19,8 +19,8 @@ class Users extends Crud
     public function index(Table $table): void
     {
         $table->column('#')->orderable()->content('id');
-        $table->column(__('Name'))->orderable()->searchable();
-        $table->column(__('Email address'))->orderable()->searchable()->content('email');
+        $table->column(__('Name'))->orderable()->searchable(searchField: 'name');
+        $table->column(__('Email address'))->orderable()->searchable(searchField: 'email')->content('email');
         $table->defaultActionsColumn();
     }
 }

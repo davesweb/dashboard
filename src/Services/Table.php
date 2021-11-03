@@ -3,6 +3,7 @@
 namespace Davesweb\Dashboard\Services;
 
 use Closure;
+use Illuminate\Support\Collection;
 use Davesweb\Dashboard\Services\Table\Action;
 use Davesweb\Dashboard\Services\Table\Column;
 use Davesweb\Dashboard\Services\Table\ActionsColumn;
@@ -93,5 +94,18 @@ class Table
         }
 
         return false;
+    }
+
+    public function getSearchableColumns(): Collection
+    {
+        $columns = collect();
+
+        foreach ($this->columns as $column) {
+            if ($column->isSearchable()) {
+                $columns->push($column);
+            }
+        }
+
+        return $columns;
     }
 }

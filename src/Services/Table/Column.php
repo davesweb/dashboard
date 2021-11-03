@@ -16,6 +16,7 @@ class Column
     private bool $searchable             = false;
     private bool $translated             = false;
     private ?string $view                = null;
+    private ?string $searchField         = null;
 
     private TranslatesModelAttributes $translator;
 
@@ -45,9 +46,10 @@ class Column
         return $this;
     }
 
-    public function searchable(bool $searchable = true): static
+    public function searchable(bool $searchable = true, ?string $searchField = null): static
     {
-        $this->searchable = $searchable;
+        $this->searchable  = $searchable;
+        $this->searchField = $searchField;
 
         return $this;
     }
@@ -104,5 +106,10 @@ class Column
     public function getTitle(): string
     {
         return $this->title;
+    }
+
+    public function getSearchField(): ?string
+    {
+        return $this->searchField;
     }
 }

@@ -19,18 +19,26 @@ class CrudController extends Controller
 
         $crud = $this->crud();
 
+        /** @var Table $table */
         $table = resolve(Table::class, ['crud' => $crud]);
 
         $crud->index($table);
 
-        // @todo add ordering and querying based on the request
-        $items = $this->query()->paginate();
+        // @todo add ordering based on the request
+        $query = $this->query();
+
+        if ($request->hasSearch()) {
+            $crud->search($query, $table->getSearchableColumns(), $request->getCrudLocale(), $request->getSearchQuery());
+        }
+
+        $items = $query->paginate();
 
         return view('dashboard::crud.index', [
-            'pageTitle'  => $crud->plural(),
-            'items'      => $items,
-            'table'      => $table,
-            'crudLocale' => $locale,
+            'pageTitle'   => $crud->plural(),
+            'items'       => $items,
+            'table'       => $table,
+            'crudLocale'  => $locale,
+            'searchQuery' => $request->getSearchQuery(),
         ]);
     }
 
@@ -49,14 +57,21 @@ class CrudController extends Controller
             $crud->index($table);
         }
 
-        // @todo add ordering and querying based on the request
-        $items = $this->query()->onlyTrashed()->paginate();
+        // @todo add ordering based on the request
+        $query = $this->query()->onlyTrashed();
+
+        if ($request->hasSearch()) {
+            $crud->search($query, $table->getSearchableColumns(), $request->getCrudLocale(), $request->getSearchQuery());
+        }
+
+        $items = $query->paginate();
 
         return view('dashboard::crud.index', [
-            'pageTitle'  => __('Trashed :model', ['model' => $crud->plural()]),
-            'items'      => $items,
-            'table'      => $table,
-            'crudLocale' => $locale,
+            'pageTitle'   => __('Trashed :model', ['model' => $crud->plural()]),
+            'items'       => $items,
+            'table'       => $table,
+            'crudLocale'  => $locale,
+            'searchQuery' => $request->getSearchQuery(),
         ]);
     }
 

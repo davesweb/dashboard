@@ -21,10 +21,19 @@ return [
 ];
 ```
 
-The `TranslatesModelAttributes` interface has a single method named `translate`. This method should return the 
-translation of the requested attribute on the given model in the requested locale. The attribute can also be a 
-`\Closure`, and in that case the method should call the closure with the `$model` as the first argument and the 
-`$locale` as the second argument like this: `call_user_func($attribute, $model, $locale)`.
+The `TranslatesModelAttributes` interface has two methods; `translate` and `searchTranslatableField`. 
+
+### translate
+
+This method should return the  translation of the requested attribute on the given model in the requested locale. The 
+attribute can also be a `\Closure`, and in that case the method should call the closure with the `$model` as the first 
+argument and the `$locale` as the second argument like this: `call_user_func($attribute, $model, $locale)`.
+
+### search
+
+This method should perform a search query on the given field, in the given locale with the given searchQuery. The 
+search should be performed on the `Builder` object given. Once the search is added to the `Builder` object, the 
+`Builder` object should be returned.
 
 ## Available translations
 
