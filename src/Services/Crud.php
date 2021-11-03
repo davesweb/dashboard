@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Davesweb\Dashboard\Services;
 
 use Illuminate\Support\Str;

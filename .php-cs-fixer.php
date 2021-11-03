@@ -18,4 +18,5 @@ return $config->setRules([
     'return_assignment'         => false,
     'concat_space'              => ['spacing' => 'one'],
     'single_line_comment_style' => ['comment_types' => ['hash']],
+    'declare_strict_types'      => true,
 ])->setFinder($finder);

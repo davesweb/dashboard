@@ -21,7 +21,7 @@ return [
 ];
 ```
 
-The `TranslatesModelAttributes` interface has two methods; `translate` and `searchTranslatableField`. 
+The `TranslatesModelAttributes` interface has two methods; `translate` and `search`. 
 
 ### translate
 

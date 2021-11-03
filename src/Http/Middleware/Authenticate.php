@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Davesweb\Dashboard\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;

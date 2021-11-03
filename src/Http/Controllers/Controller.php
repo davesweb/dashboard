@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Davesweb\Dashboard\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;

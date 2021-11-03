@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Routing\Router;
 use Davesweb\Dashboard\Http\Middleware\Authenticate;
 use Davesweb\Dashboard\Http\Controllers\DashboardController;

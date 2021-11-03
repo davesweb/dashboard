@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Davesweb\Dashboard\Models;
 
 use Illuminate\Support\Carbon;

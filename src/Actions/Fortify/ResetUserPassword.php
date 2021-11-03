@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Davesweb\Dashboard\Actions\Fortify;
 
 use Illuminate\Support\Facades\Hash;

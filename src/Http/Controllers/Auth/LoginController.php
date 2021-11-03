@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Davesweb\Dashboard\Http\Controllers\Auth;
 
 use Illuminate\Contracts\Support\Renderable;

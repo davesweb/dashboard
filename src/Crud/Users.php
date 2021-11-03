@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Davesweb\Dashboard\Crud;
 
 use Illuminate\Support\HtmlString;
