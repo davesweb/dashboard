@@ -8,10 +8,10 @@ class CrudIndexRequest extends CrudRequest
 {
     public function hasSearch(): bool
     {
-        return $this->has('q');
+        return $this->has('q') && $this->get('q') !== null;
     }
 
-    public function getSearchQuery(): string
+    public function getSearchQuery(): ?string
     {
         return $this->get('q');
     }
