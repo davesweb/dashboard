@@ -41,6 +41,7 @@ class CrudController extends Controller
             'table'       => $table,
             'crudLocale'  => $locale,
             'searchQuery' => $request->getSearchQuery(),
+            'pageActions' => $crud->getPageActions(),
         ]);
     }
 
@@ -74,6 +75,7 @@ class CrudController extends Controller
             'table'       => $table,
             'crudLocale'  => $locale,
             'searchQuery' => $request->getSearchQuery(),
+            'pageActions' => $crud->getPageActions(),
         ]);
     }
 

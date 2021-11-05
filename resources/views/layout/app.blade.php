@@ -98,7 +98,16 @@
             <section class="page p-3">
                 <div class="container">
                     <div class="header d-flex justify-content-between align-items-start">
-                        <h1 class="page-title w-50">@yield('pageTitle')</h1>
+                        <div class="mb-2">
+                            <h1 class="page-title w-50">@yield('pageTitle')</h1>
+                            @if(isset($pageActions) && count($pageActions) > 0)
+                                <div class="page-actions btn-group btn-group-sm" role="group" aria-label="{{ __('Page actions') }}">
+                                    @foreach($pageActions as $action)
+                                        <a class="btn btn-primary" href="{{ route($action->getRoute()) }}">{{ $action->getIcon() }} {{ $action->getTitle() }}</a>
+                                    @endforeach
+                                </div>
+                            @endif
+                        </div>
                         <div class="breadcrumbs ms-auto">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
