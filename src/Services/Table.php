@@ -6,7 +6,6 @@ namespace Davesweb\Dashboard\Services;
 
 use Closure;
 use Illuminate\Support\Collection;
-use Davesweb\Dashboard\Services\Table\Action;
 use Davesweb\Dashboard\Services\Table\Column;
 use Davesweb\Dashboard\Services\Table\ActionsColumn;
 
@@ -54,7 +53,7 @@ class Table
      */
     public function defaultActionsColumn(array $extraActions = []): ActionsColumn
     {
-        $actions = array_merge($this->crud->getTableActions(), $extraActions);
+        $actions = array_merge($this->crud->getTableActions()->toArray(), $extraActions);
 
         /** @var ActionsColumn $column */
         $column = resolve(ActionsColumn::class, ['actions' => $actions]);

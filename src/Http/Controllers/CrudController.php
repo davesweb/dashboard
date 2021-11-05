@@ -70,7 +70,7 @@ class CrudController extends Controller
         $items = $query->paginate();
 
         return view('dashboard::crud.index', [
-            'pageTitle'   => __('Trashed :model', ['model' => $crud->plural()]),
+            'pageTitle'   => __('Trashed :models', ['models' => $crud->plural()]),
             'items'       => $items,
             'table'       => $table,
             'crudLocale'  => $locale,
@@ -95,7 +95,7 @@ class CrudController extends Controller
         }
 
         return view('dashboard::crud.view', [
-            'pageTitle'  => __('Trashed :model', ['model' => $crud->plural()]),
+            'pageTitle'  => __(':model', ['model' => $crud->singular()]),
             'model'      => $model,
             'table'      => $table,
             'crudLocale' => $locale,

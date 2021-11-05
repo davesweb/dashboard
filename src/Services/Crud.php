@@ -11,13 +11,13 @@ use Illuminate\Support\HtmlString;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Davesweb\Dashboard\Layout\Sidebar\Menu;
-use Davesweb\Dashboard\Services\Table\Action;
 use Davesweb\Dashboard\Services\Table\Column;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Davesweb\Dashboard\Layout\Sidebar\Sidebar;
 use Davesweb\Dashboard\Http\Middleware\Authenticate;
 use Davesweb\Dashboard\Http\Controllers\CrudController;
 use Davesweb\Dashboard\Contracts\TranslatesModelAttributes;
+use Davesweb\Dashboard\Services\Factories\ActionCollection;
 
 abstract class Crud
 {
@@ -52,7 +52,7 @@ abstract class Crud
 
     public function names(): array
     {
-        return [$this->singular(), $this->plural()];
+        return ['singular' => $this->singular(), 'plural' => $this->plural()];
     }
 
     public function icon(): HtmlString
@@ -80,78 +80,14 @@ abstract class Crud
     /**
      * @todo make icons configurable
      */
-    public function getTableActions(): array
+    public function getTableActions(): ActionCollection
     {
-        $tableActions = [];
-        $actions      = $this->actions();
-
-        if (in_array(self::ACTION_SHOW, $actions, true) && !request()->routeIs($this->getRouteNamePrefix() . 'show')) {
-            $tableActions[] = new Action(
-                title: __('View this :model', ['model' => $this->singular()]),
-                route: $this->getRouteNamePrefix() . 'show',
-                icon: new HtmlString('<i class="fa fa-eye fa-fw"></i>'),
-            );
-        }
-
-        if (in_array(self::ACTION_UPDATE, $actions, true)) {
-            $tableActions[] = new Action(
-                title: __('Edit this :model', ['model' => $this->singular()]),
-                route: $this->getRouteNamePrefix() . 'edit',
-                icon: new HtmlString('<i class="fa fa-pencil fa-fw"></i>'),
-            );
-        }
-
-        if (in_array(self::ACTION_DESTROY, $actions, true) && !request()->routeIs($this->getRouteNamePrefix() . 'trashed')) {
-            $tableActions[] = new Action(
-                title: __('Delete this :model', ['model' => $this->singular()]),
-                route: $this->getRouteNamePrefix() . 'destroy',
-                icon: new HtmlString('<i class="fa fa-close fa-fw"></i>'),
-                formMethod: 'delete'
-            );
-        }
-
-        if (in_array(self::ACTION_DESTROY, $actions, true) && request()->routeIs($this->getRouteNamePrefix() . 'trashed')) {
-            $tableActions[] = new Action(
-                title: __('Delete this :model permanently', ['model' => $this->singular()]),
-                route: $this->getRouteNamePrefix() . 'destroy-hard',
-                icon: new HtmlString('<i class="fa fa-close fa-fw"></i>'),
-                formMethod: 'delete'
-            );
-        }
-
-        return $tableActions;
+        return ActionCollection::tableActions(request(), $this->actions(), $this->names(), $this->getRouteNamePrefix());
     }
-    
-    public function getPageActions(): array
+
+    public function getPageActions(): ActionCollection
     {
-        $pageActions = [];
-        $actions = $this->actions();
-    
-        if (in_array(self::ACTION_CREATE, $actions, true) && !request()->routeIs($this->getRouteNamePrefix() . 'create')) {
-            $pageActions[] = new Action(
-                title: __('Create :model', ['model' => $this->singular()]),
-                route: $this->getRouteNamePrefix() . 'create',
-                icon: new HtmlString('<i class="fa fa-plus"></i>'),
-            );
-        }
-    
-        if (in_array(self::ACTION_INDEX_TRASHED, $actions, true) && !request()->routeIs($this->getRouteNamePrefix() . 'trashed')) {
-            $pageActions[] = new Action(
-                title: __('View deleted :models', ['models' => $this->plural()]),
-                route: $this->getRouteNamePrefix() . 'trashed',
-                icon: new HtmlString('<i class="fa fa-close"></i>'),
-            );
-        }
-    
-        if (in_array(self::ACTION_INDEX, $actions, true) && !request()->routeIs($this->getRouteNamePrefix() . 'index')) {
-            $pageActions[] = new Action(
-                title: __('View :models', ['models' => $this->plural()]),
-                route: $this->getRouteNamePrefix() . 'index',
-                icon: new HtmlString('<i class="fa fa-eye"></i>'),
-            );
-        }
-        
-        return $pageActions;
+        return ActionCollection::pageActions(request(), $this->actions(), $this->names(), $this->getRouteNamePrefix());
     }
 
     public function registerRouters(Router $router): void
@@ -171,12 +107,12 @@ abstract class Crud
                 $router->get('trashed', [$this->controller, 'trashed'])->name('trashed');
                 $router->delete('destroy/{id}', [$this->controller, 'destroyHard'])->name('destroy-hard');
             }
-    
+
             if (in_array(self::ACTION_CREATE, $actions, true)) {
                 $router->get('create', [$this->controller, 'create'])->name('create');
                 $router->post('', [$this->controller, 'store'])->name('store');
             }
-    
+
             if (in_array(self::ACTION_UPDATE, $actions, true)) {
                 $router->get('edit/{id}', [$this->controller, 'edit'])->name('edit');
                 $router->put('edit/{id}', [$this->controller, 'update'])->name('update');
