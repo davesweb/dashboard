@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Davesweb\Dashboard\Services;
 
 use Illuminate\Support\Str;
+use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
@@ -131,6 +132,46 @@ abstract class Crud
                 $router->delete('{id}', [$this->controller, 'destroy'])->name('destroy');
             }
         });
+    }
+
+    public function getRouteNames(): array
+    {
+        $actions    = $this->actions();
+        $routeNames = [];
+
+        if (in_array(self::ACTION_INDEX, $actions, true)) {
+            $routeNames[] = $this->getRouteName('index');
+        }
+
+        if (in_array(self::ACTION_INDEX_TRASHED, $actions, true)) {
+            $routeNames[] = $this->getRouteName('trashed');
+            $routeNames[] = $this->getRouteName('destroy-hard');
+        }
+
+        if (in_array(self::ACTION_CREATE, $actions, true)) {
+            $routeNames[] = $this->getRouteName('create');
+            $routeNames[] = $this->getRouteName('store');
+        }
+
+        if (in_array(self::ACTION_UPDATE, $actions, true)) {
+            $routeNames[] = $this->getRouteName('edit');
+            $routeNames[] = $this->getRouteName('update');
+        }
+
+        if (in_array(self::ACTION_SHOW, $actions, true)) {
+            $routeNames[] = $this->getRouteName('show');
+        }
+
+        if (in_array(self::ACTION_DESTROY, $actions, true)) {
+            $routeNames[] = $this->getRouteName('destroy');
+        }
+
+        return $routeNames;
+    }
+
+    public function hasRoute(Route $route): bool
+    {
+        return $route->named($this->getRouteNames());
     }
 
     public function registerMenu(Sidebar $sidebar)

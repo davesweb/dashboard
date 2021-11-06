@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Davesweb\Dashboard\Http\Controllers;
 
-use Davesweb\Dashboard\Crud\Users;
 use Davesweb\Dashboard\Services\Crud;
 use Davesweb\Dashboard\Services\Form;
 use Illuminate\Http\RedirectResponse;
 use Davesweb\Dashboard\Services\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Davesweb\Dashboard\Services\CrudFinder;
 use Illuminate\Contracts\Support\Renderable;
 use Davesweb\Dashboard\Http\Requests\CrudShowRequest;
 use Davesweb\Dashboard\Http\Requests\CrudIndexRequest;
@@ -17,6 +17,13 @@ use Davesweb\Dashboard\Http\Requests\StoreCrudRequest;
 
 class CrudController extends Controller
 {
+    private CrudFinder $crudFinder;
+
+    public function __construct(CrudFinder $crudFinder)
+    {
+        $this->crudFinder = $crudFinder;
+    }
+
     public function index(CrudIndexRequest $request): Renderable
     {
         $locale = $request->getCrudLocale();
@@ -190,11 +197,7 @@ class CrudController extends Controller
 
     protected function crud(): Crud
     {
-        // @todo Find the correct Crud class based on the route
-        // For now, we only want to test
-
-        // @todo Also keep a property to save the Crud class in so we don't new it ivery time
-        return resolve(Users::class);
+        return $this->crudFinder->findCrudByRequest(request());
     }
 
     protected function query(): Builder
