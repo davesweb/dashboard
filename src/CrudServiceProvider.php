@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Davesweb\Dashboard;
 
-use RegexIterator;
-use RecursiveRegexIterator;
+use SplFileInfo;
+use Illuminate\Support\Str;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use Illuminate\Support\HtmlString;
@@ -46,13 +46,15 @@ class CrudServiceProvider extends IlluminateServiceProvider
         $locations = array_merge(config('dashboard.crud.locations', []), [__DIR__ . '/Crud' => 'Davesweb\\Dashboard\\Crud']);
 
         foreach ($locations as $location => $namespace) {
-            $directory = new RecursiveDirectoryIterator($location);
-            $iterator  = new RecursiveIteratorIterator($directory);
-            $files     = new RegexIterator($iterator, '/^.+\.php$/i', RecursiveRegexIterator::GET_MATCH);
+            $directory = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($location));
 
-            foreach ($files as $file) {
-                $basename  = pathinfo($file[0], PATHINFO_FILENAME);
-                $classname = $namespace . '\\' . $basename;
+            /** @var SplFileInfo $file */
+            foreach ($directory as $path => $file) {
+                if (!$file->isFile() && 'php' !== !$file->getExtension()) {
+                    continue;
+                }
+
+                $classname = $namespace . '\\' . Str::of($path)->replace([$location, '.php'], '')->ltrim('\\');
 
                 if (class_exists($classname)) {
                     $object = resolve($classname);
@@ -75,13 +77,15 @@ class CrudServiceProvider extends IlluminateServiceProvider
         $locations = array_merge(config('dashboard.crud.locations', []), [__DIR__ . '/Crud' => 'Davesweb\\Dashboard\\Crud']);
 
         foreach ($locations as $location => $namespace) {
-            $directory = new RecursiveDirectoryIterator($location);
-            $iterator  = new RecursiveIteratorIterator($directory);
-            $files     = new RegexIterator($iterator, '/^.+\.php$/i', RecursiveRegexIterator::GET_MATCH);
+            $directory = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($location));
 
-            foreach ($files as $file) {
-                $basename  = pathinfo($file[0], PATHINFO_FILENAME);
-                $classname = $namespace . '\\' . $basename;
+            /** @var SplFileInfo $file */
+            foreach ($directory as $path => $file) {
+                if (!$file->isFile() && 'php' !== !$file->getExtension()) {
+                    continue;
+                }
+
+                $classname = $namespace . '\\' . Str::of($path)->replace([$location, '.php'], '')->ltrim('\\');
 
                 if (class_exists($classname)) {
                     $object = resolve($classname);
