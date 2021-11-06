@@ -7,7 +7,9 @@ namespace Davesweb\Dashboard\Crud;
 use Illuminate\Support\HtmlString;
 use Davesweb\Dashboard\Models\User;
 use Davesweb\Dashboard\Services\Crud;
+use Davesweb\Dashboard\Services\Form;
 use Davesweb\Dashboard\Services\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class Users extends Crud
 {
@@ -24,5 +26,18 @@ class Users extends Crud
         $table->column(__('Name'))->orderable()->searchable(searchField: 'name');
         $table->column(__('Email address'))->orderable()->searchable(searchField: 'email')->content('email');
         $table->defaultActionsColumn();
+    }
+
+    public function create(Form $form): void
+    {
+        $form->text('name', __('Name'))->required();
+        $form->email('email', __('Email address'))->required()->unique($this->model()->getTable(), 'email');
+        $form->password('password', __('Password'))->required()->confirm();
+    }
+
+    public function edit(Form $form, Model $model): void
+    {
+        $form->text('name', __('Name'))->required();
+        $form->email('email', __('Email address'))->required()->unique($model->getTable(), 'email', $model->getKey());
     }
 }

@@ -6,6 +6,7 @@ namespace Davesweb\Dashboard\Http\Controllers;
 
 use Davesweb\Dashboard\Crud\Users;
 use Davesweb\Dashboard\Services\Crud;
+use Davesweb\Dashboard\Services\Form;
 use Illuminate\Http\RedirectResponse;
 use Davesweb\Dashboard\Services\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -102,16 +103,55 @@ class CrudController extends Controller
         ]);
     }
 
-    public function create(): Renderable
+    public function create(CrudShowRequest $request): Renderable
     {
+        $locale = $request->getLocale();
+        $crud   = $this->crud();
+
+        /** @var Form $form */
+        $form = resolve(Form::class, ['crud' => $crud]);
+
+        $crud->create($form);
+
+        if (!$form->hasSectionsOrFields()) {
+            $crud->form($form);
+        }
+
+        return view('dashboard::crud.create', [
+            'pageTitle'  => __('Create :model', ['model' => $crud->singular()]),
+            'form'       => $form,
+            'crud'       => $crud,
+            'formLocale' => $locale,
+        ]);
     }
 
     public function store(): RedirectResponse
     {
     }
 
-    public function edit(mixed $id): Renderable
+    public function edit(CrudShowRequest $request, mixed $id): Renderable
     {
+        $locale = $request->getLocale();
+        $crud   = $this->crud();
+        $model  = $crud->model($id);
+
+        /** @var Form $form */
+        $form = resolve(Form::class, ['crud' => $crud]);
+        $form->method('put');
+
+        $crud->edit($form, $model);
+
+        if (!$form->hasSectionsOrFields()) {
+            $crud->form($form, $model);
+        }
+
+        return view('dashboard::crud.edit', [
+            'pageTitle'  => __('Edit :model', ['model' => $crud->singular()]),
+            'form'       => $form,
+            'crud'       => $crud,
+            'model'      => $model,
+            'formLocale' => $locale,
+        ]);
     }
 
     public function update(mixed $id): Renderable

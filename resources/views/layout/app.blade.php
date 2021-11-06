@@ -98,8 +98,8 @@
             <section class="page p-3">
                 <div class="container">
                     <div class="header d-flex justify-content-between align-items-start">
-                        <div class="mb-2">
-                            <h1 class="page-title w-50">@yield('pageTitle')</h1>
+                        <div class="mb-2 w-50">
+                            <h1 class="page-title w-100">@yield('pageTitle')</h1>
                             @if(isset($pageActions) && count($pageActions) > 0)
                                 <div class="page-actions btn-group btn-group-sm" role="group" aria-label="{{ __('Page actions') }}">
                                     @foreach($pageActions as $action)
