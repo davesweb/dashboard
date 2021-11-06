@@ -31,7 +31,7 @@ trait CanBeValidated
 
     public function unique(?string $table = null, ?string $column = null, mixed $except = null): static
     {
-        $this->unique = $table . ',' . ($column ?? $this->name) . ',' . $except;
+        $this->unique = 'unique:' . $table . ',' . ($column ?? $this->name) . ',' . $except;
 
         return $this;
     }
@@ -64,7 +64,11 @@ trait CanBeValidated
         }
 
         if ($this->isConfirm()) {
-            $rules[] = 'confirm';
+            $rules[] = 'confirmed';
+        }
+        
+        if ($this->unique !== null) {
+            $rules[] = $this->unique;
         }
 
         return array_merge($rules, $this->customValidators);

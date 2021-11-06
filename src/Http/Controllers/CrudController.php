@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Davesweb\Dashboard\Http\Controllers;
 
 use Davesweb\Dashboard\Crud\Users;
+use Davesweb\Dashboard\Http\Requests\StoreCrudRequest;
 use Davesweb\Dashboard\Services\Crud;
 use Davesweb\Dashboard\Services\Form;
 use Illuminate\Http\RedirectResponse;
@@ -110,6 +111,7 @@ class CrudController extends Controller
 
         /** @var Form $form */
         $form = resolve(Form::class, ['crud' => $crud]);
+        $form->route($crud->getRouteName('store'));
 
         $crud->create($form);
 
@@ -125,8 +127,27 @@ class CrudController extends Controller
         ]);
     }
 
-    public function store(): RedirectResponse
+    public function store(StoreCrudRequest $request): RedirectResponse
     {
+        $crud  = $this->crud();
+    
+        /** @var Form $form */
+        $form = resolve(Form::class, ['crud' => $crud]);
+    
+        $crud->create($form);
+    
+        if (!$form->hasSectionsOrFields()) {
+            $crud->form($form);
+        }
+        
+        $request->validate($form->getValidationRules());
+        
+        echo 'Storing crud data';
+        
+        $message = __('The :model was created successfully.', ['model' => $crud->singular()]);
+        return $request->addAnother() ?
+            redirect()->route($crud->getRouteName('create'))->with(['success' => $message]) :
+            redirect()->route($crud->getRouteName('edit'), [1])->with(['success' => $message]); // todo Created model ID
     }
 
     public function edit(CrudShowRequest $request, mixed $id): Renderable
