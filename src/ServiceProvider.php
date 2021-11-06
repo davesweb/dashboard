@@ -7,6 +7,7 @@ namespace Davesweb\Dashboard;
 use Davesweb\Dashboard\Models\User;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Auth\EloquentUserProvider;
+use Davesweb\Dashboard\Console\Commands\CreateCrudCommand;
 use Davesweb\Dashboard\Console\Commands\CreateDashboardUserCommand;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
@@ -45,6 +46,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 CreateDashboardUserCommand::class,
+                CreateCrudCommand::class,
             ]);
         }
     }

@@ -64,7 +64,7 @@ abstract class Crud
     {
         return (string) Str::of($this->plural())->slug()->lower();
     }
-    
+
     public function getRouteName(string $action): string
     {
         return $this->getRouteNamePrefix() . $action;

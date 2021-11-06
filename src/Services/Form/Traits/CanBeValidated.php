@@ -66,8 +66,8 @@ trait CanBeValidated
         if ($this->isConfirm()) {
             $rules[] = 'confirmed';
         }
-        
-        if ($this->unique !== null) {
+
+        if (null !== $this->unique) {
             $rules[] = $this->unique;
         }
 

@@ -1,0 +1,17 @@
+<?php
+
+namespace {{ namespace }};
+
+use Davesweb\Dashboard\Services\Crud;
+use Davesweb\Dashboard\Services\Table;
+use {{ modelnamespace }} as Model;
+
+class {{ class }} extends Crud
+{
+    protected string $model = Model::class;
+
+    public function index(Table $table): void
+    {
+        // todo setup table view
+    }
+}
