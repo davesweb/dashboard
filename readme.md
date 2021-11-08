@@ -51,10 +51,34 @@ to your composer file instead of constantly pushing updates and updating compose
   an icon library that is used by specifying class names.~~
 - Add a check for cached routes to the crud route registration and add a command to cache the menu 
   items of crud classes, so we don't need to instantiate every single crud class on every request.
-- Add a service class that handles how to render translations, based on the installed translation package
-  so we can support other packages as well.
+- ~~Add a service class that handles how to render translations, based on the installed translation package
+  so we can support other packages as well.~~
+- Vendor fonts (Font Awesome, Flag Icons) are not build to the correct folder, and therefore are not published 
+  with the rest of the assets.
   
 ## Roadmap / planned features
 
 - Export Crud overview to Excel, CSV
 - Relationship columns in overviews
+
+## Testing
+
+To run the testsuite, simply run
+
+```shell
+composer test
+```
+
+## Code style
+
+This package uses PHP CS Fixer to enforce code style. To run it, run
+
+```shell
+composer cs-fixer
+```
+
+## License
+
+This package is licensed under the MIT license, which basically means you can do whatever your want with this package.
+However, if you found this package useful, please consider buying me a beer or subscribing to premium email support
+over on [Patreon](https://www.patreon.com/davesweb), it's really appreciated!
