@@ -3,3 +3,4 @@ node_modules
 .php-cs-fixer.cache
 vendor
 phpunit.xml
+.phpunit.result.cache
