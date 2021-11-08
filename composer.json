@@ -25,7 +25,7 @@
     "autoload-dev": {
         "psr-4": {
             "Davesweb\\Dashboard\\Tests\\": "tests/",
-            "Davesweb\\Dashboard\\Tests\\Factories\\": "tests/database/factories/"
+            "Davesweb\\Dashboard\\Database\\Factories\\": "database/factories/"
         }
     },
     "minimum-stability": "dev",

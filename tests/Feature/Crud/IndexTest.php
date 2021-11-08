@@ -45,7 +45,7 @@ class IndexTest extends CrudTestCase
         $response->assertSee('<input type="search" name="q"', false);
     }
 
-    public function test_it_does_not_show_locale_dopdown(): void
+    public function test_it_does_not_show_locale_dropdown(): void
     {
         $this->registerCrud();
 

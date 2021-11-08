@@ -27,7 +27,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(function (string $modelName) {
-            $namespace = '\\Davesweb\\Dashboard\\Tests\\Factories\\';
+            $namespace = '\\Davesweb\\Dashboard\\Database\\Factories\\';
 
             $modelName = Str::afterLast($modelName, '\\');
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Davesweb\Dashboard\Tests\Factories;
+namespace Davesweb\Dashboard\Database\Factories;
 
 use Davesweb\Dashboard\Tests\Models\CrudModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
