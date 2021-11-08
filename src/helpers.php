@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 use Illuminate\Http\Request;
 
+if (!defined('DS')) {
+    define('DS', DIRECTORY_SEPARATOR);
+}
+
 if (!function_exists('dashboard_route')) {
     function dashboard_route(string $name, array $parameters = [], bool $absolute = true): string
     {

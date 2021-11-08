@@ -101,7 +101,7 @@ abstract class Crud
         $router->group([
             'as'         => $this->getRouteNamePrefix(),
             'prefix'     => config('dashboard.route') . '/' . $this->routePrefix() . '/',
-            'middleware' => !empty(config('dashboard.middleware')) ? array_merge(config('dashboard.middleware'), [Authenticate::class . ':dashboard']) : Authenticate::class . ':dashboard',
+            'middleware' => !empty(config('dashboard.middleware', [])) ? array_merge(config('dashboard.middleware', []), [Authenticate::class . ':dashboard']) : Authenticate::class . ':dashboard',
         ], function (Router $router) {
             $actions = $this->actions();
 

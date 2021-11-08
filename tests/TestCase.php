@@ -6,12 +6,15 @@ namespace Davesweb\Dashboard\Tests;
 
 use Illuminate\Support\Str;
 use Laravel\Fortify\Features;
+use Illuminate\Support\Facades\Schema;
 use Davesweb\Dashboard\ServiceProvider;
+use Illuminate\Database\Schema\Blueprint;
 use Davesweb\Dashboard\CrudServiceProvider;
 use Davesweb\Dashboard\RouteServiceProvider;
 use Davesweb\Dashboard\FortifyServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Davesweb\Dashboard\ModelTranslators\DaveswebTranslator;
 use Laravel\Fortify\FortifyServiceProvider as LaravelFortifyServiceProvider;
 
 /**
@@ -30,6 +33,8 @@ class TestCase extends Orchestra
 
             return $namespace . $modelName . 'Factory';
         });
+
+        $this->setUpDatabase();
     }
 
     /**
@@ -49,8 +54,10 @@ class TestCase extends Orchestra
 
         //$app['config']->set('dashboard.route', 'dashboard');
         //$app['config']->set('dashboard.route-prefix', 'dashboard.');
-        $app['config']->set('dashboard.middleware', 'web');
+        $app['config']->set('dashboard.middleware', ['web']);
         $app['config']->set('dashboard.users.table', 'dashboard_users');
+        $app['config']->set('dashboard.crud.locations', [__DIR__ . '/Crud' => '\\Davesweb\\Dashboard\\Tests\\Crud']);
+        $app['config']->set('dashboard.translator', DaveswebTranslator::class);
 
         $app['config']->set('fortify.guard', 'dashboard');
         $app['config']->set('fortify.password', 'users');
@@ -71,7 +78,7 @@ class TestCase extends Orchestra
             Features::updateProfileInformation(),
             Features::updatePasswords(),
             Features::twoFactorAuthentication([
-                'confirmPassword' => true,
+                'confirmPassword' => false,
             ]),
         ]);
     }
@@ -96,5 +103,14 @@ class TestCase extends Orchestra
     protected function defineDatabaseMigrations()
     {
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/');
+    }
+
+    protected function setUpDatabase(): void
+    {
+        Schema::create('crud_models', function (Blueprint $table) {
+            $table->id();
+            $table->string('title')->nullable();
+            $table->timestamps();
+        });
     }
 }

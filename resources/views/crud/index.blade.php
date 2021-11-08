@@ -63,5 +63,9 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="d-flex justify-content-between align-items-start">
+            {!! $items->links('dashboard::crud.partials.pagination') !!}
+        </div>
     </div>
 @endsection
