@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Davesweb\Dashboard\Http\Requests;
 
-class CrudIndexRequest extends CrudRequest
+class IndexCrudRequest extends CrudRequest
 {
     public function hasSearch(): bool
     {

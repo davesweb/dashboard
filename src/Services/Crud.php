@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Davesweb\Dashboard\Services;
 
+use Closure;
 use Illuminate\Support\Str;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
@@ -191,6 +192,81 @@ abstract class Crud
         }
 
         $menu->link($this->plural(), route($this->getRouteNamePrefix() . 'index'), $this->icon());
+    }
+
+    public function beforeStore(): ?Closure
+    {
+        return null;
+    }
+
+    public function afterStore(): ?Closure
+    {
+        return null;
+    }
+
+    public function beforeUpdate(): ?Closure
+    {
+        return null;
+    }
+
+    public function afterUpdate(): ?Closure
+    {
+        return null;
+    }
+
+    public function beforeDestroy(): ?Closure
+    {
+        return null;
+    }
+
+    public function afterDestroy(): ?Closure
+    {
+        return null;
+    }
+
+    public function beforeRestore(): ?Closure
+    {
+        return null;
+    }
+
+    public function afterRestore(): ?Closure
+    {
+        return null;
+    }
+
+    public function beforeHardDestroy(): ?Closure
+    {
+        return null;
+    }
+
+    public function afterHardDestroy(): ?Closure
+    {
+        return null;
+    }
+
+    public function storedMessage(Model $model): ?string
+    {
+        return null;
+    }
+
+    public function updatedMessage(Model $model): ?string
+    {
+        return null;
+    }
+
+    public function destroyedMessage(Model $model): ?string
+    {
+        return null;
+    }
+
+    public function restoredMessage(Model $model): ?string
+    {
+        return null;
+    }
+
+    public function hardDestroyedMessage(Model $model): ?string
+    {
+        return null;
     }
 
     public function query(): Builder

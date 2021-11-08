@@ -11,8 +11,9 @@ use Davesweb\Dashboard\Services\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Davesweb\Dashboard\Services\CrudFinder;
 use Illuminate\Contracts\Support\Renderable;
-use Davesweb\Dashboard\Http\Requests\CrudShowRequest;
-use Davesweb\Dashboard\Http\Requests\CrudIndexRequest;
+use Davesweb\Dashboard\Services\StoreCrudService;
+use Davesweb\Dashboard\Http\Requests\ShowCrudRequest;
+use Davesweb\Dashboard\Http\Requests\IndexCrudRequest;
 use Davesweb\Dashboard\Http\Requests\StoreCrudRequest;
 
 class CrudController extends Controller
@@ -24,7 +25,7 @@ class CrudController extends Controller
         $this->crudFinder = $crudFinder;
     }
 
-    public function index(CrudIndexRequest $request): Renderable
+    public function index(IndexCrudRequest $request): Renderable
     {
         $locale = $request->getCrudLocale();
 
@@ -54,7 +55,7 @@ class CrudController extends Controller
         ]);
     }
 
-    public function trashed(CrudIndexRequest $request): Renderable
+    public function trashed(IndexCrudRequest $request): Renderable
     {
         $locale = $request->getCrudLocale();
 
@@ -88,7 +89,7 @@ class CrudController extends Controller
         ]);
     }
 
-    public function show(CrudShowRequest $request, mixed $id): Renderable
+    public function show(ShowCrudRequest $request, mixed $id): Renderable
     {
         $locale = $request->getCrudLocale();
         $crud   = $this->crud();
@@ -111,7 +112,7 @@ class CrudController extends Controller
         ]);
     }
 
-    public function create(CrudShowRequest $request): Renderable
+    public function create(ShowCrudRequest $request): Renderable
     {
         $locale = $request->getLocale();
         $crud   = $this->crud();
@@ -134,7 +135,7 @@ class CrudController extends Controller
         ]);
     }
 
-    public function store(StoreCrudRequest $request): RedirectResponse
+    public function store(StoreCrudRequest $request, StoreCrudService $service): RedirectResponse
     {
         $crud  = $this->crud();
 
@@ -149,16 +150,19 @@ class CrudController extends Controller
 
         $request->validate($form->getValidationRules());
 
-        echo 'Storing crud data';
+        $service->setBeforeCallback($crud->beforeStore());
+        $service->setAfterCallback($crud->afterStore());
 
-        $message = __('The :model was created successfully.', ['model' => $crud->singular()]);
+        $model = $service->store($request, $crud->model());
+
+        $message = $crud->storedMessage($model) ?? __('The :model was created successfully.', ['model' => $crud->singular()]);
 
         return $request->addAnother() ?
             redirect()->route($crud->getRouteName('create'))->with(['success' => $message]) :
-            redirect()->route($crud->getRouteName('edit'), [1])->with(['success' => $message]); // todo Created model ID
+            redirect()->route($crud->getRouteName('edit'), [$model])->with(['success' => $message]); // todo Created model ID
     }
 
-    public function edit(CrudShowRequest $request, mixed $id): Renderable
+    public function edit(ShowCrudRequest $request, mixed $id): Renderable
     {
         $locale = $request->getLocale();
         $crud   = $this->crud();

@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Davesweb\Dashboard\Services\Form\Traits;
 
+use Closure;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Contracts\Validation\Rule;
 
 trait CanBeValidated
 {
@@ -15,7 +16,7 @@ trait CanBeValidated
 
     protected bool $confirm = false;
 
-    protected array $customValidators = [];
+    protected array $customRules = [];
 
     public function required(bool $required = true): static
     {
@@ -48,9 +49,9 @@ trait CanBeValidated
         return $this->confirm;
     }
 
-    public function customValidator(Validator|string $validator): static
+    public function rule(Rule|Closure|string $rule): static
     {
-        $this->customValidators[] = $validator;
+        $this->customRules[] = $rule;
 
         return $this;
     }
@@ -71,7 +72,7 @@ trait CanBeValidated
             $rules[] = $this->unique;
         }
 
-        return array_merge($rules, $this->customValidators);
+        return array_merge($rules, $this->customRules);
     }
 
     protected function getValidationType()

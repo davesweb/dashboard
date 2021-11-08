@@ -53,13 +53,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        @foreach($items->items() as $model)
-                            @foreach($table->getColumns() as $column)
-                                <th>{!! $column->render($model, $crudLocale) !!}</th>
-                            @endforeach
+                    @foreach($items->items() as $model)
+                        <tr>
+                        @foreach($table->getColumns() as $column)
+                            <td>{!! $column->render($model, $crudLocale) !!}</td>
                         @endforeach
-                    </tr>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
