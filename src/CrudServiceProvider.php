@@ -10,6 +10,7 @@ use Davesweb\Dashboard\Services\Crud;
 use Illuminate\Support\Facades\Route;
 use Davesweb\Dashboard\Layout\Sidebar\Menu;
 use Davesweb\Dashboard\Services\CrudFinder;
+use Illuminate\Routing\Events\RouteMatched;
 use Davesweb\Dashboard\Layout\Sidebar\Sidebar;
 use Davesweb\Dashboard\Contracts\TranslatesModelAttributes;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
@@ -20,7 +21,7 @@ class CrudServiceProvider extends IlluminateServiceProvider
 
     public function boot(): void
     {
-        Route::matched(function () {
+        Route::matched(function (RouteMatched $route) {
             $mainMenu = Menu::make();
             $mainMenu->link(__('Dashboard'), dashboard_route('index'), new HtmlString('<i class="fa fa-dashboard"></i>'), null, -10);
 

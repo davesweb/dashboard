@@ -6,7 +6,8 @@
         "php": "^8.0",
         "illuminate/console": "^8.0",
         "illuminate/support": "^8.0",
-        "laravel/fortify": "^1.8"
+        "laravel/fortify": "^1.8",
+        "doctrine/dbal": "^3.1"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.2",
@@ -23,7 +24,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Davesweb\\Dashboard\\Tests\\": "tests/"
+            "Davesweb\\Dashboard\\Tests\\": "tests/",
+            "Davesweb\\Dashboard\\Tests\\Factories\\": "tests/database/factories/"
         }
     },
     "minimum-stability": "dev",
