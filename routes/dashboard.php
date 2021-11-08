@@ -13,7 +13,7 @@ use Davesweb\Dashboard\Http\Controllers\Auth\UpdatePasswordController;
 /* @var Router $router */
 $router->get('login', [LoginController::class, 'showView'])->name('login');
 
-$router->group(['middleware' => Authenticate::class . ':dashboard'], function (Router $router) {
+$router->group(['middleware' => [Authenticate::class . ':dashboard']], function (Router $router) {
     $router->get('/', [DashboardController::class, 'index'])->name('index');
 
     $router->get('my-profile', [ProfileController::class, 'index'])->name('profile.edit');

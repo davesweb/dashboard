@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Davesweb\Dashboard\Tests;
 
+use Davesweb\Dashboard\ServiceProvider;
+use Davesweb\Dashboard\CrudServiceProvider;
+use Davesweb\Dashboard\RouteServiceProvider;
+use Davesweb\Dashboard\FortifyServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 /**
@@ -23,5 +27,18 @@ class TestCase extends Orchestra
             'database' => ':memory:',
             'prefix'   => '',
         ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getPackageProviders($app)
+    {
+        return [
+            ServiceProvider::class,
+            FortifyServiceProvider::class,
+            RouteServiceProvider::class,
+            CrudServiceProvider::class,
+        ];
     }
 }

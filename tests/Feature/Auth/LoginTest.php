@@ -13,6 +13,8 @@ class LoginTest extends TestCase
 {
     public function test_it_redirects_to_login_page(): void
     {
-        $this->assertTrue(true);
+        $response = $this->get(dashboard_route('index'));
+
+        $response->assertRedirect(dashboard_route('login'));
     }
 }

@@ -14,7 +14,7 @@ class RouteServiceProvider extends IlluminateRouteServiceProvider
     {
         $this->routes(function () {
             Route::prefix(config('dashboard.route'))
-                ->middleware(config('dashboard.middleware'))
+                ->middleware(config('dashboard.middleware', []))
                 ->name(config('dashboard.route-prefix'))
                 ->group(__DIR__ . '/../routes/dashboard.php')
             ;
