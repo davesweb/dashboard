@@ -7,13 +7,14 @@ namespace Davesweb\Dashboard\Tests;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Features;
 use Illuminate\Support\Facades\Schema;
-use Davesweb\Dashboard\ServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
-use Davesweb\Dashboard\CrudServiceProvider;
-use Davesweb\Dashboard\RouteServiceProvider;
-use Davesweb\Dashboard\FortifyServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Davesweb\Dashboard\Providers\ServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Davesweb\Dashboard\Providers\AuthServiceProvider;
+use Davesweb\Dashboard\Providers\CrudServiceProvider;
+use Davesweb\Dashboard\Providers\RouteServiceProvider;
+use Davesweb\Dashboard\Providers\FortifyServiceProvider;
 use Davesweb\Dashboard\ModelTranslators\DaveswebTranslator;
 use Laravel\Fortify\FortifyServiceProvider as LaravelFortifyServiceProvider;
 
@@ -93,6 +94,7 @@ class TestCase extends Orchestra
             ServiceProvider::class,
             FortifyServiceProvider::class,
             RouteServiceProvider::class,
+            AuthServiceProvider::class,
             CrudServiceProvider::class,
         ];
     }

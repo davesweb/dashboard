@@ -26,6 +26,7 @@ class ActionCollection extends Collection
                 title: __('Create :model', ['model' => $names['singular']]),
                 route: $routeNamePrefix . 'create',
                 icon: new HtmlString('<i class="fa fa-plus"></i>'),
+                ability: 'create',
             ));
         }
 
@@ -34,6 +35,7 @@ class ActionCollection extends Collection
                 title: __('View deleted :models', ['models' => $names['plural']]),
                 route: $routeNamePrefix . 'trashed',
                 icon: new HtmlString('<i class="fa fa-close"></i>'),
+                ability: 'viewTrashed',
             ));
         }
 
@@ -42,6 +44,7 @@ class ActionCollection extends Collection
                 title: __('View :models', ['models' => $names['plural']]),
                 route: $routeNamePrefix . 'index',
                 icon: new HtmlString('<i class="fa fa-eye"></i>'),
+                ability: 'viewAny',
             ));
         }
 
@@ -57,6 +60,7 @@ class ActionCollection extends Collection
                 title: __('View this :model', ['model' => $names['singular']]),
                 route: $routeNamePrefix . 'show',
                 icon: new HtmlString('<i class="fa fa-eye fa-fw"></i>'),
+                ability: 'view',
             ));
         }
 
@@ -65,6 +69,7 @@ class ActionCollection extends Collection
                 title: __('Edit this :model', ['model' => $names['singular']]),
                 route: $routeNamePrefix . 'edit',
                 icon: new HtmlString('<i class="fa fa-pencil fa-fw"></i>'),
+                ability: 'update',
             ));
         }
 
@@ -73,7 +78,8 @@ class ActionCollection extends Collection
                 title: __('Delete this :model', ['model' => $names['singular']]),
                 route: $routeNamePrefix . 'destroy',
                 icon: new HtmlString('<i class="fa fa-close fa-fw"></i>'),
-                formMethod: 'delete'
+                formMethod: 'delete',
+                ability: 'destroy',
             ));
         }
 
@@ -82,7 +88,8 @@ class ActionCollection extends Collection
                 title: __('Delete this :model permanently', ['model' => $names['singular']]),
                 route: $routeNamePrefix . 'destroy-hard',
                 icon: new HtmlString('<i class="fa fa-close fa-fw"></i>'),
-                formMethod: 'delete'
+                formMethod: 'delete',
+                ability: 'destroyHard',
             ));
         }
 

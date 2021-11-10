@@ -29,6 +29,8 @@ class CrudController extends Controller
 
     public function index(IndexCrudRequest $request): Renderable
     {
+        $this->authorize('viewAny', get_class($this->crud()->model()));
+
         $locale = $request->getCrudLocale();
 
         $crud = $this->crud();
@@ -59,6 +61,8 @@ class CrudController extends Controller
 
     public function trashed(IndexCrudRequest $request): Renderable
     {
+        $this->authorize('viewTrashed', get_class($this->crud()->model()));
+
         $locale = $request->getCrudLocale();
 
         $crud = $this->crud();
@@ -97,6 +101,9 @@ class CrudController extends Controller
         $crud   = $this->crud();
         $model  = $crud->model($id);
 
+        // todo: should the 404 or the 403 come first?
+        $this->authorize('view', $model);
+
         /** @var Table $table */
         $table = resolve(Table::class, ['crud' => $crud]);
 
@@ -116,6 +123,8 @@ class CrudController extends Controller
 
     public function create(ShowCrudRequest $request): Renderable
     {
+        $this->authorize('create', get_class($this->crud()->model()));
+
         $locale = $request->getLocale();
         $crud   = $this->crud();
 
@@ -139,6 +148,8 @@ class CrudController extends Controller
 
     public function store(StoreCrudRequest $request, StoreCrudService $service): RedirectResponse
     {
+        $this->authorize('create', get_class($this->crud()->model()));
+
         $crud  = $this->crud();
 
         /** @var Form $form */
@@ -170,6 +181,8 @@ class CrudController extends Controller
         $crud   = $this->crud();
         $model  = $crud->model($id);
 
+        $this->authorize('update', $model);
+
         /** @var Form $form */
         $form = resolve(Form::class, ['crud' => $crud]);
         $form->method('put');
@@ -191,12 +204,18 @@ class CrudController extends Controller
 
     public function update(mixed $id): Renderable
     {
+        $crud  = $this->crud();
+        $model = $crud->model($id);
+
+        $this->authorize('update', $model);
     }
 
     public function destroy(DestroyCrudRequest $request, DestroyCrudService $service, mixed $id): RedirectResponse
     {
         $crud  = $this->crud();
         $model = $crud->model($id);
+
+        $this->authorize('destroy', $model);
 
         $service->setBeforeCallback($crud->beforeDestroy());
         $service->setAfterCallback($crud->afterDestroy());
@@ -210,6 +229,10 @@ class CrudController extends Controller
 
     public function destroyHard(mixed $id): RedirectResponse
     {
+        $crud  = $this->crud();
+        $model = $crud->model($id);
+
+        $this->authorize('destroyHard', $model);
     }
 
     protected function crud(): Crud

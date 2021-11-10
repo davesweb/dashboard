@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Davesweb\Dashboard;
+namespace Davesweb\Dashboard\Providers;
 
 use Illuminate\Http\Request;
 use Laravel\Fortify\Fortify;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Davesweb\Dashboard;
+namespace Davesweb\Dashboard\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Davesweb\Dashboard\Http\Controllers\Auth\LoginController;
@@ -16,7 +16,7 @@ class RouteServiceProvider extends IlluminateRouteServiceProvider
             Route::prefix(config('dashboard.route'))
                 ->middleware(config('dashboard.middleware', []))
                 ->name(config('dashboard.route-prefix'))
-                ->group(__DIR__ . '/../routes/dashboard.php')
+                ->group(__DIR__ . '/../../routes/dashboard.php')
             ;
 
             // We need some special routes for fortify because we can't change the route name that Fortify loads.

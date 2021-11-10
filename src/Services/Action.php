@@ -84,7 +84,7 @@ class Action
         }
 
         if (!empty($this->can)) {
-            // Todo: once the permission library is installed, check for this specific permission
+            return Gate::forUser($user)->allows($this->can, $model);
         }
 
         if (!empty($this->ability)) {

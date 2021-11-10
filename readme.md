@@ -14,7 +14,7 @@ composer require davesweb/dashboard
 After that, publish the assets by running 
 
 ```shell
-php artisan vendor:publish --provider=Davesweb\Dashboard\ServiceProvider
+php artisan vendor:publish --provider=Davesweb\Dashboard\Providers\ServiceProvider
 ```
 
 Run the migrations
@@ -42,7 +42,7 @@ to your composer file instead of constantly pushing updates and updating compose
 - Go to root folder of the package
 - Run `npm install` and `npm run dev` (or `watch` or `prod`).
 - Go to the root folder of the project you're using this package in.
-- Run `php artisan vendor:publish --provider=Davesweb\Dashboard\ServiceProvider --tag=public --force`
+- Run `php artisan vendor:publish --provider=Davesweb\Dashboard\Providers\ServiceProvider --tag=public --force`
 - The assets from the package are now available, use the asset helper for ease of use. 
 
 ## Todos

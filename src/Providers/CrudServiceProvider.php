@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Davesweb\Dashboard;
+namespace Davesweb\Dashboard\Providers;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
@@ -69,7 +69,7 @@ class CrudServiceProvider extends IlluminateServiceProvider
         /** @var CrudFinder $finder */
         $finder = resolve(CrudFinder::class);
 
-        $this->cruds = $finder->findAllByLocations(array_merge(config('dashboard.crud.locations', []), [__DIR__ . '/Crud' => 'Davesweb\\Dashboard\\Crud']));
+        $this->cruds = $finder->findAllByLocations(array_merge(config('dashboard.crud.locations', []), [__DIR__ . '/../Crud' => 'Davesweb\\Dashboard\\Crud']));
 
         return $this->cruds;
     }
