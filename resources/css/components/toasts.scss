@@ -1,0 +1,17 @@
+.toast {
+  @each $name, $value in $theme-colors {
+    &.toast-#{$name} {
+      border-color: darken($value, 20%) !important;
+      background-color: lighten($value, 20%) !important;
+
+      .toast-header {
+        background-color: darken($value, 20%) !important;
+        color: $dark-50 !important;
+      }
+
+      .text-muted {
+        color: $dark-100 !important;
+      }
+    }
+  }
+}

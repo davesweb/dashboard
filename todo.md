@@ -3,7 +3,7 @@
 - [ ] Add option that requires users to set up two-factor authentication (config setting + middleware)
 - [ ] Media library to mange media files in crud operations
 - [ ] Relationship columns for the table and detail pages.
-- [ ] Todo
+- [ ] Add toasts for success and error messages.
 - [ ] Todo
 - [ ] Todo
 - [ ] Todo

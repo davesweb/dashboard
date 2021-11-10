@@ -20401,6 +20401,95 @@ readers do not read off random characters that represent icons */
   color: #c8cddc !important;
 }
 
+.toast.toast-primary {
+  border-color: #180d14 !important;
+  background-color: #a05184 !important;
+}
+.toast.toast-primary .toast-header {
+  background-color: #180d14 !important;
+  color: #c8cddc !important;
+}
+.toast.toast-primary .text-muted {
+  color: #9097a7 !important;
+}
+.toast.toast-secondary {
+  border-color: #3f485b !important;
+  background-color: #a5aec1 !important;
+}
+.toast.toast-secondary .toast-header {
+  background-color: #3f485b !important;
+  color: #c8cddc !important;
+}
+.toast.toast-secondary .text-muted {
+  color: #9097a7 !important;
+}
+.toast.toast-success {
+  border-color: #09311e !important;
+  background-color: #2ed889 !important;
+}
+.toast.toast-success .toast-header {
+  background-color: #09311e !important;
+  color: #c8cddc !important;
+}
+.toast.toast-success .text-muted {
+  color: #9097a7 !important;
+}
+.toast.toast-info {
+  border-color: #08798f !important;
+  background-color: #6ce0f7 !important;
+}
+.toast.toast-info .toast-header {
+  background-color: #08798f !important;
+  color: #c8cddc !important;
+}
+.toast.toast-info .text-muted {
+  color: #9097a7 !important;
+}
+.toast.toast-warning {
+  border-color: #a07800 !important;
+  background-color: #ffdb6d !important;
+}
+.toast.toast-warning .toast-header {
+  background-color: #a07800 !important;
+  color: #c8cddc !important;
+}
+.toast.toast-warning .text-muted {
+  color: #9097a7 !important;
+}
+.toast.toast-danger {
+  border-color: #921925 !important;
+  background-color: #eb8c95 !important;
+}
+.toast.toast-danger .toast-header {
+  background-color: #921925 !important;
+  color: #c8cddc !important;
+}
+.toast.toast-danger .text-muted {
+  color: #9097a7 !important;
+}
+.toast.toast-light {
+  border-color: #bdc6d0 !important;
+  background-color: white !important;
+}
+.toast.toast-light .toast-header {
+  background-color: #bdc6d0 !important;
+  color: #c8cddc !important;
+}
+.toast.toast-light .text-muted {
+  color: #9097a7 !important;
+}
+.toast.toast-dark {
+  border-color: black !important;
+  background-color: #4e5862 !important;
+}
+.toast.toast-dark .toast-header {
+  background-color: black !important;
+  color: #c8cddc !important;
+}
+.toast.toast-dark .text-muted {
+  color: #9097a7 !important;
+}
+
 .flag-icon-background, .flag-icon {
   background-size: contain;
   background-position: 50%;

@@ -120,12 +120,30 @@
                     @yield('content')
                 </div>
             </section>
+
             <footer class="bg-dark-600 mt-auto p-3">
                 <p class="text-muted mb-0">
                     &copy; 2020-{{ date('Y') }} - Davesweb Dashboard
                 </p>
             </footer>
         </main>
+
+        <div class="toast-container position-absolute p-4" style="bottom: 0; right: 0; width: 400px; min-height: 200px;">
+            @foreach(['success', 'error', 'warning', 'info'] as $type)
+                @if(session()->has($type))
+                    <div class="toast show toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header">
+                            <strong class="me-auto">{{ __(ucfirst($type)) }}</strong>
+                            <small class="text-muted">{{ __('just now') }}</small>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="{{ __('Close') }}"></button>
+                        </div>
+                        <div class="toast-body">
+                            {{ session()->get($type) }}
+                        </div>
+                    </div>
+                @endif
+            @endforeach
+        </div>
     </body>
     <script src="{{ asset('vendor/dashboard/js/app.js') }}"></script>
 </html>
