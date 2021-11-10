@@ -20,6 +20,12 @@
                     <div id="message-feedback" class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" value="1" name="remember" id="remember" />
+                    <label class="form-check-label" for="remember">
+                        {{ __('Remember me') }}
+                    </label>
+                </div>
                 <div class="mb-3">
                     <button type="submit" class="btn btn-primary text-center w-100">{{ __('Login') }}</button>
                 </div>

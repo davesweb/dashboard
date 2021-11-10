@@ -1,4 +1,4 @@
-- [ ] Add remember me option to the login page.
+- [x] Add remember me option to the login page.
 - [ ] The public publish command publishes the fonts and images twice, remove the unused one.
 - [ ] Add option that requires users to set up two-factor authentication (config setting + middleware)
 - [ ] Media library to mange media files in crud operations
