@@ -20,6 +20,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         ], 'config');
         $this->publishes([
             __DIR__ . '/../public' => public_path('vendor/dashboard'),
+            __DIR__ . '/../public/images' => public_path('images'),
+            __DIR__ . '/../public/fonts' => public_path('fonts'),
         ], 'public');
         $this->publishes([
             __DIR__ . '/../database/migrations' => database_path('migrations'),
