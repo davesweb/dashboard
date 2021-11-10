@@ -12,9 +12,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Davesweb\Dashboard\Services\CrudFinder;
 use Illuminate\Contracts\Support\Renderable;
 use Davesweb\Dashboard\Services\StoreCrudService;
+use Davesweb\Dashboard\Services\DestroyCrudService;
 use Davesweb\Dashboard\Http\Requests\ShowCrudRequest;
 use Davesweb\Dashboard\Http\Requests\IndexCrudRequest;
 use Davesweb\Dashboard\Http\Requests\StoreCrudRequest;
+use Davesweb\Dashboard\Http\Requests\DestroyCrudRequest;
 
 class CrudController extends Controller
 {
@@ -191,8 +193,19 @@ class CrudController extends Controller
     {
     }
 
-    public function destroy(mixed $id): RedirectResponse
+    public function destroy(DestroyCrudRequest $request, DestroyCrudService $service, mixed $id): RedirectResponse
     {
+        $crud  = $this->crud();
+        $model = $crud->model($id);
+
+        $service->setBeforeCallback($crud->beforeDestroy());
+        $service->setAfterCallback($crud->afterDestroy());
+
+        $service->destroy($request, $model);
+
+        $message = $crud->destroyedMessage($model) ?? __('The :model was deleted successfully.', ['model' => $crud->singular()]);
+
+        return redirect()->back()->with(['success' => $message]);
     }
 
     public function destroyHard(mixed $id): RedirectResponse
