@@ -19,6 +19,12 @@ abstract class Input extends Element implements Translatable
 
     protected string $type = 'text';
 
+    protected string $tabbedView = 'dashboard::crud.form.tabbed-input';
+
+    protected string $view = 'dashboard::crud.form.input';
+
+    protected iterable $extraData = [];
+
     private TranslatesModelAttributes $translator;
 
     private ?string $name = null;
@@ -32,6 +38,8 @@ abstract class Input extends Element implements Translatable
     private bool $autofocus = false;
 
     private bool $translated = false;
+
+    private ?string $info = null;
 
     public function __construct(TranslatesModelAttributes $translator)
     {
@@ -130,6 +138,18 @@ abstract class Input extends Element implements Translatable
         return $this->translated;
     }
 
+    public function info(?string $info): static
+    {
+        $this->info = $info;
+
+        return $this;
+    }
+
+    public function getInfo(): ?string
+    {
+        return $this->info;
+    }
+
     public function setTranslator(TranslatesModelAttributes $translator): static
     {
         $this->translator = $translator;
@@ -148,7 +168,7 @@ abstract class Input extends Element implements Translatable
         $secondary = new HtmlString('');
 
         if ($this->isConfirm()) {
-            $secondary = new HtmlString(view($this->isTranslatable() && !$inSection ? 'dashboard::crud.form.tabbed-input' : 'dashboard::crud.form.input', [
+            $secondary = new HtmlString(view($this->isTranslatable() && !$inSection ? $this->tabbedView : $this->view, array_merge([
                 'availableLocales' => $availableLocales,
                 'type'             => $this->type,
                 'model'            => $model,
@@ -167,10 +187,11 @@ abstract class Input extends Element implements Translatable
                 'for'              => $inSection ? $this->name . $locale : $this->name,
                 'errorKey'         => $inSection ? $this->name . '.translated.' . $locale : $this->name,
                 'ariaLabel'        => $inSection ? __('Confirm') . ' ' . $this->label : null,
-            ])->render() . $secondary->toHtml());
+                'info'             => $this->getInfo(),
+            ], $this->extraData))->render() . $secondary->toHtml());
         }
 
-        return new HtmlString(view($this->isTranslatable() && !$inSection ? 'dashboard::crud.form.tabbed-input' : 'dashboard::crud.form.input', [
+        return new HtmlString(view($this->isTranslatable() && !$inSection ? $this->tabbedView : $this->view, array_merge([
             'availableLocales' => $availableLocales,
             'type'             => $this->type,
             'model'            => $model,
@@ -185,10 +206,11 @@ abstract class Input extends Element implements Translatable
             'autofocus'        => $this->hasAutofocus(),
             'translatable'     => $this->isTranslatable(),
             'inSection'        => $inSection,
-            'id'               => $inSection && $this->isTranslatable() ? $this->name . $locale : $this->name,
-            'for'              => $inSection && $this->isTranslatable() ? $this->name . $locale : $this->name,
-            'errorKey'         => $inSection && $this->isTranslatable() ? $this->name . '.translated.' . $locale : $this->name,
-            'ariaLabel'        => $inSection && $this->isTranslatable() ? $this->label : null,
-        ])->render() . $secondary->toHtml());
+            'id'               => $inSection && $this->isTranslatable() ? $this->getName() . $locale : $this->getName(),
+            'for'              => $inSection && $this->isTranslatable() ? $this->getName() . $locale : $this->getName(),
+            'errorKey'         => $inSection && $this->isTranslatable() ? $this->getName() . '.translated.' . $locale : $this->getName(),
+            'ariaLabel'        => $inSection && $this->isTranslatable() ? $this->getLabel() : null,
+            'info'             => $this->getInfo(),
+        ], $this->extraData))->render() . $secondary->toHtml());
     }
 }

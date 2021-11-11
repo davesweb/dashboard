@@ -17,7 +17,7 @@
     <div class="tab-content" id="nav-tabContent">
         @foreach(config('app.available_locales', []) as $abbr => $locale)
             <div class="tab-pane {{ $formLocale === $abbr ? 'show active' : '' }}" id="nav-{{ $abbr.$name }}" role="tabpanel" aria-labelledby="nav-{{ $abbr.$name }}-tab">
-                @include('dashboard::crud.form.input-raw', [
+                @include('dashboard::crud.form.textarea-raw', [
                     'errorLey'     => $name . '.translated.' . $abbr,
                     'type'         => $type,
                     'name'         => $name . '[translated][' . $abbr . ']',
@@ -29,6 +29,7 @@
                     'required'     => $required,
                     'autofocus'    => $autofocus,
                     'ariaLabel'    => $label,
+                    'rows'         => $rows,
                     'info'         => $info,
                 ])
             </div>

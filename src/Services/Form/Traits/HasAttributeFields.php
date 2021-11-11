@@ -20,6 +20,7 @@ use Davesweb\Dashboard\Services\Form\Elements\Hidden;
 use Davesweb\Dashboard\Services\Form\Elements\Search;
 use Davesweb\Dashboard\Services\Form\Elements\Section;
 use Davesweb\Dashboard\Services\Form\Elements\Password;
+use Davesweb\Dashboard\Services\Form\Elements\TextArea;
 use Davesweb\Dashboard\Services\Form\Elements\DatetimeLocal;
 use Davesweb\Dashboard\Services\Form\Elements\Number as NumberElement;
 
@@ -152,6 +153,16 @@ trait HasAttributeFields
     {
         /** @var Text $input */
         $input = resolve(Text::class)->name($name)->label($label);
+
+        $this->element($input);
+
+        return $input;
+    }
+
+    public function textarea(string $name, ?string $label = null): TextArea
+    {
+        /** @var TextArea $input */
+        $input = resolve(TextArea::class)->name($name)->label($label);
 
         $this->element($input);
 
