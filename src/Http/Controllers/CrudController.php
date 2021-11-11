@@ -12,10 +12,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Davesweb\Dashboard\Services\CrudFinder;
 use Illuminate\Contracts\Support\Renderable;
 use Davesweb\Dashboard\Services\StoreCrudService;
+use Davesweb\Dashboard\Services\UpdateCrudService;
 use Davesweb\Dashboard\Services\DestroyCrudService;
 use Davesweb\Dashboard\Http\Requests\ShowCrudRequest;
 use Davesweb\Dashboard\Http\Requests\IndexCrudRequest;
 use Davesweb\Dashboard\Http\Requests\StoreCrudRequest;
+use Davesweb\Dashboard\Http\Requests\UpdateCrudRequest;
 use Davesweb\Dashboard\Http\Requests\DestroyCrudRequest;
 
 class CrudController extends Controller
@@ -202,12 +204,33 @@ class CrudController extends Controller
         ]);
     }
 
-    public function update(mixed $id): Renderable
+    public function update(UpdateCrudRequest $request, UpdateCrudService $service, mixed $id): RedirectResponse
     {
         $crud  = $this->crud();
         $model = $crud->model($id);
 
         $this->authorize('update', $model);
+
+        /** @var Form $form */
+        $form = resolve(Form::class, ['crud' => $crud]);
+        $form->method('put');
+
+        $crud->edit($form, $model);
+
+        if (!$form->hasSectionsOrFields()) {
+            $crud->form($form, $model);
+        }
+
+        $request->validate($form->getValidationRules());
+
+        $service->setBeforeCallback($crud->beforeUpdate());
+        $service->setAfterCallback($crud->afterUpdate());
+
+        $model = $service->update($request, $model);
+
+        $message = $crud->updatedMessage($model) ?? __('The :model was updated successfully.', ['model' => $crud->singular()]);
+
+        return redirect()->back()->with(['success' => $message]);
     }
 
     public function destroy(DestroyCrudRequest $request, DestroyCrudService $service, mixed $id): RedirectResponse

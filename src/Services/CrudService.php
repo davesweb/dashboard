@@ -19,7 +19,9 @@ abstract class CrudService
 
     protected ?Closure $afterCallback = null;
 
-    protected bool $fireEvents = true;
+    protected bool $withEvents = true;
+
+    protected bool $withModelEvents = true;
 
     public function setBeforeCallback(?Closure $beforeStoreCallback): self
     {
@@ -37,14 +39,28 @@ abstract class CrudService
 
     public function withEvents(): static
     {
-        $this->fireEvents = true;
+        $this->withEvents = true;
 
         return $this;
     }
 
     public function withoutEvents(): static
     {
-        $this->fireEvents = false;
+        $this->withEvents = false;
+
+        return $this;
+    }
+
+    public function withModelEvents(): static
+    {
+        $this->withModelEvents = true;
+
+        return $this;
+    }
+
+    public function withoutModelEvents(): static
+    {
+        $this->withModelEvents = false;
 
         return $this;
     }

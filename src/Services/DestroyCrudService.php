@@ -13,7 +13,7 @@ class DestroyCrudService extends CrudService
 {
     public function destroy(DestroyCrudRequest $request, Model $model): bool
     {
-        if ($this->fireEvents) {
+        if ($this->withEvents) {
             event(new DestroyingCrud($model));
         }
 
@@ -23,7 +23,7 @@ class DestroyCrudService extends CrudService
 
         $model = $this->afterCallback($model, $request);
 
-        if ($this->fireEvents) {
+        if ($this->withEvents) {
             event(new DestroyedCrud($model));
         }
 

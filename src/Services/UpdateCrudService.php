@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Davesweb\Dashboard\Services;
 
 use Illuminate\Database\Eloquent\Model;
-use Davesweb\Dashboard\Events\SavedCrud;
-use Davesweb\Dashboard\Events\SavingCrud;
-use Davesweb\Dashboard\Http\Requests\StoreCrudRequest;
+use Davesweb\Dashboard\Events\UpdatedCrud;
+use Davesweb\Dashboard\Events\UpdatingCrud;
+use Davesweb\Dashboard\Http\Requests\UpdateCrudRequest;
 
-class StoreCrudService extends CrudService
+class UpdateCrudService extends CrudService
 {
-    public function store(StoreCrudRequest $request, Model $model): Model
+    public function update(UpdateCrudRequest $request, Model $model): Model
     {
         if ($this->withEvents) {
-            event(new SavingCrud($model));
+            event(new UpdatingCrud($model));
         }
 
         $model = $this->beforeCallback($model, $request);
@@ -31,18 +31,18 @@ class StoreCrudService extends CrudService
             }
         }
 
-        $this->withModelEvents ? $model->save() : $model->saveQuietly();
+        $this->withModelEvents ? $model->update() : $model->updateQuietly();
 
         $model = $this->afterCallback($model, $request);
 
         if ($this->withEvents) {
-            event(new SavedCrud($model));
+            event(new UpdatedCrud($model));
         }
 
         return $model;
     }
 
-    public function storeQuietly(StoreCrudRequest $request, Model $model, bool $withModelEvents = true): Model
+    public function updateQuietly(UpdateCrudRequest $request, Model $model, bool $withModelEvents = true): Model
     {
         $this->withoutEvents();
 
@@ -50,7 +50,7 @@ class StoreCrudService extends CrudService
             $this->withoutModelEvents();
         }
 
-        $model = $this->store($request, $model);
+        $model = $this->update($request, $model);
 
         if (!$withModelEvents) {
             $this->withModelEvents();

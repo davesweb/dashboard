@@ -3,7 +3,12 @@
 - [ ] Add option that requires users to set up two-factor authentication (config setting + middleware)
 - [ ] Media library to mange media files in crud operations
 - [ ] Relationship columns for the table and detail pages.
+- [ ] Relationship fields and other remaining fields for form pages.  
 - [x] Add toasts for success and error messages.
 - [ ] Breadcrumbs
-- [ ] Authorization (Roles?)
-- [ ] Todo
+- [ ] Authorization (Roles?) -> default permissions based on the available crud actions
+- [ ] Add a response factory that decides what to return based on the request (HTML, RedirectResponse or Resource)
+- [ ] 
+- [ ]
+- [ ]
+- [ ] Documentation (when everything is done, otherwise I'm rewriting everything multiple times)

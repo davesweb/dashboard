@@ -6,7 +6,7 @@
     <?php
     /** @var \Davesweb\Dashboard\Services\Form $form */
     ?>
-    <form method="{{ $form->getMethod() }}" action="{{ $form->getAction() }}" {!! $form->hasMedia() ? 'enctype="multipart/form-data"' : ''; !!}>
+    <form method="{{ strtolower($form->getMethod()) === 'get' || strtolower($form->getMethod()) === 'post' ? $form->getMethod() : 'post' }}" action="{{ $form->getAction() }}" {!! $form->hasMedia() ? 'enctype="multipart/form-data"' : ''; !!}>
         @csrf
         @if($form->getMethod() !== 'post' && $form->getMethod() !== 'get')
             @method($form->getMethod())
