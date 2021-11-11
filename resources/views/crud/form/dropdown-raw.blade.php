@@ -1,7 +1,7 @@
 <select
         class="form-control @error($errorKey) is-invalid @enderror"
         type="{{ $type ?? 'text' }}"
-        name="{{ $name }}"
+        name="{{ $name }}{{ $multiple ? '[]' : '' }}"
         id="{{ $id }}"
         @if($required) required="required" @endif
         @if($autofocus) autofocus="autofocus" @endif

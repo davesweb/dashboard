@@ -16,12 +16,16 @@ use Davesweb\Dashboard\Services\Form\Elements\Color;
 use Davesweb\Dashboard\Services\Form\Elements\Email;
 use Davesweb\Dashboard\Services\Form\Elements\Month;
 use Davesweb\Dashboard\Services\Form\Elements\Range;
+use Davesweb\Dashboard\Services\Form\Elements\HasOne;
 use Davesweb\Dashboard\Services\Form\Elements\Hidden;
 use Davesweb\Dashboard\Services\Form\Elements\Search;
+use Davesweb\Dashboard\Services\Form\Elements\HasMany;
 use Davesweb\Dashboard\Services\Form\Elements\Section;
 use Davesweb\Dashboard\Services\Form\Elements\Dropdown;
 use Davesweb\Dashboard\Services\Form\Elements\Password;
 use Davesweb\Dashboard\Services\Form\Elements\TextArea;
+use Davesweb\Dashboard\Services\Form\Elements\BelongsTo;
+use Davesweb\Dashboard\Services\Form\Elements\BelongsToMany;
 use Davesweb\Dashboard\Services\Form\Elements\DatetimeLocal;
 use Davesweb\Dashboard\Services\Form\Elements\Number as NumberElement;
 
@@ -38,6 +42,26 @@ trait HasAttributeFields
         $this->element($section);
 
         return $section;
+    }
+
+    public function belongsTo(string $name, ?string $label = null, ?string $relation = null): BelongsTo
+    {
+        /** @var BelongsTo $input */
+        $input = resolve(BelongsTo::class)->name($name)->relation($relation ?? $name)->label($label);
+
+        $this->element($input);
+
+        return $input;
+    }
+
+    public function belongsToMany(string $name, ?string $label = null, ?string $relation = null): BelongsToMany
+    {
+        /** @var BelongsToMany $input */
+        $input = resolve(BelongsToMany::class)->name($name)->relation($relation ?? $name)->label($label);
+
+        $this->element($input);
+
+        return $input;
     }
 
     public function color(string $name, ?string $label = null): Color
@@ -84,6 +108,26 @@ trait HasAttributeFields
     {
         /** @var Email $input */
         $input = resolve(Email::class)->name($name)->label($label);
+
+        $this->element($input);
+
+        return $input;
+    }
+
+    public function hasMany(string $name, ?string $label = null, ?string $relation = null): HasMany
+    {
+        /** @var HasMany $input */
+        $input = resolve(HasMany::class)->name($name)->relation($relation ?? $name)->label($label);
+
+        $this->element($input);
+
+        return $input;
+    }
+
+    public function hasOne(string $name, ?string $label = null, ?string $relation = null): HasOne
+    {
+        /** @var HasOne $input */
+        $input = resolve(HasOne::class)->name($name)->relation($relation ?? $name)->label($label);
 
         $this->element($input);
 

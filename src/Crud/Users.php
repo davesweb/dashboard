@@ -31,7 +31,7 @@ class Users extends Crud
         $table->defaultActionsColumn();
     }
 
-    public function create(Form $form): void
+    public function create(Form $form, Model $model): void
     {
         $form->text('name', __('Name'))->required();
         $form->email('email', __('Email address'))->required()->unique($this->model()->getTable(), 'email');

@@ -129,15 +129,16 @@ class CrudController extends Controller
 
         $locale = $request->getCrudLocale();
         $crud   = $this->crud();
+        $model  = $crud->model();
 
         /** @var Form $form */
         $form = resolve(Form::class, ['crud' => $crud]);
         $form->route($crud->getRouteName('store'));
 
-        $crud->create($form);
+        $crud->create($form, $model);
 
         if (!$form->hasSectionsOrFields()) {
-            $crud->form($form);
+            $crud->form($form, $model);
         }
 
         return view('dashboard::crud.create', [
@@ -145,6 +146,7 @@ class CrudController extends Controller
             'form'       => $form,
             'crud'       => $crud,
             'formLocale' => $locale,
+            'model'      => $model,
         ]);
     }
 
@@ -153,14 +155,15 @@ class CrudController extends Controller
         $this->authorize('create', get_class($this->crud()->model()));
 
         $crud  = $this->crud();
+        $model = $crud->model();
 
         /** @var Form $form */
         $form = resolve(Form::class, ['crud' => $crud]);
 
-        $crud->create($form);
+        $crud->create($form, $model);
 
         if (!$form->hasSectionsOrFields()) {
-            $crud->form($form);
+            $crud->form($form, $model);
         }
 
         $request->validate($form->getValidationRules());

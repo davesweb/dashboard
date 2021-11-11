@@ -316,7 +316,7 @@ abstract class Crud
         // This method can be implemented in child classes, but it isn't required so we keep the body empty.
     }
 
-    public function create(Form $form): void
+    public function create(Form $form, Model $model): void
     {
         // This method can be implemented in child classes, but it isn't required so we keep the body empty.
     }
@@ -326,7 +326,7 @@ abstract class Crud
         // This method can be implemented in child classes, but it isn't required so we keep the body empty.
     }
 
-    public function form(Form $form, ?Model $model = null): void
+    public function form(Form $form, Model $model): void
     {
         // This method can be implemented in child classes, but it isn't required so we keep the body empty.
     }
