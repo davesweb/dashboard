@@ -1,7 +1,7 @@
 - [x] Add remember me option to the login page.
 - [ ] The public publish command publishes the fonts and images twice, remove the unused one.
 - [ ] Add option that requires users to set up two-factor authentication (config setting + middleware)
-- [ ] Media library to mange media files in crud operations
+- [ ] Media library to manage media files in crud operations
 - [ ] Relationship columns for the table and detail pages.
 - [ ] Relationship fields and other remaining fields for form pages.  
 - [x] Add toasts for success and error messages.
@@ -9,6 +9,15 @@
 - [ ] Authorization (Roles?) -> default permissions based on the available crud actions
 - [ ] Add a response factory that decides what to return based on the request (HTML, RedirectResponse or Resource)
 - [ ] Make the view names used for crud actions configurable
+- [ ] Clean up the form input class and view. The translations stuff right now is a mess
+- [ ] Available locales is currently fetched from the config in a lot of places. Ues the correct parameters for this.
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
 - [ ]
 - [ ]
 - [ ] Documentation (when everything is done, otherwise I'm rewriting everything multiple times)

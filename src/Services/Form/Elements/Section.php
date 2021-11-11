@@ -21,9 +21,17 @@ class Section extends Element implements Translatable
 
     private Collection $fields;
 
+    private string $name;
+
     private ?string $title = null;
 
     private ?string $description = null;
+
+    public function __construct(string $name)
+    {
+        $this->name   = $name;
+        $this->fields = collect();
+    }
 
     public function element(Element $element): Element
     {
@@ -32,9 +40,35 @@ class Section extends Element implements Translatable
         return $element;
     }
 
-    public function render(Model $model, string $locale): HtmlString
+    public function render(?Model $model, string $locale, iterable $availableLocales = []): HtmlString
     {
-        return new HtmlString('Rendering section');
+        if ($this->isTranslatable()) {
+            $this->fields->each(function (Element $element) {
+                $element->translated();
+            });
+        }
+
+        return new HtmlString(view('dashboard::crud.form.section', [
+            'fields'       => $this->fields,
+            'name'         => $this->name,
+            'title'        => $this->title,
+            'description'  => $this->description,
+            'formLocale'   => $locale,
+            'translatable' => $this->isTranslatable(),
+            'model'        => $model,
+        ])->render());
+    }
+
+    public function namne(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
     }
 
     public function title(?string $title): static
@@ -85,5 +119,10 @@ class Section extends Element implements Translatable
         // Not needed for this class
 
         throw new Exception();
+    }
+
+    public function fields(): Collection
+    {
+        return $this->fields;
     }
 }

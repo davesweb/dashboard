@@ -27,10 +27,10 @@ use Davesweb\Dashboard\Services\Form\Elements\Number as NumberElement;
  */
 trait HasAttributeFields
 {
-    public function section(string $title, ?string $description = null): Section
+    public function section(string $name, ?string $title = null, ?string $description = null): Section
     {
         /** @var Section $section */
-        $section = resolve(Section::class)->title($title)->description($description);
+        $section = resolve(Section::class, ['name' => $name])->title($title)->description($description);
 
         $this->element($section);
 

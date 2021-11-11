@@ -8,6 +8,6 @@
     </div>
 @else
     @foreach($form->sections() as $section)
-        Rendering section
+        {{ $section->render($model ?? null, $formLocale) }}
     @endforeach
 @endif

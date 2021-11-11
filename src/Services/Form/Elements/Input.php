@@ -142,7 +142,7 @@ abstract class Input extends Element implements Translatable
         return $this->translator;
     }
 
-    public function render(?Model $model, string $locale, array $availableLocales = []): HtmlString
+    public function render(?Model $model, string $locale, iterable $availableLocales = [], bool $inSection = false): HtmlString
     {
         // todo this can be better
         $secondary = new HtmlString('');
@@ -162,6 +162,7 @@ abstract class Input extends Element implements Translatable
                 'required'         => $this->isRequired(),
                 'autofocus'        => $this->hasAutofocus(),
                 'translatable'     => $this->isTranslatable(),
+                'inSection'        => $inSection,
             ])->render());
         }
 
@@ -179,6 +180,7 @@ abstract class Input extends Element implements Translatable
             'required'         => $this->isRequired(),
             'autofocus'        => $this->hasAutofocus(),
             'translatable'     => $this->isTranslatable(),
+            'inSection'        => $inSection,
         ])->render() . $secondary->toHtml());
     }
 }
