@@ -24,6 +24,10 @@ class UpdateCrudService extends CrudService
                 continue;
             }
 
+            if ($this->isTranslatedField($attribute, $value)) {
+                continue;
+            }
+
             if ($this->modelHasRelation($model, $attribute)) {
                 $this->setRelation($model, $attribute, $value);
             } else {
@@ -32,6 +36,10 @@ class UpdateCrudService extends CrudService
         }
 
         $this->withModelEvents ? $model->update() : $model->updateQuietly();
+
+        $translatedFields = $this->getAllTranslatedFields($request);
+
+        $this->setTranslations($model, $translatedFields);
 
         $model = $this->afterCallback($model, $request);
 

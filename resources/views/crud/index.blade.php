@@ -31,7 +31,7 @@
                         </form>
                     @endif
                     @if($table->hasTranslations() && count(config('app.available_locales', [])) > 1)
-                        <div class="dropdown pt-1">
+                        <div class="dropdown pt-1 ms-2">
                             <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="language-select" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="{{ config('app.available_locales.' . $crudLocale . '.icon', []) }}"></span>
                             </button>

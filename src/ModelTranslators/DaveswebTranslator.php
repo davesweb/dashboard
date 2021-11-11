@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Davesweb\Dashboard\ModelTranslators;
 
 use Closure;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Davesweb\LaravelTranslatable\Traits\HasTranslations;
@@ -32,5 +33,30 @@ class DaveswebTranslator implements TranslatesModelAttributes
                 ->where($field, 'LIKE', '%' . $searchQuery . '%')
             ;
         });
+    }
+
+    /**
+     * @param HasTranslations|Model $model
+     */
+    public function set(Model $model, string $locale, iterable $translations): Model
+    {
+        $translation         = $model->getTranslation($locale) ?? $model->translations()->newModelInstance();
+        $translation->locale = $locale;
+
+        foreach ($translations as $attribute => $value) {
+            $setter = 'set' . Str::of($attribute)->camel()->ucfirst();
+
+            if (method_exists($translation, $setter)) {
+                call_user_func([$translation, $setter], $value);
+
+                continue;
+            }
+
+            $translation->{$attribute} = $value;
+        }
+
+        $model->translations()->save($translation);
+
+        return $model;
     }
 }

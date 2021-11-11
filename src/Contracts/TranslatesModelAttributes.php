@@ -13,4 +13,6 @@ interface TranslatesModelAttributes
     public function translate(Model $model, string $locale, string|Closure $attribute): mixed;
 
     public function search(Builder $query, string $field, string $locale, string $searchQuery): Builder;
+
+    public function set(Model $model, string $locale, iterable $translations): Model;
 }

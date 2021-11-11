@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Davesweb\Dashboard\Contracts\TranslatesModelAttributes;
 
 abstract class CrudService
 {
@@ -22,6 +23,13 @@ abstract class CrudService
     protected bool $withEvents = true;
 
     protected bool $withModelEvents = true;
+
+    private TranslatesModelAttributes $translator;
+
+    public function __construct(TranslatesModelAttributes $translator)
+    {
+        $this->translator = $translator;
+    }
 
     public function setBeforeCallback(?Closure $beforeStoreCallback): self
     {
@@ -76,6 +84,24 @@ abstract class CrudService
         return method_exists($model, $relation) && call_user_func([$model, $relation]) instanceof Relation;
     }
 
+    protected function isTranslatedField(string $field, mixed $value): bool
+    {
+        return is_iterable($value) && isset($value['translated']);
+    }
+
+    protected function getAllTranslatedFields(CrudRequest $request): iterable
+    {
+        $fields = [];
+
+        foreach ($request->post() as $key => $value) {
+            if ($this->isTranslatedField($key, $value)) {
+                $fields[$key] = $value['translated'];
+            }
+        }
+
+        return $fields;
+    }
+
     protected function getRelationType(Model $model, string $relation): Relation
     {
         return call_user_func([$model, $relation]);
@@ -92,6 +118,23 @@ abstract class CrudService
         }
 
         $model->{$attribute} = $value;
+
+        return $model;
+    }
+
+    protected function setTranslations(Model $model, iterable $translatedFields): Model
+    {
+        $translationsPerLocale = [];
+
+        foreach ($translatedFields as $attribute => $translations) {
+            foreach ($translations as $locale => $translated) {
+                $translationsPerLocale[$locale][$attribute] = $translated;
+            }
+        }
+
+        foreach ($translationsPerLocale as $locale => $translations) {
+            $this->translator->set($model, $locale, $translations);
+        }
 
         return $model;
     }

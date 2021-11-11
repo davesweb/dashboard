@@ -66,7 +66,7 @@ class Column
     public function render(Model $model, string $locale): string|HtmlElement
     {
         if ($this->translated) {
-            return $this->translator->translate($model, $locale, $this->content);
+            return $this->translator->translate($model, $locale, $this->content) ?? '';
         }
 
         if (null !== $this->view) {

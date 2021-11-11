@@ -155,7 +155,7 @@ abstract class Input extends Element implements Translatable
                 'value'            => function (?Model $model, string $locale) {
                     return $this->getValue($model, $locale);
                 },
-                'locale'           => $locale,
+                'formLocale'       => $locale,
                 'name'             => $this->getName() . '_confirmation',
                 'label'            => __('Confirm') . ' ' . $this->getLabel(),
                 'placeholder'      => $this->getPlaceholder(),
@@ -172,7 +172,7 @@ abstract class Input extends Element implements Translatable
             'value'            => function (?Model $model, string $locale) {
                 return $this->getValue($model, $locale);
             },
-            'locale'           => $locale,
+            'formLocale'       => $locale,
             'name'             => $this->getName(),
             'label'            => $this->getLabel(),
             'placeholder'      => $this->getPlaceholder(),
