@@ -20401,6 +20401,14 @@ readers do not read off random characters that represent icons */
   color: #c8cddc !important;
 }
 
+.nav-tabs .nav-link:hover {
+  border-color: #505a64;
+}
+.nav-tabs .nav-link.active {
+  background-color: #505a64;
+  border-color: #505a64;
+}
+
 .toast.toast-primary {
   border-color: #180d14 !important;
   background-color: #a05184 !important;

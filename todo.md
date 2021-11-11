@@ -8,7 +8,7 @@
 - [ ] Breadcrumbs
 - [ ] Authorization (Roles?) -> default permissions based on the available crud actions
 - [ ] Add a response factory that decides what to return based on the request (HTML, RedirectResponse or Resource)
-- [ ] 
+- [ ] Make the view names used for crud actions configurable
 - [ ]
 - [ ]
 - [ ] Documentation (when everything is done, otherwise I'm rewriting everything multiple times)
