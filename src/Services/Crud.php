@@ -35,7 +35,7 @@ abstract class Crud
 
     protected string $controller = CrudController::class;
 
-    protected ?Model $modelObject = null;
+    private ?Model $modelObject = null;
 
     public function singular(): string
     {
@@ -84,9 +84,6 @@ abstract class Crud
         return $actions;
     }
 
-    /**
-     * @todo make icons configurable
-     */
     public function getTableActions(): ActionCollection
     {
         return ActionCollection::tableActions(request(), $this->actions(), $this->names(), $this->getRouteNamePrefix());
@@ -97,7 +94,7 @@ abstract class Crud
         return ActionCollection::pageActions(request(), $this->actions(), $this->names(), $this->getRouteNamePrefix());
     }
 
-    public function registerRouters(Router $router): void
+    public function registerRoutes(Router $router): void
     {
         $router->group([
             'as'         => $this->getRouteNamePrefix(),
@@ -269,6 +266,9 @@ abstract class Crud
         return null;
     }
 
+    /**
+     * @internal
+     */
     public function query(): Builder
     {
         return call_user_func($this->model . '::query');
@@ -288,6 +288,9 @@ abstract class Crud
         return $model->newQuery()->findOrFail($id);
     }
 
+    /**
+     * @todo Support searching in relations
+     */
     public function search(Builder $query, Collection $searchableColumns, string $locale, string $searchQuery): Builder
     {
         /** @var TranslatesModelAttributes $translator */

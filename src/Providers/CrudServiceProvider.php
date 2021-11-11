@@ -46,7 +46,7 @@ class CrudServiceProvider extends IlluminateServiceProvider
     private function registerCrud()
     {
         foreach ($this->findCruds() as $crud) {
-            $crud->registerRouters($this->app->make('router'));
+            $crud->registerRoutes($this->app->make('router'));
         }
     }
 

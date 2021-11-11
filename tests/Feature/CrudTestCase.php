@@ -26,7 +26,7 @@ class CrudTestCase extends TestCase
     {
         $this->crud = resolve(CrudModel::class);
 
-        $this->crud->registerRouters(resolve('router'));
+        $this->crud->registerRoutes(resolve('router'));
         $this->crud->registerMenu(Sidebar::factory());
 
         $this->user = User::factory()->create([

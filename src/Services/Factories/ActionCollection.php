@@ -12,11 +12,9 @@ use Davesweb\Dashboard\Services\Action;
 
 class ActionCollection extends Collection
 {
-    public function __construct($items = [])
-    {
-        parent::__construct($items);
-    }
-
+    /**
+     * @todo make icons configurable
+     */
     public static function pageActions(Request $request, array $actions, array $names, string $routeNamePrefix): static
     {
         $collection = new static();
@@ -51,6 +49,9 @@ class ActionCollection extends Collection
         return $collection;
     }
 
+    /**
+     * @todo make icons configurable
+     */
     public static function tableActions(Request $request, array $actions, array $names, string $routeNamePrefix): static
     {
         $collection = new static();
