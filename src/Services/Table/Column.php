@@ -12,15 +12,15 @@ use Davesweb\Dashboard\Contracts\TranslatesModelAttributes;
 
 class Column
 {
-    private string $title;
-    private string|Closure|null $content = null;
-    private bool $orderable              = false;
-    private bool $searchable             = false;
-    private bool $translated             = false;
-    private ?string $view                = null;
-    private ?string $searchField         = null;
+    protected string $title;
+    protected string|Closure|null $content = null;
+    protected bool $orderable              = false;
+    protected bool $searchable             = false;
+    protected bool $translated             = false;
+    protected ?string $view                = null;
+    protected ?string $searchField         = null;
 
-    private TranslatesModelAttributes $translator;
+    protected TranslatesModelAttributes $translator;
 
     public function __construct(TranslatesModelAttributes $translator)
     {

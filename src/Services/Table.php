@@ -7,7 +7,9 @@ namespace Davesweb\Dashboard\Services;
 use Closure;
 use Illuminate\Support\Collection;
 use Davesweb\Dashboard\Services\Table\Column;
+use Davesweb\Dashboard\Services\Table\HasOneColumn;
 use Davesweb\Dashboard\Services\Table\ActionsColumn;
+use Davesweb\Dashboard\Services\Table\BelongsToOneColumn;
 
 class Table
 {
@@ -28,6 +30,38 @@ class Table
         $column = resolve(Column::class);
 
         $column = $column->title($title)->orderable($orderable)->searchable($searchable)->translated($translated);
+
+        if (null !== $content) {
+            $column->content($content);
+        }
+
+        $this->columns[] = $column;
+
+        return $column;
+    }
+
+    public function hasOne(string $title, string $relation, string|Closure|null $content = null, bool $orderable = false, bool $searchable = false, bool $translated = false): HasOneColumn
+    {
+        /** @var HasOneColumn $column */
+        $column = resolve(HasOneColumn::class);
+
+        $column = $column->title($title)->relation($relation)->orderable($orderable)->searchable($searchable)->translated($translated);
+
+        if (null !== $content) {
+            $column->content($content);
+        }
+
+        $this->columns[] = $column;
+
+        return $column;
+    }
+
+    public function belongsToOne(string $title, string $relation, string|Closure|null $content = null, bool $orderable = false, bool $searchable = false, bool $translated = false): BelongsToOneColumn
+    {
+        /** @var BelongsToOneColumn $column */
+        $column = resolve(BelongsToOneColumn::class);
+
+        $column = $column->title($title)->relation($relation)->orderable($orderable)->searchable($searchable)->translated($translated);
 
         if (null !== $content) {
             $column->content($content);
