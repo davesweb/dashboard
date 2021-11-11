@@ -31,6 +31,7 @@
                     'ariaLabel'    => $label,
                     'info'         => $info,
                     'options'      => $options,
+                    'multiple'     => $multiple,
                 ])
             </div>
         @endforeach

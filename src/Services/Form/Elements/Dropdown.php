@@ -7,7 +7,7 @@ namespace Davesweb\Dashboard\Services\Form\Elements;
 use Illuminate\Support\HtmlString;
 use Illuminate\Database\Eloquent\Model;
 
-class Dropdown extends Input
+class Dropdown extends MultiSelect
 {
     protected string $tabbedView = 'dashboard::crud.form.tabbed-dropdown';
 

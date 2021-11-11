@@ -6,6 +6,7 @@
         @if($required) required="required" @endif
         @if($autofocus) autofocus="autofocus" @endif
         @if($ariaLabel) aria-label="{{ $ariaLabel }}" @endif
+        @if($multiple) multiple="multiple" @endif
 >
     @foreach($options as $optionKey => $optionValue)
         <option value="{{ $optionKey }}" {{ $value($model ?? null, $locale) === $optionKey ? ' selected="selected"' : '' }}>{{ $optionValue }}</option>

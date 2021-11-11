@@ -16,5 +16,6 @@
         'ariaLabel'    => $ariaLabel,
         'info'         => $info,
         'options'      => $options,
+        'multiple'     => $multiple,
     ])
 </div>
