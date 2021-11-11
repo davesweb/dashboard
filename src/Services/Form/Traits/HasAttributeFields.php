@@ -19,6 +19,7 @@ use Davesweb\Dashboard\Services\Form\Elements\Range;
 use Davesweb\Dashboard\Services\Form\Elements\Hidden;
 use Davesweb\Dashboard\Services\Form\Elements\Search;
 use Davesweb\Dashboard\Services\Form\Elements\Section;
+use Davesweb\Dashboard\Services\Form\Elements\Dropdown;
 use Davesweb\Dashboard\Services\Form\Elements\Password;
 use Davesweb\Dashboard\Services\Form\Elements\TextArea;
 use Davesweb\Dashboard\Services\Form\Elements\DatetimeLocal;
@@ -63,6 +64,16 @@ trait HasAttributeFields
     {
         /** @var DatetimeLocal $input */
         $input = resolve(DatetimeLocal::class)->name($name)->label($label);
+
+        $this->element($input);
+
+        return $input;
+    }
+
+    public function dropdown(string $name, ?string $label = null): Dropdown
+    {
+        /** @var Dropdown $input */
+        $input = resolve(Dropdown::class)->name($name)->label($label);
 
         $this->element($input);
 
