@@ -1,9 +1,9 @@
 <div class="card mb-3">
     @if($title || $translatable)
-        <div class="card-header d-flex justify-content-between align-items-start pb-0">
+        <div class="card-header d-flex justify-content-between align-items-start {{ $translatable ? 'pb-0' : '' }}">
             <div>
                 @if($title)
-                    <h3 class="card-title h5 mb-0 mt-1">{{ $title }}</h3>
+                    <h3 class="card-title h5 mb-0 {{ $translatable ? 'mt-1' : '' }}">{{ $title }}</h3>
                 @endif
             </div>
             <div>
@@ -28,6 +28,10 @@
                     </div>
                 @endforeach
             </div>
+        @else
+            @foreach($fields as $field)
+                {{ $field->render($model ?? null, $formLocale, [], true) }}
+            @endforeach
         @endif
     </div>
 </div>

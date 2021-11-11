@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Davesweb\Dashboard\Services\Form\Traits;
 
+use Illuminate\Support\Str;
 use Davesweb\Dashboard\Services\Form\Element;
 use Davesweb\Dashboard\Services\Form\Elements\Tel;
 use Davesweb\Dashboard\Services\Form\Elements\Url;
@@ -27,10 +28,10 @@ use Davesweb\Dashboard\Services\Form\Elements\Number as NumberElement;
  */
 trait HasAttributeFields
 {
-    public function section(string $name, ?string $title = null, ?string $description = null): Section
+    public function section(string $title, ?string $name = null, ?string $description = null): Section
     {
         /** @var Section $section */
-        $section = resolve(Section::class, ['name' => $name])->title($title)->description($description);
+        $section = resolve(Section::class, ['name' => $name ?? Str::of($title)->slug()])->title($title)->description($description);
 
         $this->element($section);
 

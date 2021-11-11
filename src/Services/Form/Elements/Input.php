@@ -118,9 +118,9 @@ abstract class Input extends Element implements Translatable
         return $this->autofocus;
     }
 
-    public function translated(): static
+    public function translated(bool $translated = true): static
     {
-        $this->translated = true;
+        $this->translated = $translated;
 
         return $this;
     }
@@ -148,7 +148,7 @@ abstract class Input extends Element implements Translatable
         $secondary = new HtmlString('');
 
         if ($this->isConfirm()) {
-            $secondary = new HtmlString(view('dashboard::crud.form.input', [
+            $secondary = new HtmlString(view($this->isTranslatable() && !$inSection ? 'dashboard::crud.form.tabbed-input' : 'dashboard::crud.form.input', [
                 'availableLocales' => $availableLocales,
                 'type'             => $this->type,
                 'model'            => $model,
@@ -156,17 +156,21 @@ abstract class Input extends Element implements Translatable
                     return $this->getValue($model, $locale);
                 },
                 'formLocale'       => $locale,
-                'name'             => $this->getName() . '_confirmation',
+                'name'             => $inSection ? $this->getName() . '_confirmation[translated][' . $locale . ']' : $this->getName() . '_confirmation',
                 'label'            => __('Confirm') . ' ' . $this->getLabel(),
                 'placeholder'      => $this->getPlaceholder(),
                 'required'         => $this->isRequired(),
                 'autofocus'        => $this->hasAutofocus(),
                 'translatable'     => $this->isTranslatable(),
                 'inSection'        => $inSection,
-            ])->render());
+                'id'               => $inSection ? $this->name . $locale : $this->name,
+                'for'              => $inSection ? $this->name . $locale : $this->name,
+                'errorKey'         => $inSection ? $this->name . '.translated.' . $locale : $this->name,
+                'ariaLabel'        => $inSection ? __('Confirm') . ' ' . $this->label : null,
+            ])->render() . $secondary->toHtml());
         }
 
-        return new HtmlString(view('dashboard::crud.form.input', [
+        return new HtmlString(view($this->isTranslatable() && !$inSection ? 'dashboard::crud.form.tabbed-input' : 'dashboard::crud.form.input', [
             'availableLocales' => $availableLocales,
             'type'             => $this->type,
             'model'            => $model,
@@ -174,13 +178,17 @@ abstract class Input extends Element implements Translatable
                 return $this->getValue($model, $locale);
             },
             'formLocale'       => $locale,
-            'name'             => $this->getName(),
+            'name'             => $inSection && $this->isTranslatable() ? $this->getName() . '[translated][' . $locale . ']' : $this->getName(),
             'label'            => $this->getLabel(),
             'placeholder'      => $this->getPlaceholder(),
             'required'         => $this->isRequired(),
             'autofocus'        => $this->hasAutofocus(),
             'translatable'     => $this->isTranslatable(),
             'inSection'        => $inSection,
+            'id'               => $inSection && $this->isTranslatable() ? $this->name . $locale : $this->name,
+            'for'              => $inSection && $this->isTranslatable() ? $this->name . $locale : $this->name,
+            'errorKey'         => $inSection && $this->isTranslatable() ? $this->name . '.translated.' . $locale : $this->name,
+            'ariaLabel'        => $inSection && $this->isTranslatable() ? $this->label : null,
         ])->render() . $secondary->toHtml());
     }
 }

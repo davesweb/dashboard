@@ -42,11 +42,9 @@ class Section extends Element implements Translatable
 
     public function render(?Model $model, string $locale, iterable $availableLocales = []): HtmlString
     {
-        if ($this->isTranslatable()) {
-            $this->fields->each(function (Element $element) {
-                $element->translated();
-            });
-        }
+        $this->fields->each(function (Element $element) {
+            $element->translated($this->isTranslatable());
+        });
 
         return new HtmlString(view('dashboard::crud.form.section', [
             'fields'       => $this->fields,
@@ -95,9 +93,9 @@ class Section extends Element implements Translatable
         return $this->description;
     }
 
-    public function translated(): static
+    public function translated(bool $translated = true): static
     {
-        $this->translated = true;
+        $this->translated = $translated;
 
         return $this;
     }

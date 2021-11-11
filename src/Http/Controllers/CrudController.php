@@ -127,7 +127,7 @@ class CrudController extends Controller
     {
         $this->authorize('create', get_class($this->crud()->model()));
 
-        $locale = $request->getLocale();
+        $locale = $request->getCrudLocale();
         $crud   = $this->crud();
 
         /** @var Form $form */
@@ -179,7 +179,7 @@ class CrudController extends Controller
 
     public function edit(ShowCrudRequest $request, mixed $id): Renderable
     {
-        $locale = $request->getLocale();
+        $locale = $request->getCrudLocale();
         $crud   = $this->crud();
         $model  = $crud->model($id);
 

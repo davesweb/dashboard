@@ -8,7 +8,7 @@ use Davesweb\Dashboard\Contracts\TranslatesModelAttributes;
 
 interface Translatable
 {
-    public function translated(): static;
+    public function translated(bool $translated = true): static;
 
     public function isTranslatable(): bool;
 
