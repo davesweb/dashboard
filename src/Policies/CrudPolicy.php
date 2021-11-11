@@ -44,7 +44,7 @@ class CrudPolicy
         return false;
     }
 
-    public function destroyHard(): bool
+    public function destroyTrashed(): bool
     {
         // todo
         return false;

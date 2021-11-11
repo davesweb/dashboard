@@ -44,7 +44,7 @@ class UserPolicy
         return false;
     }
 
-    public function destroyHard(User $user, User $model): bool
+    public function destroyTrashed(User $user, User $model): bool
     {
         // Todo
         return false;

@@ -86,10 +86,10 @@ class ActionCollection extends Collection
         if (in_array(Crud::ACTION_DESTROY, $actions, true) && $request->routeIs($routeNamePrefix . 'trashed')) {
             $collection->push(new Action(
                 title: __('Delete this :model permanently', ['model' => $names['singular']]),
-                route: $routeNamePrefix . 'destroy-hard',
+                route: $routeNamePrefix . 'destroy-trashed',
                 icon: new HtmlString('<i class="fa fa-close fa-fw"></i>'),
                 formMethod: 'delete',
-                ability: 'destroyHard',
+                ability: 'destroyTrashed',
             ));
         }
 

@@ -250,12 +250,12 @@ class CrudController extends Controller
         return redirect()->back()->with(['success' => $message]);
     }
 
-    public function destroyHard(mixed $id): RedirectResponse
+    public function destroyTrashed(mixed $id): RedirectResponse
     {
         $crud  = $this->crud();
         $model = $crud->model($id);
 
-        $this->authorize('destroyHard', $model);
+        $this->authorize('destroyTrashed', $model);
     }
 
     protected function crud(): Crud

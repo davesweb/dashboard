@@ -23,13 +23,13 @@ use Davesweb\Dashboard\Services\Factories\ActionCollection;
 
 abstract class Crud
 {
-    public const ACTION_INDEX         = 'index';
-    public const ACTION_INDEX_TRASHED = 'trashed';
-    public const ACTION_SHOW          = 'show';
-    public const ACTION_CREATE        = 'create';
-    public const ACTION_UPDATE        = 'update';
-    public const ACTION_DESTROY       = 'destroy';
-    public const ACTION_DESTROY_HARD  = 'destroy-hard';
+    public const ACTION_INDEX            = 'index';
+    public const ACTION_INDEX_TRASHED    = 'trashed';
+    public const ACTION_SHOW             = 'show';
+    public const ACTION_CREATE           = 'create';
+    public const ACTION_UPDATE           = 'update';
+    public const ACTION_DESTROY          = 'destroy';
+    public const ACTION_DESTROY_TRASHED  = 'destroy-trashed';
 
     protected string $model;
 
@@ -78,7 +78,7 @@ abstract class Crud
 
         if (in_array(SoftDeletes::class, class_uses_recursive($this->model), true)) {
             $actions[] = self::ACTION_INDEX_TRASHED;
-            $actions[] = self::ACTION_DESTROY_HARD;
+            $actions[] = self::ACTION_DESTROY_TRASHED;
         }
 
         return $actions;
@@ -112,7 +112,7 @@ abstract class Crud
 
             if (in_array(self::ACTION_INDEX_TRASHED, $actions, true)) {
                 $router->get('trashed', [$this->controller, 'trashed'])->name('trashed');
-                $router->delete('destroy/{id}', [$this->controller, 'destroyHard'])->name('destroy-hard');
+                $router->delete('destroy/{id}', [$this->controller, 'destroyTrashed'])->name('destroy-trashed');
             }
 
             if (in_array(self::ACTION_CREATE, $actions, true)) {
@@ -146,7 +146,7 @@ abstract class Crud
 
         if (in_array(self::ACTION_INDEX_TRASHED, $actions, true)) {
             $routeNames[] = $this->getRouteName('trashed');
-            $routeNames[] = $this->getRouteName('destroy-hard');
+            $routeNames[] = $this->getRouteName('destroy-trashed');
         }
 
         if (in_array(self::ACTION_CREATE, $actions, true)) {
@@ -234,12 +234,12 @@ abstract class Crud
         return null;
     }
 
-    public function beforeHardDestroy(): ?Closure
+    public function beforeTrashedDestroy(): ?Closure
     {
         return null;
     }
 
-    public function afterHardDestroy(): ?Closure
+    public function afterTrashedDestroy(): ?Closure
     {
         return null;
     }
@@ -264,7 +264,7 @@ abstract class Crud
         return null;
     }
 
-    public function hardDestroyedMessage(Model $model): ?string
+    public function trashedDestroyedMessage(Model $model): ?string
     {
         return null;
     }
