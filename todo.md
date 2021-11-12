@@ -15,7 +15,7 @@
 - [ ] Update the query method to eager load all requested relations before executing the query on the index and view methods
 - [ ] When saving model data on create and on update, add relations saving. Some need te be saved before the model, others after.
 - [ ] Ordering of the index method based on the request
-- [ ] DateColumn, DateTimeColumn, CreatedAtColumn, UpdatedAtColumn, DeletedAtColumn,etc classes on the Table.
+- [x] DateColumn, DateTimeColumn, CreatedAtColumn, UpdatedAtColumn, DeletedAtColumn,etc classes on the Table.
 - [ ] Add an option to add a (minimum) width to a column
 - [ ]
 - [ ]

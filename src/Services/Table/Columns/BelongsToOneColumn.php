@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace Davesweb\Dashboard\Services\Table\Columns;
 
-class BelongsToOneColumn extends HasOneColumn
+class BelongsToOneColumn extends HasOneOrBelongsToColumn
 {
 }
