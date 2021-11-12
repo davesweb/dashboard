@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DateColumn extends Column
 {
-    protected string $format = 'Y-m-d';
+    protected string $format = '%d %B %Y';
 
     public function format(string $format): static
     {
@@ -43,6 +43,6 @@ class DateColumn extends Column
             $date->locale($locale);
         }
 
-        return $date->format($this->getFormat());
+        return $date->formatLocalized($this->getFormat());
     }
 }

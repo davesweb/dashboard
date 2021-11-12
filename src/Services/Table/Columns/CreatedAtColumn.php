@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CreatedAtColumn extends DateTimeColumn
 {
-    protected string $format = 'Y-m-d';
+    protected string $format = '%d %B %Y';
 
     public function render(Model $model, string $locale): string|HtmlString
     {

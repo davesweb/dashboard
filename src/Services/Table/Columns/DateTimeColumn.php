@@ -6,5 +6,5 @@ namespace Davesweb\Dashboard\Services\Table\Columns;
 
 class DateTimeColumn extends DateColumn
 {
-    protected string $format = 'Y-m-d H:i';
+    protected string $format = '%d %B %Y %H:%M';
 }
