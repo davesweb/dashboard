@@ -1,6 +1,6 @@
 - [x] Add remember me option to the login page.
 - [ ] The public publish command publishes the fonts and images twice, remove the unused one.
-- [ ] Add option that requires users to set up two-factor authentication (config setting + middleware)
+- [x] Add option that requires users to set up two-factor authentication (config setting + middleware)
 - [ ] Media library to manage media files in crud operations
 - [ ] Relationship columns for the table and detail pages.
 - [ ] Relationship fields and other remaining fields for form pages.  
@@ -19,5 +19,10 @@
 - [ ] Add an option to add a (minimum) width to a column
 - [ ] Add page actions to all pages.
 - [ ] Add a TableBuilder to build the index pages instead of the ever larger getting single view file
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
 - [ ]
 - [ ] Documentation (when everything is done, otherwise I'm rewriting everything multiple times)

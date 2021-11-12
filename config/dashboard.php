@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Davesweb\Dashboard\Http\Middleware\ForceTwoFactorAuth;
 use Davesweb\Dashboard\ModelTranslators\DaveswebTranslator;
 
 return [
@@ -20,6 +21,7 @@ return [
      */
     'middleware'   => [
         'web',
+        ForceTwoFactorAuth::class,
     ],
 
     'users' => [
@@ -27,6 +29,11 @@ return [
          * The table that is used by the User model to store the dashboard users in.
          */
         'table' => 'dashboard_users',
+
+        /*
+         * If this setting is set to true, users can't do anything but setup 2FA until this is done when they're logged in.
+         */
+        'require-2fa' => env('FORCE_2FA', false),
     ],
 
     'crud' => [

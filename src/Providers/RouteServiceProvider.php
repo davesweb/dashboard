@@ -23,14 +23,14 @@ class RouteServiceProvider extends IlluminateRouteServiceProvider
             // @todo Let fortify define the routes by setting the views option to true.
             Route::prefix(config('dashboard.route'))
                 ->middleware(config('dashboard.middleware'))
-                ->get('confirm-password', [LoginController::class, 'confirm'])
-                ->name('password.confirm')
+                ->get('two-factor', [LoginController::class, 'twoFactor'])
+                ->name('two-factor.login')
             ;
 
             Route::prefix(config('dashboard.route'))
                 ->middleware(config('dashboard.middleware'))
-                ->get('confirm-password', [LoginController::class, 'twoFactor'])
-                ->name('two-factor.login')
+                ->get('confirm-password', [LoginController::class, 'confirm'])
+                ->name('password.confirm')
             ;
         });
     }

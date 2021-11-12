@@ -13,7 +13,7 @@
                     @if(!empty($user->two_factor_secret))
                         <div class="alert alert-success">
                             <p class="mb-0">
-                                {{ __('2 factor authentication is enabled for your account!') }}
+                                {{ __('Two factor authentication is enabled for your account!') }}
                             </p>
                         </div>
                         <div class="mb-3 row">
@@ -36,7 +36,10 @@
                     @else
                         <div class="alert alert-warning">
                             <p class="mb-0">
-                                {{ __('2 factor authentication is not enabled for your account.') }}
+                                {{ __('Two factor authentication is not enabled for your account.') }}
+                                @if(config('dashboard.users.require-2fa'))
+                                    {{ __('Two factor authentication is required for using this application. Please anable it before continuing.') }}
+                                @endif
                             </p>
                         </div>
                         <form method="post" action="{{ route('two-factor.enable') }}">
