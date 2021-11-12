@@ -11,13 +11,18 @@
             <div class="d-flex justify-content-between align-items-start">
                 <div class="w-25">
                     <label class="form-label d-flex align-items-start text-muted" for="per-page">
-                        <span class="me-2 pt-1">{{ __('Show') }}</span>
-                        <select class="form-control form-control-sm w-25 me-2" name="per-page" id="per-page">
-                            <option value="15">15</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select>
+                        <span class="pt-1">{{ __('Show') }}</span>
+                        <div class="dropdown pt-0 mx-2">
+                            <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="per-page-select" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ $perPage }}
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="per-page-select">
+                                <li><a class="dropdown-item" href="{{ full_url_with_query(['perPage' => 15]) }}">15</a></li>
+                                <li><a class="dropdown-item" href="{{ full_url_with_query(['perPage' => 25]) }}">25</a></li>
+                                <li><a class="dropdown-item" href="{{ full_url_with_query(['perPage' => 50]) }}">50</a></li>
+                                <li><a class="dropdown-item" href="{{ full_url_with_query(['perPage' => 100]) }}">100</a></li>
+                            </ul>
+                        </div>
                         <span class="pt-1">{{ __('per page') }}</span>
                     </label>
                 </div>

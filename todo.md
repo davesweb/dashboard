@@ -9,11 +9,11 @@
 - [ ] Authorization (Roles?) -> default permissions based on the available crud actions
 - [ ] Add a response factory that decides what to return based on the request (HTML, RedirectResponse or Resource)
 - [ ] Make the view names used for crud actions configurable
-- [ ] Clean up the form input class and view. The translations stuff right now is a mess
+- [x] Clean up the form input class and view. The translations stuff right now is a mess (sort of done, could still be better)
 - [ ] Available locales is currently fetched from the config in a lot of places. Ues the correct parameters for this.
-- [ ]
-- [ ]
-- [ ]
+- [ ] Add a count method to relationship table columns that shows the number of related models
+- [ ] Update the query method to eager load all requested relations before executing the query on the index and view methods
+- [ ] When saving model data on create and on update, add relations saving. Some need te be saved before the model, others after.
 - [ ]
 - [ ]
 - [ ]

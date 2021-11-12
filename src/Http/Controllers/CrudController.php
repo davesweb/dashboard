@@ -49,7 +49,7 @@ class CrudController extends Controller
             $crud->search($query, $table->getSearchableColumns(), $request->getCrudLocale(), $request->getSearchQuery());
         }
 
-        $items = $query->paginate();
+        $items = $query->paginate($request->getPerPage($crud->model()));
 
         return view('dashboard::crud.index', [
             'pageTitle'   => $crud->plural(),
@@ -58,6 +58,7 @@ class CrudController extends Controller
             'crudLocale'  => $locale,
             'searchQuery' => $request->getSearchQuery(),
             'pageActions' => $crud->getPageActions(),
+            'perPage'     => $request->getPerPage($crud->model()),
         ]);
     }
 
@@ -85,7 +86,7 @@ class CrudController extends Controller
             $crud->search($query, $table->getSearchableColumns(), $request->getCrudLocale(), $request->getSearchQuery());
         }
 
-        $items = $query->paginate();
+        $items = $query->paginate($request->getPerPage($crud->model()));
 
         return view('dashboard::crud.index', [
             'pageTitle'   => __('Trashed :models', ['models' => $crud->plural()]),
@@ -94,6 +95,7 @@ class CrudController extends Controller
             'crudLocale'  => $locale,
             'searchQuery' => $request->getSearchQuery(),
             'pageActions' => $crud->getPageActions(),
+            'perPage'     => $request->getPerPage($crud->model()),
         ]);
     }
 
