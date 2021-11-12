@@ -112,6 +112,6 @@ class Column
 
     public function getSearchField(): ?string
     {
-        return $this->searchField;
+        return $this->searchField ?? (null !== $this->content && !$this->content instanceof Closure ? $this->content : (string) Str::of($this->title)->snake()->lower());
     }
 }

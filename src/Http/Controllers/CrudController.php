@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Davesweb\Dashboard\Services\CrudFinder;
 use Illuminate\Contracts\Support\Renderable;
 use Davesweb\Dashboard\Services\StoreCrudService;
+use Davesweb\Dashboard\Builders\IndexQueryBuilder;
 use Davesweb\Dashboard\Services\UpdateCrudService;
 use Davesweb\Dashboard\Services\DestroyCrudService;
 use Davesweb\Dashboard\Http\Requests\ShowCrudRequest;
@@ -29,27 +30,17 @@ class CrudController extends Controller
         $this->crudFinder = $crudFinder;
     }
 
-    public function index(IndexCrudRequest $request): Renderable
+    public function index(IndexCrudRequest $request, IndexQueryBuilder $builder): Renderable
     {
         $this->authorize('viewAny', get_class($this->crud()->model()));
 
         $locale = $request->getCrudLocale();
-
-        $crud = $this->crud();
-
-        /** @var Table $table */
-        $table = resolve(Table::class, ['crud' => $crud]);
+        $crud   = $this->crud();
+        $table  = $this->table($crud);
 
         $crud->index($table);
 
-        // @todo add ordering based on the request
-        $query = $this->query();
-
-        if ($request->hasSearch()) {
-            $crud->search($query, $table->getSearchableColumns(), $request->getCrudLocale(), $request->getSearchQuery());
-        }
-
-        $items = $query->paginate($request->getPerPage($crud->model()));
+        $items = $builder->paginate($crud, $request, $table, false, $request->getPerPage($crud->model()));
 
         return view('dashboard::crud.index', [
             'pageTitle'   => $crud->plural(),
@@ -62,16 +53,13 @@ class CrudController extends Controller
         ]);
     }
 
-    public function trashed(IndexCrudRequest $request): Renderable
+    public function trashed(IndexCrudRequest $request, IndexQueryBuilder $builder): Renderable
     {
         $this->authorize('viewTrashed', get_class($this->crud()->model()));
 
         $locale = $request->getCrudLocale();
-
-        $crud = $this->crud();
-
-        /** @var Table $table */
-        $table = resolve(Table::class, ['crud' => $crud]);
+        $crud   = $this->crud();
+        $table  = $this->table($crud);
 
         $crud->trashed($table);
 
@@ -79,14 +67,7 @@ class CrudController extends Controller
             $crud->index($table);
         }
 
-        // @todo add ordering based on the request
-        $query = $this->query()->onlyTrashed();
-
-        if ($request->hasSearch()) {
-            $crud->search($query, $table->getSearchableColumns(), $request->getCrudLocale(), $request->getSearchQuery());
-        }
-
-        $items = $query->paginate($request->getPerPage($crud->model()));
+        $items = $builder->paginate($crud, $request, $table, true, $request->getPerPage($crud->model()));
 
         return view('dashboard::crud.index', [
             'pageTitle'   => __('Trashed :models', ['models' => $crud->plural()]),
@@ -271,5 +252,13 @@ class CrudController extends Controller
     protected function query(): Builder
     {
         return $this->crud()->query();
+    }
+
+    protected function table(Crud $crud): Table
+    {
+        /** @var Table $table */
+        $table = resolve(Table::class, ['crud' => $crud]);
+
+        return $table;
     }
 }

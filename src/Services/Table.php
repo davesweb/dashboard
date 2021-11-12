@@ -6,11 +6,12 @@ namespace Davesweb\Dashboard\Services;
 
 use Closure;
 use Illuminate\Support\Collection;
-use Davesweb\Dashboard\Services\Table\HasOneColumn;
 use Davesweb\Dashboard\Services\Table\Columns\Column;
 use Davesweb\Dashboard\Services\Table\Columns\DateColumn;
+use Davesweb\Dashboard\Services\Table\Columns\HasOneColumn;
 use Davesweb\Dashboard\Services\Table\Columns\ActionsColumn;
 use Davesweb\Dashboard\Services\Table\Columns\DateTimeColumn;
+use Davesweb\Dashboard\Services\Table\Columns\RelationColumn;
 use Davesweb\Dashboard\Services\Table\Columns\CreatedAtColumn;
 use Davesweb\Dashboard\Services\Table\Columns\DeletedAtColumn;
 use Davesweb\Dashboard\Services\Table\Columns\UpdatedAtColumn;
@@ -188,6 +189,20 @@ class Table
     public function getColumns(): array
     {
         return $this->columns;
+    }
+
+    public function getRelationshipColumns(): Collection
+    {
+        return collect($this->columns)->reject(function (Column $column) {
+            return !$column instanceof RelationColumn;
+        });
+    }
+
+    public function getRelationshipNames(): iterable
+    {
+        return $this->getRelationshipColumns()->map(function (RelationColumn $column) {
+            return $column->getRelation();
+        })->toArray();
     }
 
     public function getHeaders(): array
