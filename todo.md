@@ -12,12 +12,12 @@
 - [x] Clean up the form input class and view. The translations stuff right now is a mess (sort of done, could still be better)
 - [ ] Available locales is currently fetched from the config in a lot of places. Ues the correct parameters for this.
 - [ ] Add a count method to relationship table columns that shows the number of related models
-- [ ] Update the query method to eager load all requested relations before executing the query on the index and view methods
+- [x] Update the query method to eager load all requested relations before executing the query on the index and view methods
 - [ ] When saving model data on create and on update, add relations saving. Some need te be saved before the model, others after.
 - [ ] Ordering of the index method based on the request
 - [x] DateColumn, DateTimeColumn, CreatedAtColumn, UpdatedAtColumn, DeletedAtColumn,etc classes on the Table.
 - [ ] Add an option to add a (minimum) width to a column
-- [ ]
-- [ ]
+- [ ] Add page actions to all pages.
+- [ ] Add a TableBuilder to build the index pages instead of the ever larger getting single view file
 - [ ]
 - [ ] Documentation (when everything is done, otherwise I'm rewriting everything multiple times)

@@ -34,9 +34,8 @@ class CrudController extends Controller
     {
         $this->authorize('viewAny', get_class($this->crud()->model()));
 
-        $locale = $request->getCrudLocale();
-        $crud   = $this->crud();
-        $table  = $this->table($crud);
+        $crud  = $this->crud();
+        $table = $this->table($crud);
 
         $crud->index($table);
 
@@ -46,7 +45,7 @@ class CrudController extends Controller
             'pageTitle'   => $crud->plural(),
             'items'       => $items,
             'table'       => $table,
-            'crudLocale'  => $locale,
+            'crudLocale'  => $request->getCrudLocale(),
             'searchQuery' => $request->getSearchQuery(),
             'pageActions' => $crud->getPageActions(),
             'perPage'     => $request->getPerPage($crud->model()),
@@ -57,9 +56,8 @@ class CrudController extends Controller
     {
         $this->authorize('viewTrashed', get_class($this->crud()->model()));
 
-        $locale = $request->getCrudLocale();
-        $crud   = $this->crud();
-        $table  = $this->table($crud);
+        $crud  = $this->crud();
+        $table = $this->table($crud);
 
         $crud->trashed($table);
 
@@ -73,7 +71,7 @@ class CrudController extends Controller
             'pageTitle'   => __('Trashed :models', ['models' => $crud->plural()]),
             'items'       => $items,
             'table'       => $table,
-            'crudLocale'  => $locale,
+            'crudLocale'  => $request->getCrudLocale(),
             'searchQuery' => $request->getSearchQuery(),
             'pageActions' => $crud->getPageActions(),
             'perPage'     => $request->getPerPage($crud->model()),
