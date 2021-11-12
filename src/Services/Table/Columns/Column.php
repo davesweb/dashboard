@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Davesweb\Dashboard\Services\Table;
+namespace Davesweb\Dashboard\Services\Table\Columns;
 
 use Closure;
 use Illuminate\Support\Str;
+use Illuminate\Support\HtmlString;
 use Illuminate\Database\Eloquent\Model;
-use League\CommonMark\Util\HtmlElement;
 use Davesweb\Dashboard\Contracts\TranslatesModelAttributes;
 
 class Column
@@ -63,7 +63,7 @@ class Column
         return $this;
     }
 
-    public function render(Model $model, string $locale): string|HtmlElement
+    public function render(Model $model, string $locale): string|HtmlString
     {
         if ($this->translated) {
             return $this->translator->translate($model, $locale, $this->content) ?? '';

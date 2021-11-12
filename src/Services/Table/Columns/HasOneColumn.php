@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Davesweb\Dashboard\Services\Table;
+namespace Davesweb\Dashboard\Services\Table\Columns;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\HtmlString;
 use Illuminate\Database\Eloquent\Model;
-use League\CommonMark\Util\HtmlElement;
 
 class HasOneColumn extends Column
 {
@@ -24,7 +24,7 @@ class HasOneColumn extends Column
         return $this->relation;
     }
 
-    public function render(Model $model, string $locale): string|HtmlElement
+    public function render(Model $model, string $locale): string|HtmlString
     {
         $relation = null;
 

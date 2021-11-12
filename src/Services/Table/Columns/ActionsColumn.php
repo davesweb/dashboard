@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Davesweb\Dashboard\Services\Table;
+namespace Davesweb\Dashboard\Services\Table\Columns;
 
+use Illuminate\Support\HtmlString;
+use Davesweb\Dashboard\Services\Action;
 use Illuminate\Database\Eloquent\Model;
-use League\CommonMark\Util\HtmlElement;
 use Davesweb\Dashboard\Contracts\TranslatesModelAttributes;
 
 class ActionsColumn extends Column
@@ -29,7 +30,7 @@ class ActionsColumn extends Column
         return $this;
     }
 
-    public function render(Model $model, string $locale): string|HtmlElement
+    public function render(Model $model, string $locale): string|HtmlString
     {
         return view('dashboard::crud.partials.actions', [
             'actions' => $this->actions,
