@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Davesweb\Dashboard\Http\Controllers;
 
+use Illuminate\Http\Response;
 use Davesweb\Dashboard\Services\Crud;
 use Davesweb\Dashboard\Services\Form;
 use Illuminate\Http\RedirectResponse;
@@ -39,6 +40,11 @@ class CrudController extends Controller
 
         $crud->index($table);
 
+        // @todo this should be done on the future table builder
+        if ($crud->hasAction(Crud::ACTION_EXPORT)) {
+            $table->exports();
+        }
+
         $items = $builder->paginate($crud, $request, $table, false, $request->getPerPage($crud->model()));
 
         return view('dashboard::crud.index', [
@@ -65,6 +71,11 @@ class CrudController extends Controller
             $crud->index($table);
         }
 
+        // @todo this should be done on the future table builder
+        if ($crud->hasAction(Crud::ACTION_EXPORT)) {
+            $table->exports();
+        }
+
         $items = $builder->paginate($crud, $request, $table, true, $request->getPerPage($crud->model()));
 
         return view('dashboard::crud.index', [
@@ -76,6 +87,12 @@ class CrudController extends Controller
             'pageActions' => $crud->getPageActions(),
             'perPage'     => $request->getPerPage($crud->model()),
         ]);
+    }
+
+    public function export(IndexCrudRequest $request, IndexQueryBuilder $builder, string $type): Response
+    {
+        // @todo
+        return response();
     }
 
     public function show(ShowCrudRequest $request, mixed $id): Renderable

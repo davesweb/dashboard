@@ -10,7 +10,7 @@
         <div class="card p-3">
             <div class="d-flex justify-content-between align-items-start">
                 <div class="w-25">
-                    <label class="form-label d-flex align-items-start text-muted" for="per-page">
+                    <div class="form-label d-flex align-items-start text-muted" >
                         <span class="pt-1">{{ __('Show') }}</span>
                         <div class="dropdown pt-0 mx-2">
                             <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="per-page-select" data-bs-toggle="dropdown" aria-expanded="false">
@@ -24,7 +24,7 @@
                             </ul>
                         </div>
                         <span class="pt-1">{{ __('per page') }}</span>
-                    </label>
+                    </div>
                 </div>
                 <div class="ms-auto d-flex align-items-start">
                     @if($table->hasSearch())
@@ -43,6 +43,18 @@
                             <ul class="dropdown-menu" aria-labelledby="language-select">
                                 @foreach(config('app.available_locales', []) as $abbr => $locale)
                                     <li><a class="dropdown-item" href="{{ full_url_with_query(['locale' => $abbr]) }}"><span class="{{ $locale['icon'] }}"></span> {{ $locale['name'] }}</a></li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    @if($table->hasExports())
+                        <div class="dropdown pt-1 ms-2">
+                            <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="language-select" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ __('Export') }}
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="language-select">
+                                @foreach($table->getExports() as $export)
+                                    <li><a class="dropdown-item" href="#">{{ export_icon($export) }} {{ strtoupper($export) }}</a></li>
                                 @endforeach
                             </ul>
                         </div>

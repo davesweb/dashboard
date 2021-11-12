@@ -30,6 +30,7 @@ abstract class Crud
     public const ACTION_UPDATE           = 'update';
     public const ACTION_DESTROY          = 'destroy';
     public const ACTION_DESTROY_TRASHED  = 'destroy-trashed';
+    public const ACTION_EXPORT           = 'export';
 
     protected string $model;
 
@@ -74,7 +75,7 @@ abstract class Crud
 
     public function actions(): array
     {
-        $actions = [self::ACTION_INDEX, self::ACTION_SHOW, self::ACTION_CREATE, self::ACTION_UPDATE, self::ACTION_DESTROY];
+        $actions = [self::ACTION_INDEX, self::ACTION_SHOW, self::ACTION_CREATE, self::ACTION_UPDATE, self::ACTION_DESTROY, self::ACTION_EXPORT];
 
         if (in_array(SoftDeletes::class, class_uses_recursive($this->model), true)) {
             $actions[] = self::ACTION_INDEX_TRASHED;
@@ -105,6 +106,10 @@ abstract class Crud
 
             if (in_array(self::ACTION_INDEX, $actions, true)) {
                 $router->get('', [$this->controller, 'index'])->name('index');
+            }
+
+            if (in_array(self::ACTION_EXPORT, $actions, true)) {
+                $router->get('export/{type}', [$this->controller, 'export'])->name('export');
             }
 
             if (in_array(self::ACTION_INDEX_TRASHED, $actions, true)) {
@@ -141,6 +146,10 @@ abstract class Crud
             $routeNames[] = $this->getRouteName('index');
         }
 
+        if (in_array(self::ACTION_EXPORT, $actions, true)) {
+            $routeNames[] = $this->getRouteName('export');
+        }
+
         if (in_array(self::ACTION_INDEX_TRASHED, $actions, true)) {
             $routeNames[] = $this->getRouteName('trashed');
             $routeNames[] = $this->getRouteName('destroy-trashed');
@@ -170,6 +179,11 @@ abstract class Crud
     public function hasRoute(Route $route): bool
     {
         return $route->named($this->getRouteNames());
+    }
+
+    public function hasAction(string $action): bool
+    {
+        return in_array($action, $this->actions(), true);
     }
 
     public function registerMenu(Sidebar $sidebar)
