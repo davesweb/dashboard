@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Davesweb\Dashboard\Http\Controllers;
 
 use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use Davesweb\Dashboard\Services\Crud;
 use Davesweb\Dashboard\Services\Form;
 use Illuminate\Http\RedirectResponse;
@@ -20,7 +21,9 @@ use Davesweb\Dashboard\Http\Requests\ShowCrudRequest;
 use Davesweb\Dashboard\Http\Requests\IndexCrudRequest;
 use Davesweb\Dashboard\Http\Requests\StoreCrudRequest;
 use Davesweb\Dashboard\Http\Requests\UpdateCrudRequest;
+use Davesweb\Dashboard\Http\Resources\CrudShowResource;
 use Davesweb\Dashboard\Http\Requests\DestroyCrudRequest;
+use Davesweb\Dashboard\Http\Resources\CrudIndexResource;
 
 class CrudController extends Controller
 {
@@ -31,7 +34,7 @@ class CrudController extends Controller
         $this->crudFinder = $crudFinder;
     }
 
-    public function index(IndexCrudRequest $request, IndexQueryBuilder $builder): Renderable
+    public function index(IndexCrudRequest $request, IndexQueryBuilder $builder): Renderable|CrudIndexResource
     {
         $this->authorize('viewAny', get_class($this->crud()->model()));
 
@@ -47,7 +50,7 @@ class CrudController extends Controller
 
         $items = $builder->paginate($crud, $request, $table, false, $request->getPerPage($crud->model()));
 
-        return view('dashboard::crud.index', [
+        return $request->wantsJson() ? new CrudIndexResource($items) : view('dashboard::crud.index', [
             'pageTitle'   => $crud->plural(),
             'items'       => $items,
             'table'       => $table,
@@ -58,7 +61,7 @@ class CrudController extends Controller
         ]);
     }
 
-    public function trashed(IndexCrudRequest $request, IndexQueryBuilder $builder): Renderable
+    public function trashed(IndexCrudRequest $request, IndexQueryBuilder $builder): Renderable|CrudIndexResource
     {
         $this->authorize('viewTrashed', get_class($this->crud()->model()));
 
@@ -78,7 +81,7 @@ class CrudController extends Controller
 
         $items = $builder->paginate($crud, $request, $table, true, $request->getPerPage($crud->model()));
 
-        return view('dashboard::crud.index', [
+        return $request->wantsJson() ? new CrudIndexResource($items) : view('dashboard::crud.index', [
             'pageTitle'   => __('Trashed :models', ['models' => $crud->plural()]),
             'items'       => $items,
             'table'       => $table,
@@ -95,7 +98,7 @@ class CrudController extends Controller
         return response();
     }
 
-    public function show(ShowCrudRequest $request, mixed $id): Renderable
+    public function show(ShowCrudRequest $request, mixed $id): Renderable|CrudShowResource
     {
         $locale = $request->getCrudLocale();
         $crud   = $this->crud();
@@ -113,7 +116,7 @@ class CrudController extends Controller
             $crud->index($table);
         }
 
-        return view('dashboard::crud.view', [
+        return $request->wantsJson() ? new CrudShowResource($model) : view('dashboard::crud.view', [
             'pageTitle'  => __(':model', ['model' => $crud->singular()]),
             'model'      => $model,
             'table'      => $table,
@@ -148,7 +151,7 @@ class CrudController extends Controller
         ]);
     }
 
-    public function store(StoreCrudRequest $request, StoreCrudService $service): RedirectResponse
+    public function store(StoreCrudRequest $request, StoreCrudService $service): RedirectResponse|CrudShowResource
     {
         $this->authorize('create', get_class($this->crud()->model()));
 
@@ -173,9 +176,9 @@ class CrudController extends Controller
 
         $message = $crud->storedMessage($model) ?? __('The :model was created successfully.', ['model' => $crud->singular()]);
 
-        return $request->addAnother() ?
+        return $request->wantsJson() ? new CrudShowResource($model) : ($request->addAnother() ?
             redirect()->route($crud->getRouteName('create'))->with(['success' => $message]) :
-            redirect()->route($crud->getRouteName('edit'), [$model])->with(['success' => $message]); // todo Created model ID
+            redirect()->route($crud->getRouteName('edit'), [$model])->with(['success' => $message]));
     }
 
     public function edit(ShowCrudRequest $request, mixed $id): Renderable
@@ -205,7 +208,7 @@ class CrudController extends Controller
         ]);
     }
 
-    public function update(UpdateCrudRequest $request, UpdateCrudService $service, mixed $id): RedirectResponse
+    public function update(UpdateCrudRequest $request, UpdateCrudService $service, mixed $id): RedirectResponse|CrudShowResource
     {
         $crud  = $this->crud();
         $model = $crud->model($id);
@@ -231,10 +234,10 @@ class CrudController extends Controller
 
         $message = $crud->updatedMessage($model) ?? __('The :model was updated successfully.', ['model' => $crud->singular()]);
 
-        return redirect()->back()->with(['success' => $message]);
+        return $request->wantsJson() ? new CrudShowResource($model) : redirect()->back()->with(['success' => $message]);
     }
 
-    public function destroy(DestroyCrudRequest $request, DestroyCrudService $service, mixed $id): RedirectResponse
+    public function destroy(DestroyCrudRequest $request, DestroyCrudService $service, mixed $id): RedirectResponse|JsonResponse
     {
         $crud  = $this->crud();
         $model = $crud->model($id);
@@ -248,10 +251,10 @@ class CrudController extends Controller
 
         $message = $crud->destroyedMessage($model) ?? __('The :model was deleted successfully.', ['model' => $crud->singular()]);
 
-        return redirect()->back()->with(['success' => $message]);
+        return $request->wantsJson() ? response()->json(['success' => $message]) : redirect()->back()->with(['success' => $message]);
     }
 
-    public function destroyTrashed(mixed $id): RedirectResponse
+    public function destroyTrashed(mixed $id): RedirectResponse|JsonResponse
     {
         $crud  = $this->crud();
         $model = $crud->model($id);

@@ -57,6 +57,9 @@ trait HasColumns
         return $column;
     }
 
+    /**
+     * @return Column[]|iterable
+     */
     public function getColumns(): iterable
     {
         return $this->columns;
