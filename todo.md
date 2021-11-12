@@ -14,8 +14,8 @@
 - [ ] Add a count method to relationship table columns that shows the number of related models
 - [ ] Update the query method to eager load all requested relations before executing the query on the index and view methods
 - [ ] When saving model data on create and on update, add relations saving. Some need te be saved before the model, others after.
-- [ ]
-- [ ]
+- [ ] Ordering of the index method based on the request
+- [ ] DateColumn, DateTimeColumn, CreatedAtColumn, UpdatedAtColumn, DeletedAtColumn,etc classes on the Table.
 - [ ]
 - [ ]
 - [ ]
