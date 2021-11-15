@@ -7447,7 +7447,7 @@ textarea.form-control-lg {
   padding-left: 0.5rem !important;
 }
 
-.px-3 {
+.px-3, .ce-block__content {
   padding-right: 1rem !important;
   padding-left: 1rem !important;
 }
@@ -7467,7 +7467,7 @@ textarea.form-control-lg {
   padding-bottom: 0 !important;
 }
 
-.py-1 {
+.py-1, .ce-block__content {
   padding-top: 0.25rem !important;
   padding-bottom: 0.25rem !important;
 }
@@ -7492,7 +7492,7 @@ textarea.form-control-lg {
   padding-bottom: 3rem !important;
 }
 
-.pt-0 {
+.pt-0, .ce-header {
   padding-top: 0 !important;
 }
 
@@ -7914,7 +7914,7 @@ textarea.form-control-lg {
   pointer-events: auto !important;
 }
 
-.rounded {
+.rounded, .ce-block__content:focus, .ce-block__content:focus-within, .ce-block__content:active {
   border-radius: 0.25rem !important;
 }
 
@@ -20381,6 +20381,52 @@ readers do not read off random characters that represent icons */
   background-color: #37424c;
   color: #c8cddc;
   border-color: #2b323a;
+}
+
+@media (min-width: 1400px) {
+  .ce-block__content {
+    max-width: 1190px;
+  }
+}
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+  .ce-block__content {
+    max-width: 745px;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .ce-block__content {
+    max-width: 530px;
+  }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .ce-block__content {
+    max-width: 330px;
+  }
+}
+.ce-block__content:focus, .ce-block__content:focus-within, .ce-block__content:active {
+  background-color: #3c4752;
+  color: #c8cddc;
+}
+
+@media (min-width: 1400px) {
+  .ce-toolbar__content {
+    max-width: 1190px;
+  }
+}
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+  .ce-toolbar__content {
+    max-width: 745px;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .ce-toolbar__content {
+    max-width: 530px;
+  }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .ce-toolbar__content {
+    max-width: 330px;
+  }
 }
 
 .form-control {

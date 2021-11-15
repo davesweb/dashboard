@@ -145,5 +145,7 @@
             @endforeach
         </div>
     </body>
-    <script src="{{ asset('vendor/dashboard/js/app.js') }}"></script>
+    @section('scripts')
+        <script src="{{ asset('vendor/dashboard/js/app.js') }}"></script>
+    @show
 </html>

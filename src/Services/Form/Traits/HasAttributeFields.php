@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Davesweb\Dashboard\Services\Form\Traits;
 
+use Davesweb\Dashboard\Services\Form\Elements\Editor;
 use Illuminate\Support\Str;
 use Davesweb\Dashboard\Services\Form\Element;
 use Davesweb\Dashboard\Services\Form\Elements\Tel;
@@ -101,6 +102,16 @@ trait HasAttributeFields
 
         $this->element($input);
 
+        return $input;
+    }
+    
+    public function editor(string $name, ?string $label = null): Editor
+    {
+        /** @var Editor $input */
+        $input = resolve(Editor::class)->name($name)->label($label);
+        
+        $this->element($input);
+        
         return $input;
     }
 

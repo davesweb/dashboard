@@ -10,7 +10,9 @@
         "production": "mix --production"
     },
     "devDependencies": {
+        "@editorjs/quote": "^2.4.0",
         "axios": "^0.21",
+        "editorjs-table": "^1.4.10",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
@@ -19,6 +21,9 @@
         "sass-loader": "^12.1.0"
     },
     "dependencies": {
+        "@editorjs/editorjs": "^2.22.2",
+        "@editorjs/header": "^2.6.1",
+        "@editorjs/nested-list": "^1.0.2",
         "@fortawesome/fontawesome-free": "^5.15.4",
         "@popperjs/core": "^2.10.2",
         "bootstrap": "^5.1.3",

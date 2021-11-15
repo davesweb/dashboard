@@ -9,5 +9,5 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class Element
 {
-    abstract public function render(?Model $model, string $locale, iterable $availableLocales = []): HtmlString;
+    abstract public function render(?Model $model, string $locale, iterable $availableLocales = [], bool $inSection = false): HtmlString;
 }

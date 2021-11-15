@@ -1,0 +1,41 @@
+.ce-block__content {
+  @include media-breakpoint-only(xxl) {
+    max-width: 1190px;
+  }
+  @include media-breakpoint-only(xl) {
+    max-width: 745px;
+  }
+  @include media-breakpoint-only(lg) {
+    max-width: 530px;
+  }
+  @include media-breakpoint-only(md) {
+    max-width: 330px;
+  }
+  @extend .py-1;
+  @extend .px-3;
+
+  &:focus, &:focus-within, &:active {
+    background-color: $dark-300;
+    color: $dark-50;
+    @extend .rounded;
+  }
+}
+
+.ce-toolbar__content {
+  @include media-breakpoint-only(xxl) {
+    max-width: 1190px;
+  }
+  @include media-breakpoint-only(xl) {
+    max-width: 745px;
+  }
+  @include media-breakpoint-only(lg) {
+    max-width: 530px;
+  }
+  @include media-breakpoint-only(md) {
+    max-width: 330px;
+  }
+}
+
+.ce-header {
+  @extend .pt-0;
+}

@@ -19,8 +19,8 @@
 - [ ] Add an option to add a (minimum) width to a column
 - [ ] Add page actions to all pages.
 - [ ] Add a TableBuilder to build the index pages instead of the ever larger getting single view file
-- [ ]
-- [ ]
+- [ ] Editor inner width doesn't match with screen width on different resolutions
+- [ ] Components that can be created for custom actions, or be injected in existing actions (e.g. a PageComponent or a CalendarComponent)
 - [ ]
 - [ ]
 - [ ]

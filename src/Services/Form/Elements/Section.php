@@ -40,7 +40,7 @@ class Section extends Element implements Translatable
         return $element;
     }
 
-    public function render(?Model $model, string $locale, iterable $availableLocales = []): HtmlString
+    public function render(?Model $model, string $locale, iterable $availableLocales = [], bool $inSection = false): HtmlString
     {
         $this->fields->each(function (Element $element) {
             $element->translated($this->isTranslatable());
