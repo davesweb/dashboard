@@ -36,7 +36,7 @@ class CrudFinder
                 continue;
             }
 
-            $classname = $namespace . '\\' . Str::of($path)->replace([$location, '.php'], '')->ltrim('\\');
+            $classname = $namespace . '\\' . Str::of($path)->replace([$location, '.php', '/'], '')->ltrim('\\');
 
             if (class_exists($classname)) {
                 $object = resolve($classname);
@@ -54,8 +54,14 @@ class CrudFinder
 
     public function findCrudByRequest(Request $request): ?Crud
     {
+        $locations = array_merge(config('dashboard.crud.locations', []), [__DIR__ . '/../Crud' => 'Davesweb\\Dashboard\\Crud']);
+
+        //if (app()->runningUnitTests()) {
+        //    $locations[__DIR__ . '/../../tests/Crud'] = '\\Davesweb\\Dashboard\\Tests\\Crud';
+        //}
+
         /** @var Crud $crud */
-        foreach ($this->findAllByLocations(array_merge(config('dashboard.crud.locations', []), [__DIR__ . '/../Crud' => 'Davesweb\\Dashboard\\Crud'])) as $crud) {
+        foreach ($this->findAllByLocations($locations) as $crud) {
             if ($crud->hasRoute($request->route())) {
                 return $crud;
             }

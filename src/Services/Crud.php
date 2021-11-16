@@ -50,7 +50,7 @@ abstract class Crud
 
     public function pluralSlug(): string
     {
-        return (string) Str::of($this->plural())->slug()->lower();
+        return (string) Str::of($this->plural())->snake('-')->lower();
     }
 
     public function names(): array

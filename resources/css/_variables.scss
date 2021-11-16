@@ -1,13 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
-$font-family-base: 'Lato', sans-serif;
+$font-family-base: 'Poppins', 'Lato', sans-serif;
 $headings-font-family: 'Poppins', sans-serif;
 
 $primary: #5C2F4C;
 $secondary: #697897;
+$danger: #d15656;
 
 $dark-50: #c8cddc;
 $dark-100: #9097a7;
+$dark-150: #707986;
 $dark-200: #505a64;
 $dark-300: #3c4752;
 $dark-400: #37424c;
@@ -17,9 +19,13 @@ $dark-700: #22282e;
 $dark-800: #1c2126;
 $dark-900: #15181c;
 
+$light: $dark-50;
+$dark: $dark-900;
+
 $darks: (
   "50": $dark-50,
   "100": $dark-100,
+  "150": $dark-150,
   "200": $dark-200,
   "300": $dark-300,
   "400": $dark-400,
@@ -30,4 +36,44 @@ $darks: (
   "900": $dark-900
 );
 
+$body-color: $dark-50;
 $link-color: $secondary;
+
+$color-contrast-dark: $dark-900;
+$color-contrast-light: $dark-50;
+
+$card-border-color: $dark-800;
+$card-box-shadow:   null;
+$card-cap-bg:       $dark-700;
+$card-cap-color:    $dark-50;
+$card-color:        $dark-50;
+$card-bg:           $dark-700;
+
+$input-bg:                 $dark-400;
+$input-disabled-bg:        $dark-500;
+$input-color:              $dark-50;
+$input-border-color:       $dark-600;
+$input-placeholder-color:  $dark-150;
+
+$dropdown-color:               $dark-100;
+$dropdown-bg:                  $dark-800;
+$dropdown-border-color:        $dark-900;
+$dropdown-link-color:          $dark-100;
+$dropdown-link-hover-bg:       $dark-700;
+$dropdown-link-disabled-color: $dark-600;
+$dropdown-header-color:        $dark-150;
+
+$sidebar-width:                80%;
+$sidebar-width-sm:             60%;
+$sidebar-width-md:             200px;
+$sidebar-width-lg:             300px;
+$sidebar-width-xl:             300px;
+$sidebar-width-xxl:            300px;
+$sidebar-heading-color:        $dark-200;
+$sidebar-link-color:           $dark-50;
+$sidebar-link-bg-color:        $dark-800;
+$sidebar-link-hover-color:     $dark-100;
+$sidebar-link-hover-bg-color:  $dark-600;
+$sidebar-link-active-color:    $dark-50;
+$sidebar-link-active-bg-color: $primary;
+$sidebar-divider-color:        radial-gradient(circle, $secondary 0%, darken($secondary, 15%) 35%, $dark-600 100%);

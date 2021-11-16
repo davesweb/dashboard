@@ -12,6 +12,8 @@ use Davesweb\Dashboard\Console\Commands\CreateDashboardUserCommand;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
+    public const VERSION = '0.0.0-dev';
+
     public function boot()
     {
         $this->publishes([

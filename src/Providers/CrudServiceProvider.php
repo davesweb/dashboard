@@ -23,11 +23,18 @@ class CrudServiceProvider extends IlluminateServiceProvider
     public function boot(): void
     {
         Route::matched(function (RouteMatched $route) {
-            $mainMenu = Menu::make();
+            $mainMenu = Menu::make(__('Menu'));
             $mainMenu->link(__('Dashboard'), dashboard_route('index'), new HtmlString('<i class="fa fa-dashboard"></i>'), null, -10);
 
+            $helpMenu = Menu::make(__('Help'));
+            $helpMenu->link(__('Documentation'), 'https://davesweb.github.io/dashboard/', new HtmlString('<i class="fa fa-info-circle"></i>'))->targetBlank();
+            $helpMenu->link(__('Updates'), dashboard_route('updates'), new HtmlString('<i class="fa fa-wrench"></i>')); // @todo Add check for latest version + controller
+            $helpMenu->link(__('Credits'), dashboard_route('credits'), new HtmlString('<i class="fab fa-creative-commons-by"></i>'))->targetBlank();
+
             $sidebar = Sidebar::factory();
-            $sidebar->menu($mainMenu, 0);
+            $sidebar->menu($mainMenu, -10);
+            $sidebar->divider(99);
+            $sidebar->menu($helpMenu, 100);
 
             $this->registerCrudMenus();
         });
@@ -69,7 +76,13 @@ class CrudServiceProvider extends IlluminateServiceProvider
         /** @var CrudFinder $finder */
         $finder = resolve(CrudFinder::class);
 
-        $this->cruds = $finder->findAllByLocations(array_merge(config('dashboard.crud.locations', []), [__DIR__ . '/../Crud' => 'Davesweb\\Dashboard\\Crud']));
+        $locations = array_merge(config('dashboard.crud.locations', []), [__DIR__ . '/../Crud' => 'Davesweb\\Dashboard\\Crud']);
+
+        //if ($this->app->runningUnitTests()) {
+        //    $locations[__DIR__ . '/../../tests/Crud'] = '\\Davesweb\\Dashboard\\Tests\\Crud';
+        //}
+
+        $this->cruds = $finder->findAllByLocations($locations);
 
         return $this->cruds;
     }

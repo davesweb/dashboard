@@ -49,7 +49,7 @@
                     @endif
                     @if($table->hasExports())
                         <div class="dropdown pt-1 ms-2">
-                            <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="language-select" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="export-select" data-bs-toggle="dropdown" aria-expanded="false">
                                 {{ __('Export') }}
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="language-select">

@@ -3101,7 +3101,112 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var bootstrap_js_src_collapse__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap/js/src/collapse */ "./node_modules/bootstrap/js/src/collapse.js");
 /* harmony import */ var bootstrap_js_src_dropdown__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! bootstrap/js/src/dropdown */ "./node_modules/bootstrap/js/src/dropdown.js");
 /* harmony import */ var bootstrap_js_src_tab__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! bootstrap/js/src/tab */ "./node_modules/bootstrap/js/src/tab.js");
+/* harmony import */ var _components_Sidebar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Sidebar */ "./resources/js/components/Sidebar.js");
 
+
+
+
+var sidebar = window.sidebar = new _components_Sidebar__WEBPACK_IMPORTED_MODULE_3__["default"](document.getElementById('sidebar'), document.getElementById('main-content'));
+sidebar.bindBootstrapEvents();
+
+/***/ }),
+
+/***/ "./resources/js/components/Sidebar.js":
+/*!********************************************!*\
+  !*** ./resources/js/components/Sidebar.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Sidebar)
+/* harmony export */ });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _classPrivateMethodInitSpec(obj, privateSet) { _checkPrivateRedeclaration(obj, privateSet); privateSet.add(obj); }
+
+function _classPrivateFieldInitSpec(obj, privateMap, value) { _checkPrivateRedeclaration(obj, privateMap); privateMap.set(obj, value); }
+
+function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
+
+function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
+
+function _classPrivateFieldGet(receiver, privateMap) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "get"); return _classApplyDescriptorGet(receiver, descriptor); }
+
+function _classApplyDescriptorGet(receiver, descriptor) { if (descriptor.get) { return descriptor.get.call(receiver); } return descriptor.value; }
+
+function _classPrivateFieldSet(receiver, privateMap, value) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "set"); _classApplyDescriptorSet(receiver, descriptor, value); return value; }
+
+function _classExtractFieldDescriptor(receiver, privateMap, action) { if (!privateMap.has(receiver)) { throw new TypeError("attempted to " + action + " private field on non-instance"); } return privateMap.get(receiver); }
+
+function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.set) { descriptor.set.call(receiver, value); } else { if (!descriptor.writable) { throw new TypeError("attempted to set read only private field"); } descriptor.value = value; } }
+
+var _sidebarElement = /*#__PURE__*/new WeakMap();
+
+var _mainPageElement = /*#__PURE__*/new WeakMap();
+
+var _open = /*#__PURE__*/new WeakSet();
+
+var _close = /*#__PURE__*/new WeakSet();
+
+var Sidebar = /*#__PURE__*/function () {
+  /**
+   * @param {HTMLElement} sidebarElement
+   * @param {HTMLElement} mainPageElement
+   */
+  function Sidebar(sidebarElement, mainPageElement) {
+    _classCallCheck(this, Sidebar);
+
+    _classPrivateMethodInitSpec(this, _close);
+
+    _classPrivateMethodInitSpec(this, _open);
+
+    _classPrivateFieldInitSpec(this, _sidebarElement, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _mainPageElement, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldSet(this, _sidebarElement, sidebarElement);
+
+    _classPrivateFieldSet(this, _mainPageElement, mainPageElement);
+  }
+
+  _createClass(Sidebar, [{
+    key: "bindBootstrapEvents",
+    value: function bindBootstrapEvents() {
+      var _this = this;
+
+      _classPrivateFieldGet(this, _sidebarElement).addEventListener('hidden.bs.collapse', function (event) {
+        _classPrivateMethodGet(_this, _close, _close2).call(_this);
+      });
+
+      _classPrivateFieldGet(this, _sidebarElement).addEventListener('shown.bs.collapse', function (event) {
+        _classPrivateMethodGet(_this, _open, _open2).call(_this);
+      });
+    }
+  }]);
+
+  return Sidebar;
+}();
+
+function _open2() {
+  // We don't actually need to show or hide the sidebar, Bootstrap does this. We only need to add a class to
+  // the main page element to tell it the sidebar is open or closed.
+  _classPrivateFieldGet(this, _mainPageElement).classList.remove('sidebar-closed');
+}
+
+function _close2() {
+  _classPrivateFieldGet(this, _mainPageElement).classList.add('sidebar-closed');
+}
 
 
 
@@ -5280,6 +5385,18 @@ __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
 
+/***/ }),
+
+/***/ "./resources/css/auth.scss":
+/*!*********************************!*\
+  !*** ./resources/css/auth.scss ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
 /***/ })
 
 /******/ 	});
@@ -5381,6 +5498,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
 /******/ 			"/js/app": 0,
+/******/ 			"css/auth": 0,
 /******/ 			"css/app": 0
 /******/ 		};
 /******/ 		
@@ -5431,8 +5549,9 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/js/app.js")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/css/app.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/auth","css/app"], () => (__webpack_require__("./resources/js/app.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/auth","css/app"], () => (__webpack_require__("./resources/css/app.scss")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/auth","css/app"], () => (__webpack_require__("./resources/css/auth.scss")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

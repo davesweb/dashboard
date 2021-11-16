@@ -6,24 +6,18 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
         <title>Davesweb</title>
-        <link rel="stylesheet" type="text/css" href="{{ asset('vendor/dashboard/css/app.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('vendor/dashboard/css/auth.css') }}" />
     </head>
-    <body class="bg-dark-500">
+    <body style="background-image: url('{{ asset('vendor/dashboard/images/galaxy3.jpg') }}')">
         <div class="container">
-            <div class="row">
-                <main class="col-12 col-md-8 col-xl-4 offset-md-2 offset-xl-4 min-vh-100 d-flex flex-column">
-                    <header class="my-4">
-                        <img src="#" alt="Logo" />
-                    </header>
-                    <section class="auth-form">
-                        @yield('content')
-                    </section>
-                    <footer class="mt-auto text-muted">
-                        <p>
-                            &copy;2020-{{ date('Y') }} - <a href="https://github.com/davesweb/dashboard/" target="_blank" class="text-dark-100 text-decoration-none">Davesweb Dashboard</a>
-                        </p>
-                    </footer>
-                </main>
+            <div class="row d-flex min-vh-100">
+                <div class="col-md-8 offset-md-2 col-xl-6 offset-xl-3 col-xxl-4 offset-xxl-4 justify-content-center align-self-center">
+                    @yield('content')
+                </div>
+
+                <div class="col-xxl-4 offset-xxl-4 justify-content-center align-self-end text-center">
+                    {!! __('Copyright 2020-:year <a href=":url" target="_blank" class="text-dark-50">davesweb</a>.', ['year' => date('Y'), 'url' => 'https://github.com/davesweb/dashboard#readme']) !!}
+                </div>
             </div>
         </div>
     </body>

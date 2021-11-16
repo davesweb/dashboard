@@ -21,8 +21,14 @@
 - [ ] Add a TableBuilder to build the index pages instead of the ever larger getting single view file
 - [ ] Editor inner width doesn't match with screen width on different resolutions
 - [ ] Components that can be created for custom actions, or be injected in existing actions (e.g. a PageComponent or a CalendarComponent)
-- [ ]
-- [ ]
-- [ ]
+- [ ] Forgot password view
+- [ ] Add a primary() method to the column options. If this is set, allow checkboxes for multi-row actions in de index view
+- [ ] Add predefined filters to the table (developer can create Filter class that can be accessed via dropdown in the index view)
+- [ ] Make the action after a successful form submit configurable.
+- [ ] Subdivide the multi-select form options into a dropdown, a checkbox and a namespaced checkbox
+- [ ] Submenu styling could be better
+- [ ] Remember submenu positions (open or collapsed) with cookies
+- [ ] Sidebar should be closed by default on mobile devices
+- [ ] RTL version
 - [ ]
 - [ ] Documentation (when everything is done, otherwise I'm rewriting everything multiple times)
