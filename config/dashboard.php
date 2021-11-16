@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Illuminate\Support\HtmlString;
+use Davesweb\Dashboard\Http\Middleware\DetermineLocale;
 use Davesweb\Dashboard\Http\Middleware\ForceTwoFactorAuth;
 use Davesweb\Dashboard\ModelTranslators\DaveswebTranslator;
 
@@ -22,6 +24,7 @@ return [
     'middleware'   => [
         'web',
         ForceTwoFactorAuth::class,
+        DetermineLocale::class,
     ],
 
     'users' => [
@@ -49,4 +52,23 @@ return [
      * The translator to use for translating model attributes.
      */
     'translator' => DaveswebTranslator::class,
+
+    /*
+     * The locales in which the dashboard interface is available. These are not related to the locales in which the content is available.
+     */
+    'available-locales' => [
+        'en' => [
+            'icon' => new HtmlString('<span class="flag-icon flag-icon-gb"></span>'),
+            'name' => 'English',
+        ],
+        'nl' => [
+            'icon' => new HtmlString('<span class="flag-icon flag-icon-nl"></span>'),
+            'name' => 'Nederlands',
+        ],
+    ],
+
+    /*
+     * The default locale for the dashboard interface.
+     */
+    'default-locale' => 'en',
 ];

@@ -8,12 +8,19 @@
 @import "~@fortawesome/fontawesome-free/scss/solid";
 @import "~@fortawesome/fontawesome-free/scss/v4-shims";
 
-@import "utilities";
-@import "components";
-
 $flag-icon-css-path: '~flag-icon-css/flags';
 $include: gb, nl, de, es, fr, fi, dk;
 @import '~flag-icon-css/sass/flag-icon';
+
+$card-border-color: $dark-700;
+$card-box-shadow:   null;
+$card-cap-bg:       $dark-600;
+$card-cap-color:    $dark-50;
+$card-color:        $dark-50;
+$card-bg:           $dark-600;
+
+@import "utilities";
+@import "components";
 
 .flag-icon-en {
   background-image: url(#{$flag-icon-css-path}#{$flag-icon-rect-path}/gb.svg);
@@ -23,28 +30,12 @@ $include: gb, nl, de, es, fr, fi, dk;
   }
 }
 
-#main-content {
-  @extend .m-3;
+html, body {
+  min-height: 100vh;
+}
 
-  &:not(.sidebar-closed) {
-    @include media-breakpoint-only(md) {
-      margin-left: add($sidebar-width-md, 3rem) !important;
-    }
-
-    @include media-breakpoint-only(lg) {
-      margin-left: add($sidebar-width-lg, 3rem) !important;
-    }
-
-    @include media-breakpoint-only(xl) {
-      margin-left: add($sidebar-width-xl, 3rem) !important;
-    }
-
-    @include media-breakpoint-only(xxl) {
-      margin-left: add($sidebar-width-xxl, 3rem) !important;
-    }
-  }
-
-  &.sidebar-closed {
-    margin-left: 1rem;
-  }
+body {
+  background-size: cover;
+  background-position: 50%;
+  position: relative;
 }

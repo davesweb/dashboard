@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Davesweb\Dashboard\Layout\Sidebar;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\HtmlString;
 
 class Link
@@ -17,6 +18,8 @@ class Link
     private ?Menu $submenu = null;
 
     private int $order = 0;
+
+    private ?string $target = null;
 
     public function getTitle(): string
     {
@@ -81,5 +84,27 @@ class Link
     public function hasSubmenu(): bool
     {
         return null !== $this->submenu;
+    }
+
+    public function isActive(Request $request): bool
+    {
+        return $request->fullUrlIs($this->getHref());
+    }
+
+    public function target(?string $target): static
+    {
+        $this->target = $target;
+
+        return $this;
+    }
+
+    public function targetBlank(): static
+    {
+        return $this->target('_blank');
+    }
+
+    public function getTarget(): ?string
+    {
+        return $this->target;
     }
 }

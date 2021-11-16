@@ -28,6 +28,13 @@ class Sidebar
         return $this;
     }
 
+    public function divider(?int $order = null): static
+    {
+        $this->menus[] = ['menu' => new Divider(), 'order' => $order];
+
+        return $this;
+    }
+
     public function getMenus(): Collection
     {
         return collect($this->menus)->sortBy('order')->map(function (array $menu) {

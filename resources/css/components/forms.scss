@@ -1,10 +1,5 @@
-.form-control {
-  background-color: $dark-300;
-  color: $dark-50;
-  border-color: $dark-200;
-
-  &:focus, &:focus-within, &:active {
-    background-color: $dark-200;
-    color: $dark-50;
-  }
+.input-group-text {
+  background-color: $input-bg;
+  border-color: $input-border-color;
+  color: $input-placeholder-color;
 }

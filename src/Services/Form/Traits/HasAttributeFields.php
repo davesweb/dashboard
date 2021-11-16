@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Davesweb\Dashboard\Services\Form\Traits;
 
-use Davesweb\Dashboard\Services\Form\Elements\Editor;
 use Illuminate\Support\Str;
 use Davesweb\Dashboard\Services\Form\Element;
 use Davesweb\Dashboard\Services\Form\Elements\Tel;
@@ -17,6 +16,7 @@ use Davesweb\Dashboard\Services\Form\Elements\Color;
 use Davesweb\Dashboard\Services\Form\Elements\Email;
 use Davesweb\Dashboard\Services\Form\Elements\Month;
 use Davesweb\Dashboard\Services\Form\Elements\Range;
+use Davesweb\Dashboard\Services\Form\Elements\Editor;
 use Davesweb\Dashboard\Services\Form\Elements\HasOne;
 use Davesweb\Dashboard\Services\Form\Elements\Hidden;
 use Davesweb\Dashboard\Services\Form\Elements\Search;
@@ -104,14 +104,14 @@ trait HasAttributeFields
 
         return $input;
     }
-    
+
     public function editor(string $name, ?string $label = null): Editor
     {
         /** @var Editor $input */
         $input = resolve(Editor::class)->name($name)->label($label);
-        
+
         $this->element($input);
-        
+
         return $input;
     }
 

@@ -1,0 +1,107 @@
+#sidebar {
+  border-radius: $border-radius;
+  background-color: $dark-800;
+  background-image: linear-gradient($dark-700, $dark-900);
+  width: $sidebar-width;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  bottom: 1rem;
+  height: calc(100vh - 2rem);
+  z-index: 10;
+
+  @include media-breakpoint-only(sm) {
+    width: $sidebar-width-sm;
+  }
+
+  @include media-breakpoint-only(md) {
+    width: $sidebar-width-md;
+  }
+
+  @include media-breakpoint-only(lg) {
+    width: $sidebar-width-lg;
+  }
+
+  @include media-breakpoint-only(xl) {
+    width: $sidebar-width-xl;
+  }
+
+  @include media-breakpoint-only(xxl) {
+    width: $sidebar-width-xxl;
+  }
+
+  nav {
+    @extend .p-3;
+  }
+
+  .menu-heading {
+    color: $sidebar-heading-color;
+    @extend .ps-4;
+  }
+
+  .sidebar-menu {
+    a {
+      position: relative;
+      text-decoration: none;
+      color: $sidebar-link-color;
+      @extend .py-2;
+      @extend .ps-4;
+      @extend .pe-1;
+      @extend .mb-1;
+      border-radius: $border-radius-sm;
+      background-color: $sidebar-link-bg-color;
+      display: block;
+
+      &:hover {
+        color: $sidebar-link-hover-color;
+        background-color: $sidebar-link-hover-bg-color;
+      }
+
+      &:active, &.active {
+        color: $sidebar-link-active-color;
+        background-color: $sidebar-link-active-bg-color;
+      }
+    }
+  }
+
+  .has-submenu {
+    > a::after {
+      display: inline-block;
+      font-style: normal;
+      font-variant: normal;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      position: absolute;
+      right: 1em;
+      font-family: "Font Awesome 5 Free", serif;
+      font-weight: 900;
+    }
+
+    > a.collapsed::after {
+      content: "\f0d7";
+    }
+
+    > a:not(.collapsed)::after {
+      content: "\f0d8";
+    }
+  }
+
+  .submenu {
+    a {
+      background-color: $sidebar-link-bg-color;
+      color: $sidebar-link-color;
+      border-radius: 0 !important;
+      @extend .ps-4;
+
+      &:hover {
+        background-color: $sidebar-link-bg-color;
+        color: $sidebar-link-hover-color;
+      }
+    }
+  }
+
+  .menu-divider {
+    height: 1px;
+    background: $sidebar-divider-color;
+  }
+}

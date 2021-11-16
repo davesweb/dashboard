@@ -1,5 +1,53 @@
 .card {
-  background-color: $dark-400;
-  color: $dark-50;
-  border-color: $dark-600;
+  position: relative;
+  margin-top: 2em;
+
+  .card-header {
+    position: relative;
+    border: 0 none;
+    @extend .p-0;
+
+    .card-title {
+      position: relative;
+      border-radius: 0.5em;
+      top: -1.5em;
+      margin-left: 1em;
+      margin-right: 1em;
+      margin-bottom: -1.5em;
+      @extend .text-center;
+      @extend .p-3;
+      background: $light;
+      border-color: $light;
+      color: $dark;
+
+      h1, h2, h3, h4, h5, h6 {
+        @extend .m-0;
+      }
+    }
+
+    &.header-sm {
+      .card-title {
+        @extend .p-1;
+        top: -0.5em;
+        margin-bottom: -0.5em;
+      }
+    }
+
+    &.width-auto {
+      margin-right: auto;
+      @extend .text-start;
+
+      .card-title {
+        @extend .px-3;
+      }
+    }
+  }
+
+  @each $name, $value in $theme-colors {
+    &.card-#{$name} .card-header .card-title {
+      background: $value;
+      border-color: $value;
+      color: color-contrast($value);
+    }
+  }
 }

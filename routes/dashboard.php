@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use Illuminate\Routing\Router;
 use Davesweb\Dashboard\Http\Middleware\Authenticate;
+use Davesweb\Dashboard\Http\Controllers\CreditsController;
+use Davesweb\Dashboard\Http\Controllers\UpdatesController;
 use Davesweb\Dashboard\Http\Controllers\DashboardController;
 use Davesweb\Dashboard\Http\Controllers\Auth\LoginController;
 use Davesweb\Dashboard\Http\Controllers\Auth\ProfileController;
@@ -12,9 +14,11 @@ use Davesweb\Dashboard\Http\Controllers\Auth\UpdatePasswordController;
 
 /* @var Router $router */
 $router->get('login', [LoginController::class, 'showView'])->name('login');
+$router->get('credits', [CreditsController::class, 'show'])->name('credits');
 
 $router->group(['middleware' => [Authenticate::class . ':dashboard']], function (Router $router) {
     $router->get('/', [DashboardController::class, 'index'])->name('index');
+    $router->get('updates', [UpdatesController::class, 'index'])->name('updates');
 
     $router->get('my-profile', [ProfileController::class, 'index'])->name('profile.edit');
     $router->get('change-password', [UpdatePasswordController::class, 'edit'])->name('password.edit');

@@ -1,9 +1,11 @@
 @extends('dashboard::layout.auth')
 
 @section('content')
-    <div class="card bg-dark-400 text-dark-50">
+    <div class="card card-primary my-auto">
+        <div class="card-header">
+            <div class="card-title"><h3>{{ __('Login') }}</h3></div>
+        </div>
         <div class="card-body">
-            <h2 class="card-title mb-4">{{ __('Login') }}</h2>
             <form method="post" action="{{ dashboard_route('login') }}">
                 @csrf
                 <div class="input-group mb-3">

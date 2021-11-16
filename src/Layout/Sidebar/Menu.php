@@ -31,15 +31,15 @@ class Menu
         return $this;
     }
 
-    public function link(Link|string $titleOrLink, ?string $href = null, string|HtmlString|null $icon = null, ?Menu $submenu = null, int $order = 0): static
+    public function link(Link|string $titleOrLink, ?string $href = null, string|HtmlString|null $icon = null, ?Menu $submenu = null, int $order = 0): Link
     {
         if ($titleOrLink instanceof Link) {
             $this->links[] = $titleOrLink;
 
-            return $this;
+            return $titleOrLink;
         }
 
-        $this->links[] = (new Link())
+        $this->links[] = $link = (new Link())
             ->title($titleOrLink)
             ->href($href)
             ->icon($icon)
@@ -47,7 +47,7 @@ class Menu
             ->order($order)
         ;
 
-        return $this;
+        return $link;
     }
 
     public function setTitle(?string $title): void

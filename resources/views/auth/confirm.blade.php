@@ -1,9 +1,11 @@
 @extends('dashboard::layout.auth')
 
 @section('content')
-    <div class="card bg-dark-400 text-dark-50">
+    <div class="card card-primary my-auto">
+        <div class="card-header">
+            <div class="card-title"><h3>{{ __('Login') }}</h3></div>
+        </div>
         <div class="card-body">
-            <h2 class="card-title mb-4">{{ __('Confirm password') }}</h2>
             <form method="post" action="/{{ config('dashboard.route') }}/user/confirm-password">
                 @csrf
                 <div class="mb-3">
