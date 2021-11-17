@@ -68,9 +68,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _editorjs_nested_list__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_editorjs_nested_list__WEBPACK_IMPORTED_MODULE_1__);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _classPrivateMethodInitSpec(obj, privateSet) { _checkPrivateRedeclaration(obj, privateSet); privateSet.add(obj); }
+
 function _classPrivateFieldInitSpec(obj, privateMap, value) { _checkPrivateRedeclaration(obj, privateMap); privateMap.set(obj, value); }
 
 function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
+
+function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
+
+function _classPrivateFieldGet(receiver, privateMap) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "get"); return _classApplyDescriptorGet(receiver, descriptor); }
+
+function _classApplyDescriptorGet(receiver, descriptor) { if (descriptor.get) { return descriptor.get.call(receiver); } return descriptor.value; }
 
 function _classPrivateFieldSet(receiver, privateMap, value) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "set"); _classApplyDescriptorSet(receiver, descriptor, value); return value; }
 
@@ -87,15 +95,41 @@ var Quote = __webpack_require__(/*! @editorjs/quote */ "./node_modules/@editorjs
 
 var Table = __webpack_require__(/*! editorjs-table */ "./node_modules/editorjs-table/dist/bundle.js");
 
+var _holder = /*#__PURE__*/new WeakMap();
+
 var _editor = /*#__PURE__*/new WeakMap();
 
+var _form = /*#__PURE__*/new WeakMap();
+
+var _createHiddenInput = /*#__PURE__*/new WeakSet();
+
+var _addInputToForm = /*#__PURE__*/new WeakSet();
+
 var Editor = function Editor(holder, data) {
+  var _this = this;
+
   _classCallCheck(this, Editor);
+
+  _classPrivateMethodInitSpec(this, _addInputToForm);
+
+  _classPrivateMethodInitSpec(this, _createHiddenInput);
+
+  _classPrivateFieldInitSpec(this, _holder, {
+    writable: true,
+    value: void 0
+  });
 
   _classPrivateFieldInitSpec(this, _editor, {
     writable: true,
     value: void 0
   });
+
+  _classPrivateFieldInitSpec(this, _form, {
+    writable: true,
+    value: void 0
+  });
+
+  _classPrivateFieldSet(this, _holder, document.getElementById(holder));
 
   _classPrivateFieldSet(this, _editor, new (_editorjs_editorjs__WEBPACK_IMPORTED_MODULE_0___default())({
     /**
@@ -129,9 +163,39 @@ var Editor = function Editor(holder, data) {
         }
       }
     },
-    data: data
+    data: JSON.parse(data)
   }));
-};
+
+  _classPrivateFieldSet(this, _form, _classPrivateFieldGet(this, _holder).closest('form'));
+
+  _classPrivateFieldGet(this, _form).addEventListener('submit', function (event) {
+    _classPrivateFieldGet(_this, _editor).save().then(function (outputData) {
+      var input = _classPrivateMethodGet(_this, _createHiddenInput, _createHiddenInput2).call(_this, JSON.stringify(outputData));
+
+      _classPrivateMethodGet(_this, _addInputToForm, _addInputToForm2).call(_this, input);
+    })["catch"](function (error) {
+      console.log('Saving failed: ', error);
+    });
+  });
+}
+/**
+ * @param {string} value
+ *
+ * @return {HTMLInputElement}
+ */
+;
+
+function _createHiddenInput2(value) {
+  var input = document.createElement('input');
+  input.setAttribute('type', 'hidden');
+  input.setAttribute('name', _classPrivateFieldGet(this, _holder).dataset.name);
+  input.setAttribute('value', value);
+  return input;
+}
+
+function _addInputToForm2(input) {
+  _classPrivateFieldGet(this, _form).appendChild(input);
+}
 
 
 
