@@ -7,6 +7,7 @@ namespace Davesweb\Dashboard\Services;
 use Closure;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\DatabaseManager;
 use Davesweb\Dashboard\Http\Requests\CrudRequest;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -24,11 +25,14 @@ abstract class CrudService
 
     protected bool $withModelEvents = true;
 
+    protected DatabaseManager $databaseManager;
+
     private TranslatesModelAttributes $translator;
 
-    public function __construct(TranslatesModelAttributes $translator)
+    public function __construct(TranslatesModelAttributes $translator, DatabaseManager $databaseManager)
     {
-        $this->translator = $translator;
+        $this->translator      = $translator;
+        $this->databaseManager = $databaseManager;
     }
 
     public function setBeforeCallback(?Closure $beforeStoreCallback): self
@@ -102,9 +106,65 @@ abstract class CrudService
         return $fields;
     }
 
+    protected function getAllAttributeFields(CrudRequest $request, Model $model): iterable
+    {
+        $fields = [];
+
+        foreach ($request->post() as $key => $value) {
+            if ($this->isExcludedFieldName($key) || $this->isTranslatedField($key, $value)) {
+                continue;
+            }
+
+            if (!$this->modelHasRelation($model, $key)) {
+                $fields[$key] = $value;
+            }
+        }
+
+        return $fields;
+    }
+
+    protected function getAllRelationFieldsBeforeSave(CrudRequest $request, Model $model): iterable
+    {
+        $fields = [];
+
+        foreach ($request->post() as $key => $value) {
+            if ($this->isExcludedFieldName($key)) {
+                continue;
+            }
+
+            if ($this->modelHasRelation($model, $key) && $this->isBeforeRelation($this->getRelationType($model, $key))) {
+                $fields[$key] = $value;
+            }
+        }
+
+        return $fields;
+    }
+
+    protected function getAllRelationFieldsAfterSave(CrudRequest $request, Model $model): iterable
+    {
+        $fields = [];
+
+        foreach ($request->post() as $key => $value) {
+            if ($this->isExcludedFieldName($key)) {
+                continue;
+            }
+
+            if ($this->modelHasRelation($model, $key) && !$this->isBeforeRelation($this->getRelationType($model, $key))) {
+                $fields[$key] = $value;
+            }
+        }
+
+        return $fields;
+    }
+
     protected function getRelationType(Model $model, string $relation): Relation
     {
         return call_user_func([$model, $relation]);
+    }
+
+    protected function isBeforeRelation(Relation $relation): bool
+    {
+        return !$relation instanceof BelongsToMany;
     }
 
     protected function setAttribute(Model $model, string $attribute, mixed $value): Model
@@ -139,7 +199,7 @@ abstract class CrudService
         return $model;
     }
 
-    protected function setRelation(Model $model, string $attribute, mixed $value): Model
+    protected function setRelationBefore(Model $model, string $attribute, mixed $value): Model
     {
         $setter = 'set' . Str::of($attribute)->camel()->ucfirst()->plural();
 
@@ -169,11 +229,45 @@ abstract class CrudService
             return $model;
         }
 
+        // Todo: is this a before or after?
         if ($relation instanceof BelongsTo) {
             $relation->associate($value);
 
             return $model;
         }
+
+        // Fallback, still needed?
+        $model->{$attribute} = $value;
+
+        return $model;
+    }
+
+    protected function setRelationAfter(Model $model, string $attribute, mixed $value): Model
+    {
+        $setter = 'set' . Str::of($attribute)->camel()->ucfirst()->plural();
+
+        if (method_exists($model, $setter)) {
+            call_user_func([$model, $setter], $value);
+
+            return $model;
+        }
+
+        $setter = 'set' . Str::of($attribute)->camel()->ucfirst();
+
+        if (method_exists($model, $setter)) {
+            call_user_func([$model, $setter], $value);
+
+            return $model;
+        }
+
+        $relation = $this->getRelationType($model, $attribute);
+
+        // Todo: is this a before or after?
+        //if ($relation instanceof BelongsTo) {
+        //    $relation->associate($value);
+        //
+        //    return $model;
+        //}
 
         if ($relation instanceof BelongsToMany) {
             $relation->sync($value);
@@ -181,6 +275,7 @@ abstract class CrudService
             return $model;
         }
 
+        // Fallback, still needed?
         $model->{$attribute} = $value;
 
         return $model;

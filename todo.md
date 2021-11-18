@@ -3,7 +3,7 @@
 - [x] Add option that requires users to set up two-factor authentication (config setting + middleware)
 - [ ] Media library to manage media files in crud operations
 - [ ] Relationship columns for the table and detail pages.
-- [ ] Relationship fields and other remaining fields for form pages.  
+- [x] Relationship fields and other remaining fields for form pages.  
 - [x] Add toasts for success and error messages.
 - [ ] Breadcrumbs
 - [ ] Authorization (Roles?) -> default permissions based on the available crud actions
@@ -13,7 +13,7 @@
 - [ ] Available locales is currently fetched from the config in a lot of places. Ues the correct parameters for this.
 - [ ] Add a count method to relationship table columns that shows the number of related models
 - [x] Update the query method to eager load all requested relations before executing the query on the index and view methods
-- [ ] When saving model data on create and on update, add relations saving. Some need te be saved before the model, others after.
+- [x] When saving model data on create and on update, add relations saving. Some need te be saved before the model, others after.
 - [ ] Ordering of the index method based on the request
 - [x] DateColumn, DateTimeColumn, CreatedAtColumn, UpdatedAtColumn, DeletedAtColumn,etc classes on the Table.
 - [ ] Add an option to add a (minimum) width to a column

@@ -13,41 +13,42 @@ class UpdateCrudService extends CrudService
 {
     public function update(UpdateCrudRequest $request, Model $model): Model
     {
-        if ($this->withEvents) {
-            event(new UpdatingCrud($model));
-        }
-
-        $model = $this->beforeCallback($model, $request);
-
-        foreach ($request->post() as $attribute => $value) {
-            if ($this->isExcludedFieldName($attribute)) {
-                continue;
+        return $this->databaseManager->transaction(function () use ($request, $model) {
+            if ($this->withEvents) {
+                event(new UpdatingCrud($model));
             }
 
-            if ($this->isTranslatedField($attribute, $value)) {
-                continue;
-            }
+            $model = $this->beforeCallback($model, $request);
 
-            if ($this->modelHasRelation($model, $attribute)) {
-                $this->setRelation($model, $attribute, $value);
-            } else {
+            $attributes = $this->getAllAttributeFields($request, $model);
+            foreach ($attributes as $attribute => $value) {
                 $this->setAttribute($model, $attribute, $value);
             }
-        }
 
-        $this->withModelEvents ? $model->update() : $model->updateQuietly();
+            $beforeRelations = $this->getAllRelationFieldsBeforeSave($request, $model);
+            foreach ($beforeRelations as $relation => $value) {
+                $this->setRelationBefore($model, $relation, $value);
+            }
 
-        $translatedFields = $this->getAllTranslatedFields($request);
+            $this->withModelEvents ? $model->update() : $model->updateQuietly();
 
-        $this->setTranslations($model, $translatedFields);
+            $afterRelations = $this->getAllRelationFieldsAfterSave($request, $model);
+            foreach ($afterRelations as $relation => $value) {
+                $this->setRelationAfter($model, $relation, $value);
+            }
 
-        $model = $this->afterCallback($model, $request);
+            $translatedFields = $this->getAllTranslatedFields($request);
 
-        if ($this->withEvents) {
-            event(new UpdatedCrud($model));
-        }
+            $this->setTranslations($model, $translatedFields);
 
-        return $model;
+            $model = $this->afterCallback($model, $request);
+
+            if ($this->withEvents) {
+                event(new UpdatedCrud($model));
+            }
+
+            return $model;
+        });
     }
 
     public function updateQuietly(UpdateCrudRequest $request, Model $model, bool $withModelEvents = true): Model

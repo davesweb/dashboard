@@ -13,43 +13,42 @@ class StoreCrudService extends CrudService
 {
     public function store(StoreCrudRequest $request, Model $model): Model
     {
-        if ($this->withEvents) {
-            event(new SavingCrud($model));
-        }
-
-        $model = $this->beforeCallback($model, $request);
-
-        foreach ($request->post() as $attribute => $value) {
-            if ($this->isExcludedFieldName($attribute)) {
-                continue;
+        return $this->databaseManager->transaction(function () use ($request, $model) {
+            if ($this->withEvents) {
+                event(new SavingCrud($model));
             }
 
-            if ($this->isTranslatedField($attribute, $value)) {
-                continue;
-            }
+            $model = $this->beforeCallback($model, $request);
 
-            if ($this->modelHasRelation($model, $attribute)) {
-                $this->setRelation($model, $attribute, $value);
-            } else {
+            $attributes = $this->getAllAttributeFields($request, $model);
+            foreach ($attributes as $attribute => $value) {
                 $this->setAttribute($model, $attribute, $value);
             }
-        }
 
-        $this->withModelEvents ? $model->save() : $model->saveQuietly();
+            $beforeRelations = $this->getAllRelationFieldsBeforeSave($request, $model);
+            foreach ($beforeRelations as $relation => $value) {
+                $this->setRelationBefore($model, $relation, $value);
+            }
 
-        $translatedFields = $this->getAllTranslatedFields($request);
+            $this->withModelEvents ? $model->save() : $model->saveQuietly();
 
-        $this->setTranslations($model, $translatedFields);
+            $afterRelations = $this->getAllRelationFieldsAfterSave($request, $model);
+            foreach ($afterRelations as $relation => $value) {
+                $this->setRelationAfter($model, $relation, $value);
+            }
 
-        $model = $this->afterCallback($model, $request);
+            $translatedFields = $this->getAllTranslatedFields($request);
 
-        $model = $this->afterCallback($model, $request);
+            $this->setTranslations($model, $translatedFields);
 
-        if ($this->withEvents) {
-            event(new SavedCrud($model));
-        }
+            $model = $this->afterCallback($model, $request);
 
-        return $model;
+            if ($this->withEvents) {
+                event(new SavedCrud($model));
+            }
+
+            return $model;
+        });
     }
 
     public function storeQuietly(StoreCrudRequest $request, Model $model, bool $withModelEvents = true): Model

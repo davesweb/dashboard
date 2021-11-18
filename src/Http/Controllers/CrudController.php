@@ -192,6 +192,7 @@ class CrudController extends Controller
         /** @var Form $form */
         $form = resolve(Form::class, ['crud' => $crud]);
         $form->method('put');
+        $form->href(route($crud->getRouteName('update'), [$model]));
 
         $crud->edit($form, $model);
 
