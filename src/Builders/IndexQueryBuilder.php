@@ -18,6 +18,7 @@ class IndexQueryBuilder
         $query = $this->addEagerLoading($query, $table);
         $query = $this->addTrashedOrNot($query, $onlyTrashed);
         $query = $this->addSearch($query, $crud, $table, $request);
+        $query = $this->addOrdering($query, $request);
 
         return $query;
     }
@@ -51,5 +52,14 @@ class IndexQueryBuilder
         }
 
         return $query;
+    }
+
+    private function addOrdering(Builder $builder, IndexCrudRequest $request): Builder
+    {
+        if (null !== $request->getSortColumn()) {
+            $builder->orderBy($request->getSortColumn(), $request->getSortDirection());
+        }
+
+        return $builder;
     }
 }

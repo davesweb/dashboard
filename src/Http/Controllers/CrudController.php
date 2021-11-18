@@ -58,6 +58,8 @@ class CrudController extends Controller
             'searchQuery' => $request->getSearchQuery(),
             'pageActions' => $crud->getPageActions(),
             'perPage'     => $request->getPerPage($crud->model()),
+            'sort'        => $request->getSortColumn(),
+            'dir'         => $request->getSortDirection(),
         ]);
     }
 
@@ -89,6 +91,8 @@ class CrudController extends Controller
             'searchQuery' => $request->getSearchQuery(),
             'pageActions' => $crud->getPageActions(),
             'perPage'     => $request->getPerPage($crud->model()),
+            'sort'        => $request->getSortColumn($crud->model()->getKeyName()),
+            'dir'         => $request->getSortDirection(),
         ]);
     }
 

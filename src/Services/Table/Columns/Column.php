@@ -15,6 +15,7 @@ class Column
     protected string $title;
     protected string|Closure|null $content = null;
     protected bool $orderable              = false;
+    protected ?string $orderColumn         = null;
     protected bool $searchable             = false;
     protected bool $translated             = false;
     protected ?string $view                = null;
@@ -42,9 +43,10 @@ class Column
         return $this;
     }
 
-    public function orderable(bool $orderable = true): static
+    public function orderable(bool $orderable = true, ?string $orderColumn = null): static
     {
-        $this->orderable = $orderable;
+        $this->orderable   = $orderable;
+        $this->orderColumn = $orderColumn;
 
         return $this;
     }
@@ -126,5 +128,10 @@ class Column
     public function getWidth(): mixed
     {
         return $this->width;
+    }
+
+    public function getOrderColumn(): string
+    {
+        return $this->orderColumn ?? (string) Str::of($this->getTitle())->snake()->lower();
     }
 }

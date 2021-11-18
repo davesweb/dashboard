@@ -31,6 +31,11 @@
                         <form method="get" action="{{ full_url_with_query([]) }}">
                             <div class="input-group pt-1 me-2">
                                 <input type="search" name="q" class="form-control form-control-sm" placeholder="{{ __('Search') }}" aria-label="{{ __('Search') }}" aria-describedby="search-addon" value="{{ $searchQuery }}" tabindex="1" />
+                                @foreach(request()->all() as $key => $value)
+                                    @if($key !== 'q')
+                                        <input type="hidden" name="{{ $key }}" value="{{ $value }}" />
+                                    @endif
+                                @endforeach
                                 <button class="input-group-text btn-secondary" id="search-addon"><i class="fa fa-search"></i></button>
                             </div>
                         </form>
@@ -65,7 +70,13 @@
                 <thead>
                     <tr>
                         @foreach($table->getColumns() as $column)
-                            <th{!! $column->getWidth() !== null ? ' style="width: ' . $column->getWidth() . '"' : '' !!}>{{ $column->getTitle() }}</th>
+                            <th{!! $column->getWidth() !== null ? ' style="width: ' . $column->getWidth() . '"' : '' !!}>
+                                {{ $column->getTitle() }}
+                                @if($column->isOrderable())
+                                    <a href="{{ full_url_with_query(['sort' => $column->getOrderColumn(), 'dir' => 'DESC']) }}" class="sort-link{{ $sort === $column->getOrderColumn() && $dir === 'DESC' ? ' active' : '' }}"><i class="fa-pull-right fa fa-sort-alpha-up text-muted fs-7 mt-1"></i></a>
+                                    <a href="{{ full_url_with_query(['sort' => $column->getOrderColumn(), 'dir' => 'ASC']) }}" class="sort-link{{ $sort === $column->getOrderColumn() && $dir === 'ASC' ? ' active' : '' }}"><i class="fa-pull-right fa fa-sort-alpha-down text-muted fs-7 mt-1"></i></a>
+                                @endif
+                            </th>
                         @endforeach
                     </tr>
                 </thead>

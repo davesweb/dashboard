@@ -22,4 +22,14 @@ class IndexCrudRequest extends CrudRequest
     {
         return (int) $this->get('perPage', optional($model)->getPerPage() ?? 15);
     }
+
+    public function getSortColumn(?string $default = null): ?string
+    {
+        return $this->get('sort', $default);
+    }
+
+    public function getSortDirection(): string
+    {
+        return in_array($this->get('dir', 'ASC'), ['ASC', 'DESC'], false) ? $this->get('dir', 'ASC') : 'ASC';
+    }
 }

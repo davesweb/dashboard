@@ -5,4 +5,13 @@
   td {
     color: $dark-50 !important;
   }
+
+  .sort-link {
+    &:not(.active) .text-muted {
+      color: $dark-400 !important;
+    }
+    &.active .text-muted {
+      color: $dark-200 !important;
+    }
+  }
 }

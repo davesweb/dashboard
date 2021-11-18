@@ -20313,6 +20313,22 @@ readers do not read off random characters that represent icons */
   background-color: #15181c !important;
 }
 
+.fs-7 {
+  font-size: 0.875rem;
+}
+
+.fs-8 {
+  font-size: 0.75rem;
+}
+
+.fs-9 {
+  font-size: 0.625rem;
+}
+
+.fs-10 {
+  font-size: 0.5rem;
+}
+
 .text-dark-50 {
   color: #c8cddc !important;
 }
@@ -20569,6 +20585,12 @@ readers do not read off random characters that represent icons */
 }
 .table td {
   color: #c8cddc !important;
+}
+.table .sort-link:not(.active) .text-muted {
+  color: #37424c !important;
+}
+.table .sort-link.active .text-muted {
+  color: #505a64 !important;
 }
 
 .nav-tabs .nav-link:hover {

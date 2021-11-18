@@ -14,7 +14,7 @@
 - [ ] Add a count method to relationship table columns that shows the number of related models
 - [x] Update the query method to eager load all requested relations before executing the query on the index and view methods
 - [x] When saving model data on create and on update, add relations saving. Some need te be saved before the model, others after.
-- [ ] Ordering of the index method based on the request
+- [x] Ordering of the index method based on the request
 - [x] DateColumn, DateTimeColumn, CreatedAtColumn, UpdatedAtColumn, DeletedAtColumn,etc classes on the Table.
 - [ ] Add an option to add a (minimum) width to a column
 - [ ] Add page actions to all pages.
@@ -30,5 +30,7 @@
 - [ ] Remember submenu positions (open or collapsed) with cookies
 - [ ] Sidebar should be closed by default on mobile devices
 - [ ] RTL version
+- [ ] Sorting on translated columns in overviews
+- [ ] Complex ordering based on a user callback method
 - [ ]
 - [ ] Documentation (when everything is done, otherwise I'm rewriting everything multiple times)
