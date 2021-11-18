@@ -19,6 +19,7 @@ class Column
     protected bool $translated             = false;
     protected ?string $view                = null;
     protected ?string $searchField         = null;
+    protected mixed $width                 = null;
 
     protected TranslatesModelAttributes $translator;
 
@@ -44,6 +45,13 @@ class Column
     public function orderable(bool $orderable = true): static
     {
         $this->orderable = $orderable;
+
+        return $this;
+    }
+
+    public function width(mixed $width = null): static
+    {
+        $this->width = $width;
 
         return $this;
     }
@@ -113,5 +121,10 @@ class Column
     public function getSearchField(): ?string
     {
         return $this->searchField ?? (null !== $this->content && !$this->content instanceof Closure ? $this->content : (string) Str::of($this->title)->snake()->lower());
+    }
+
+    public function getWidth(): mixed
+    {
+        return $this->width;
     }
 }

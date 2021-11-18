@@ -64,8 +64,8 @@
             <table class="card-body table">
                 <thead>
                     <tr>
-                        @foreach($table->getHeaders() as $header)
-                            <th>{{ $header }}</th>
+                        @foreach($table->getColumns() as $column)
+                            <th{!! $column->getWidth() !== null ? ' style="width: ' . $column->getWidth() . '"' : '' !!}>{{ $column->getTitle() }}</th>
                         @endforeach
                     </tr>
                 </thead>
