@@ -23,7 +23,8 @@
 - [ ] Components that can be created for custom actions, or be injected in existing actions (e.g. a PageComponent or a CalendarComponent)
 - [ ] Forgot password view
 - [ ] Add a primary() method to the column options. If this is set, allow checkboxes for multi-row actions in de index view
-- [ ] Add predefined filters to the table (developer can create Filter class that can be accessed via dropdown in the index view)
+- [x] Add predefined filters to the table (developer can create Filter class that can be accessed via dropdown in the index view)
+- [ ] When an index view has query parameters, the menu item in the sidebar is no longer highlighted even when it should be.
 - [ ] Make the action after a successful form submit configurable.
 - [ ] Subdivide the multi-select form options into a dropdown, a checkbox and a namespaced checkbox
 - [ ] Submenu styling could be better

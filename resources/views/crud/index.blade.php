@@ -40,6 +40,22 @@
                             </div>
                         </form>
                     @endif
+                    @if($table->hasFilters())
+                            <div class="dropdown pt-1 ms-2">
+                                <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="filter-select" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ $filter !== null ? $table->getFilterTitle($filter) : __('Filter') }}
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="filter-select">
+                                    @foreach($table->getFilterTitles() as $name => $title)
+                                        <li><a class="dropdown-item" href="{{ full_url_with_query(['filter' => $name]) }}">{{ $title }}</a></li>
+                                    @endforeach
+                                    @if($filter !== null)
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="{{ full_url_with_query(['filter' => '']) }}">{{ __('Clear filters') }}</a></li>
+                                    @endif
+                                </ul>
+                            </div>
+                    @endif
                     @if($table->hasTranslations() && count(config('app.available_locales', [])) > 1)
                         <div class="dropdown pt-1 ms-2">
                             <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="language-select" data-bs-toggle="dropdown" aria-expanded="false">

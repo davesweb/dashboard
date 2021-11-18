@@ -32,4 +32,9 @@ class IndexCrudRequest extends CrudRequest
     {
         return in_array($this->get('dir', 'ASC'), ['ASC', 'DESC'], false) ? $this->get('dir', 'ASC') : 'ASC';
     }
+
+    public function getFilter(): ?string
+    {
+        return $this->get('filter');
+    }
 }

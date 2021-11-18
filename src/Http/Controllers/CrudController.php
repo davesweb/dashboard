@@ -60,6 +60,7 @@ class CrudController extends Controller
             'perPage'     => $request->getPerPage($crud->model()),
             'sort'        => $request->getSortColumn(),
             'dir'         => $request->getSortDirection(),
+            'filter'      => $request->getFilter(),
         ]);
     }
 
@@ -93,6 +94,7 @@ class CrudController extends Controller
             'perPage'     => $request->getPerPage($crud->model()),
             'sort'        => $request->getSortColumn($crud->model()->getKeyName()),
             'dir'         => $request->getSortDirection(),
+            'filter'      => $request->getFilter(),
         ]);
     }
 

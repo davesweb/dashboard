@@ -6,12 +6,14 @@ namespace Davesweb\Dashboard\Services;
 
 use Davesweb\Dashboard\Services\Table\Columns\Column;
 use Davesweb\Dashboard\Services\Table\Traits\HasColumns;
+use Davesweb\Dashboard\Services\Table\Traits\HasFilters;
 use Davesweb\Dashboard\Services\Table\Traits\HasDateColumns;
 use Davesweb\Dashboard\Services\Table\Traits\HasRelationshipColumns;
 
 class Table
 {
     use HasColumns;
+    use HasFilters;
     use HasDateColumns;
     use HasRelationshipColumns;
 

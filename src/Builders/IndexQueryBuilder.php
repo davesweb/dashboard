@@ -15,8 +15,10 @@ class IndexQueryBuilder
     public function build(Crud $crud, IndexCrudRequest $request, Table $table, bool $onlyTrashed = false): Builder
     {
         $query = $crud->query();
+
         $query = $this->addEagerLoading($query, $table);
         $query = $this->addTrashedOrNot($query, $onlyTrashed);
+        $query = $this->addFilters($query, $table, $request);
         $query = $this->addSearch($query, $crud, $table, $request);
         $query = $this->addOrdering($query, $request);
 
@@ -58,6 +60,19 @@ class IndexQueryBuilder
     {
         if (null !== $request->getSortColumn()) {
             $builder->orderBy($request->getSortColumn(), $request->getSortDirection());
+        }
+
+        return $builder;
+    }
+
+    private function addFilters(Builder $builder, Table $table, IndexCrudRequest $request): Builder
+    {
+        $name = $request->getFilter();
+
+        if (null !== $name && $table->filterExists($name)) {
+            $filter = $table->getFilter($name);
+
+            call_user_func($filter, $builder);
         }
 
         return $builder;

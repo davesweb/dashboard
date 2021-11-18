@@ -87,4 +87,44 @@ class IndexTest extends CrudTestCase
         // Todo
         self::expectNotToPerformAssertions();
     }
+
+    public function test_it_shows_filters(): void
+    {
+        $this->registerCrud();
+
+        $this->actingAs($this->user, 'dashboard');
+
+        $items = Model::factory()->count(100)->create();
+
+        $response = $this->get(route($this->crud->getRouteName('index')));
+
+        $response->assertSuccessful();
+
+        $response->assertSee('id="filter-select"', false);
+        $response->assertSee('Test filter');
+    }
+
+    public function test_filter_only_shows_filtered_rows(): void
+    {
+        $this->registerCrud();
+
+        $this->actingAs($this->user, 'dashboard');
+
+        $items = Model::factory()->count(10)->create();
+
+        $response = $this->get(route($this->crud->getRouteName('index'), ['filter' => 'test-filter']));
+
+        $response->assertSuccessful();
+
+        $response->assertSee('id="filter-select"', false);
+
+        $expected    = $items->where('id', '=', 1)->first();
+        $notExpected = $items->where('id', '!=', 1);
+
+        $response->assertSee($expected->title);
+
+        foreach ($notExpected as $dontSee) {
+            $response->assertDontSee($dontSee->title);
+        }
+    }
 }
