@@ -37,11 +37,15 @@
                 "Davesweb\\Dashboard\\Providers\\RouteServiceProvider",
                 "Davesweb\\Dashboard\\Providers\\FortifyServiceProvider",
                 "Davesweb\\Dashboard\\Providers\\AuthServiceProvider",
-                "Davesweb\\Dashboard\\Providers\\CrudServiceProvider"
+                "Davesweb\\Dashboard\\Providers\\CrudServiceProvider",
+                "Davesweb\\Dashboard\\Providers\\AddonServiceProvider"
             ]
         }
     },
     "scripts": {
+        "post-autoload-dump": [
+            "@php artisan dashboard:addons --ansi"
+        ],
         "cs-fixer": "vendor/bin/php-cs-fixer fix --allow-risky=yes",
         "test": [
             "vendor/bin/phpunit tests --colors --testdox"

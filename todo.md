@@ -33,5 +33,5 @@
 - [ ] RTL version
 - [ ] Sorting on translated columns in overviews
 - [ ] Complex ordering based on a user callback method
-- [ ]
+- [ ] When registering the sidebar items in the default crud settings, don't use the first menu item to register them to (this might not be the menu that is expected), but fetch the menu by name.
 - [ ] Documentation (when everything is done, otherwise I'm rewriting everything multiple times)

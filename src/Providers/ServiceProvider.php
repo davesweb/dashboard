@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Davesweb\Dashboard\Providers;
 
 use Davesweb\Dashboard\Models\User;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Auth\EloquentUserProvider;
+use Davesweb\Dashboard\Addons\AddonManifest;
 use Davesweb\Dashboard\Console\Commands\CreateCrudCommand;
+use Davesweb\Dashboard\Console\Commands\DiscoverAddonsCommand;
 use Davesweb\Dashboard\Console\Commands\CreateDashboardUserCommand;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
@@ -50,7 +53,12 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             $this->commands([
                 CreateDashboardUserCommand::class,
                 CreateCrudCommand::class,
+                DiscoverAddonsCommand::class,
             ]);
         }
+
+        $this->app->bind(AddonManifest::class, function (Application $app) {
+            return new AddonManifest($app->make('files'), $app->basePath(), $app->basePath('bootstrap/cache/dashboard.php'));
+        });
     }
 }

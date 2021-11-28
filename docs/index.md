@@ -13,3 +13,4 @@
   - Destroy trashed
 - [Sidebar](sidebar.html)
 - [Translations](translations.html)
+- [Addons](addons.html)
